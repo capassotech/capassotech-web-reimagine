@@ -21,11 +21,11 @@ const HeroSection = () => {
         <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-blue-400/5 rounded-full blur-3xl animate-pulse delay-1000"></div>
       </div>
 
-      <div className="container mx-auto px-4 text-center relative z-10">
+      <div className="container mx-auto px-4 text-center relative z-10 mt-[120px] mb-[120px]">
         <div className="max-w-4xl mx-auto animate-fade-in">
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
-            Desarrollo de{' '}<br /> 
-            <span className="text-gradient">software a medida</span><br /> 
+            Desarrollo de{' '}
+            <span className="text-gradient">software a medida</span>
             {' '}para empresas
           </h1>
 
