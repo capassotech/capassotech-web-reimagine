@@ -5,7 +5,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Phone, Mail, MapPin } from 'lucide-react';
+import { Phone, Mail, MapPin, MessageCircle } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
 const ContactSection = () => {
@@ -110,6 +110,7 @@ const ContactSection = () => {
                   onClick={openWhatsApp}
                   className="btn-primary mt-4 w-full"
                 >
+                  <MessageCircle className="w-4 h-4 mr-2" />
                   Contactar por WhatsApp
                 </Button>
               </CardContent>

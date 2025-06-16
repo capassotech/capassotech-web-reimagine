@@ -129,6 +129,67 @@ const CaseStudiesSection = () => {
           ))}
         </div>
 
+        <div className="mb-12">
+          <Card className="bg-capasso-secondary border-capasso-gray hover:border-capasso-primary transition-all duration-500 hover-glow overflow-hidden">
+            <div className="h-2 bg-gradient-to-r from-green-500 to-capasso-primary"></div>
+            <CardHeader>
+              <div className="flex-1">
+                <div className="text-sm text-capasso-primary font-medium mb-2">
+                  Producto Propio
+                </div>
+                <CardTitle className="text-3xl text-capasso-light hover:text-capasso-primary transition-colors duration-300">
+                  GymFuze: App de Gestión para Gimnasios
+                </CardTitle>
+              </div>
+              <CardDescription className="text-capasso-light/70 text-base leading-relaxed mt-4">
+                Creamos una solución completa para gimnasios que permite gestionar alumnos, pagos, rutinas semanales, notificaciones automáticas y más. Ideal para estudios de entrenamiento funcional, box de crossfit, gimnasios tradicionales y entrenadores independientes.
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="mb-6">
+                <h4 className="text-sm font-semibold text-capasso-light mb-3">Tecnologías utilizadas:</h4>
+                <div className="flex flex-wrap gap-2">
+                  {["React Native", "Firebase", "Tailwind", "Expo", "Node.js"].map((tech, i) => (
+                    <span key={i} className="bg-capasso-dark text-capasso-primary px-3 py-1 rounded-full text-sm font-medium border border-capasso-primary/30">
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              <div>
+                <h4 className="text-sm font-semibold text-capasso-light mb-3">Lo que permite la app:</h4>
+                <ul className="space-y-2">
+                  {[
+                    "Gestión de alumnos con historial y rutinas personalizadas",
+                    "Cobro manual de membresías y aviso automático de vencimientos",
+                    "Carga de ejercicios y rutinas semanales por parte del administrador",
+                    "Panel para el gimnasio y app individual para cada alumno",
+                    "Multi-gimnasio con base de datos centralizada"
+                  ].map((feature, i) => (
+                    <li key={i} className="flex items-center text-capasso-light/80 text-sm">
+                      <div className="w-2 h-2 bg-capasso-primary rounded-full mr-3 flex-shrink-0"></div>
+                      {feature}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className="mt-8 text-center">
+                <Button
+                  asChild
+                  className="btn-primary text-lg px-8 py-4"
+                >
+                  <a href="https://gymfuzeapp.web.app/" target="_blank" rel="noopener noreferrer">
+                    Más información sobre GymFuze
+                  </a>
+                </Button>
+              </div>
+
+            </CardContent>
+          </Card>
+        </div>
+
         <div className="text-center bg-capasso-secondary border border-capasso-gray rounded-lg p-8 hover-glow">
           <h3 className="text-2xl font-semibold text-capasso-light mb-4">
             ¿Querés ver tu proyecto aquí?
