@@ -23,22 +23,51 @@ const ContactSection = () => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Simulate form submission
-    setTimeout(() => {
+    try {
+      const response = await fetch('https://formspree.io/f/xyyravgo', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          company: formData.company,
+          phone: formData.phone,
+          message: formData.message
+        })
+      });
+
+      if (response.ok) {
+        toast({
+          title: "¡Mensaje enviado!",
+          description: "Nos pondremos en contacto contigo dentro de las próximas 24 horas.",
+        });
+        setFormData({
+          name: '',
+          email: '',
+          company: '',
+          phone: '',
+          message: ''
+        });
+      } else {
+        toast({
+          title: "Error al enviar el mensaje",
+          description: "Por favor intentá nuevamente más tarde o escribinos por WhatsApp.",
+          variant: "destructive"
+        });
+      }
+    } catch (error) {
       toast({
-        title: "¡Mensaje enviado!",
-        description: "Nos pondremos en contacto contigo dentro de las próximas 24 horas.",
+        title: "Error inesperado",
+        description: "Algo salió mal. Probá recargar la página.",
+        variant: "destructive"
       });
-      setFormData({
-        name: '',
-        email: '',
-        company: '',
-        phone: '',
-        message: ''
-      });
+    } finally {
       setIsSubmitting(false);
-    }, 1000);
+    }
   };
+
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({
@@ -49,7 +78,7 @@ const ContactSection = () => {
 
   const openWhatsApp = () => {
     const message = encodeURIComponent("Hola! Me interesa conocer más sobre los servicios de CapassoTech.");
-    window.open(`https://wa.me/5491234567890?text=${message}`, '_blank');
+    window.open(`https://wa.me/5493435332132?text=${message}`, '_blank');
   };
 
   return (
@@ -60,7 +89,7 @@ const ContactSection = () => {
             Hablemos de tu <span className="text-gradient">Proyecto</span>
           </h2>
           <p className="text-xl text-capasso-light/80 max-w-3xl mx-auto">
-            Estás a un mensaje de distancia de transformar tu idea en realidad. 
+            Estás a un mensaje de distancia de transformar tu idea en realidad.
             Contanos qué necesitas y te ayudamos a hacerlo posible.
           </p>
         </div>
@@ -76,7 +105,7 @@ const ContactSection = () => {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-capasso-light/80">+54 9 11 2345-6789</p>
+                <p className="text-capasso-light/80">+54 9 343 5332132</p>
                 <Button
                   onClick={openWhatsApp}
                   className="btn-primary mt-4 w-full"
@@ -94,7 +123,7 @@ const ContactSection = () => {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-capasso-light/80">hola@capassotech.com</p>
+                <p className="text-capasso-light/80">contacto@capasso.tech</p>
                 <p className="text-sm text-capasso-light/60 mt-2">
                   Respondemos en menos de 24hs
                 </p>
@@ -109,7 +138,7 @@ const ContactSection = () => {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-capasso-light/80">Buenos Aires, Argentina</p>
+                <p className="text-capasso-light/80">Paraná, Entre Ríos, Argentina</p>
                 <p className="text-sm text-capasso-light/60 mt-2">
                   Trabajamos con clientes de toda América Latina
                 </p>
@@ -149,7 +178,7 @@ const ContactSection = () => {
                   Solicitá una reunión gratuita
                 </CardTitle>
                 <CardDescription className="text-capasso-light/70">
-                  Completá el formulario y nos pondremos en contacto para agendar una reunión 
+                  Completá el formulario y nos pondremos en contacto para agendar una reunión
                   donde analizaremos tu proyecto en detalle.
                 </CardDescription>
               </CardHeader>
@@ -243,7 +272,7 @@ const ContactSection = () => {
                   </Button>
 
                   <p className="text-sm text-capasso-light/60 text-center">
-                    Al enviar este formulario aceptas que nos pongamos en contacto contigo. 
+                    Al enviar este formulario aceptas que nos pongamos en contacto contigo.
                     Respetamos tu privacidad y no compartimos tu información.
                   </p>
                 </form>

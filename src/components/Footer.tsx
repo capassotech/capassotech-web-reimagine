@@ -11,7 +11,7 @@ const Footer = () => {
 
   const openWhatsApp = () => {
     const message = encodeURIComponent("Hola! Me interesa conocer más sobre los servicios de CapassoTech.");
-    window.open(`https://wa.me/5491234567890?text=${message}`, '_blank');
+    window.open(`https://wa.me/5493435332132?text=${message}`, '_blank');
   };
 
   return (
@@ -38,7 +38,7 @@ const Footer = () => {
                 </svg>
               </button>
               <a
-                href="mailto:hola@capassotech.com"
+                href="mailto:contacto@capasso.tech"
                 className="bg-capasso-secondary hover:bg-capasso-primary text-capasso-light hover:text-white p-3 rounded-lg transition-all duration-300"
                 aria-label="Email"
               >
@@ -157,7 +157,7 @@ const Footer = () => {
               </li>
               <li>
                 <a
-                  href="mailto:hola@capassotech.com"
+                  href="mailto:contacto@capasso.tech"
                   className="text-capasso-light/70 hover:text-capasso-primary transition-colors duration-300"
                 >
                   Trabajá con Nosotros

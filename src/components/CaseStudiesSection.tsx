@@ -5,49 +5,49 @@ import { Button } from '@/components/ui/button';
 const CaseStudiesSection = () => {
   const cases = [
     {
-      title: "Sistema de Gestión Empresarial",
-      description: "Desarrollo de plataforma web completa para gestión de inventarios, ventas y reportes en tiempo real.",
-      technologies: ["React", "Node.js", "PostgreSQL", "Docker"],
+      title: "App de Gestión Logística",
+      description: "Desarrollamos una app de escritorio y mobile para registrar cargas de combustible, controlar gastos y exportar reportes en tiempo real.",
+      technologies: ["React", "Node.js", "SQLite", "Electron", "Excel Export"],
       results: [
-        "70% reducción en tiempo de procesamiento",
-        "Automatización de 15+ procesos manuales",
-        "Dashboard en tiempo real"
+        "Control total de cargas y gastos por camión",
+        "Exportación de reportes en Excel",
+        "Mayor trazabilidad y control administrativo"
       ],
-      category: "E-commerce",
+      category: "Logística",
       gradient: "from-blue-500 to-capasso-primary"
     },
     {
-      title: "App Móvil de Delivery",
-      description: "Aplicación móvil con sistema de pedidos, pagos integrados y tracking en tiempo real.",
-      technologies: ["React Native", ".NET Core", "Firebase", "Google Maps"],
+      title: "Catálogo Web de Autopartes",
+      description: "Sistema de catalogación y sitio web público para búsqueda de autopartes, con integración entre backend administrativo y frontend de consulta.",
+      technologies: [".NET", "Blazor", "SQL Server", "Bootstrap 5", "Mercado Libre API"],
       results: [
-        "5,000+ usuarios activos",
-        "Integración con 3 pasarelas de pago",
-        "Sistema de notificaciones push"
+        "Miles de productos publicados",
+        "Filtros por marca, categoría y compatibilidades",
+        "Actualización en tiempo real desde sistema interno"
       ],
-      category: "Delivery",
+      category: "Distribución",
       gradient: "from-capasso-primary to-cyan-400"
     },
     {
-      title: "Portal de Gestión Educativa",
-      description: "Plataforma web para institución educativa con gestión de alumnos, docentes y contenidos.",
-      technologies: ["Angular", ".NET Framework", "SQL Server", "Bootstrap"],
+      title: "Web de Pisos con WhatsApp Integrado",
+      description: "Sitio web institucional con catálogo visual de productos y botón directo a WhatsApp para cotizaciones rápidas.",
+      technologies: ["HTML5", "TailwindCSS", "Firebase", "WhatsApp API"],
       results: [
-        "1,200+ usuarios registrados",
-        "Módulo de evaluaciones online",
-        "Generación automática de reportes"
+        "Incremento en consultas por producto",
+        "Carga autoadministrable de productos",
+        "Integración directa con WhatsApp para ventas"
       ],
-      category: "Educación",
+      category: "E-commerce",
       gradient: "from-cyan-400 to-blue-500"
     },
     {
       title: "Sistema de Turnos Online",
-      description: "Solución web para gestión de turnos con calendario inteligente y notificaciones automáticas.",
-      technologies: ["React", "Express", "MongoDB", "WhatsApp API"],
+      description: "Página web simple y eficaz para reserva de turnos online, incluyendo opción de turnos recurrentes y notificaciones automáticas.",
+      technologies: ["Angular", "Firebase", "TailwindCSS", "Calendar API"],
       results: [
-        "95% reducción en llamadas telefónicas",
-        "Integración con WhatsApp",
-        "Calendario sincronizado"
+        "Gestión sin llamadas telefónicas",
+        "Reservas frecuentes automatizadas",
+        "Interfaz optimizada para dispositivos móviles"
       ],
       category: "Servicios",
       gradient: "from-blue-500 to-capasso-primary"
@@ -69,19 +69,19 @@ const CaseStudiesSection = () => {
             Casos de <span className="text-gradient">Éxito</span>
           </h2>
           <p className="text-xl text-capasso-light/80 max-w-3xl mx-auto">
-            Estos son algunos de los proyectos que hemos desarrollado, 
+            Estos son algunos de los proyectos que hemos desarrollado,
             cada uno con resultados concretos y medibles para nuestros clientes.
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
           {cases.map((caseStudy, index) => (
-            <Card 
-              key={index} 
+            <Card
+              key={index}
               className="bg-capasso-secondary border-capasso-gray hover:border-capasso-primary transition-all duration-500 hover-glow overflow-hidden group"
             >
               <div className={`h-2 bg-gradient-to-r ${caseStudy.gradient}`}></div>
-              
+
               <CardHeader>
                 <div className="flex items-start justify-between mb-4">
                   <div className="flex-1">
@@ -97,7 +97,7 @@ const CaseStudiesSection = () => {
                   {caseStudy.description}
                 </CardDescription>
               </CardHeader>
-              
+
               <CardContent>
                 <div className="mb-6">
                   <h4 className="text-sm font-semibold text-capasso-light mb-3">Tecnologías utilizadas:</h4>
@@ -134,7 +134,7 @@ const CaseStudiesSection = () => {
             ¿Querés ver tu proyecto aquí?
           </h3>
           <p className="text-capasso-light/80 mb-6 max-w-2xl mx-auto">
-            Cada proyecto es único y nos enfocamos en generar resultados medibles 
+            Cada proyecto es único y nos enfocamos en generar resultados medibles
             que impulsen el crecimiento de tu negocio.
           </p>
           <Button

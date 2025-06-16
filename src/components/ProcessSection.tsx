@@ -14,7 +14,7 @@ const ProcessSection = () => {
       duration: "1-2 semanas"
     },
     {
-      step: "02", 
+      step: "02",
       title: "Diseño y Prototipado",
       description: "Creamos wireframes, diseños UI/UX y prototipos funcionales para validar la solución.",
       items: [
@@ -83,7 +83,7 @@ const ProcessSection = () => {
             Nuestro <span className="text-gradient">Proceso</span>
           </h2>
           <p className="text-xl text-capasso-light/80 max-w-3xl mx-auto">
-            Un proceso estructurado y transparente que garantiza resultados exitosos, 
+            Un proceso estructurado y transparente que garantiza resultados exitosos,
             desde la idea inicial hasta el producto final en producción.
           </p>
         </div>
@@ -96,9 +96,8 @@ const ProcessSection = () => {
             {processSteps.map((step, index) => (
               <div
                 key={index}
-                className={`flex flex-col lg:flex-row items-center gap-8 ${
-                  index % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'
-                }`}
+                className={`flex flex-col lg:flex-row items-center gap-8 ${index % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'
+                  }`}
               >
                 {/* Step number - center on large screens */}
                 <div className="hidden lg:block absolute left-1/2 transform -translate-x-1/2 z-10">
@@ -129,7 +128,7 @@ const ProcessSection = () => {
                     <h3 className="text-2xl font-semibold text-capasso-light mb-4">
                       {step.title}
                     </h3>
-                    
+
                     <p className="text-capasso-light/80 mb-6 leading-relaxed">
                       {step.description}
                     </p>
@@ -158,7 +157,7 @@ const ProcessSection = () => {
               Metodología Comprobada
             </h3>
             <p className="text-capasso-light/80 mb-6">
-              Nuestro proceso se basa en metodologías ágiles como Scrum, 
+              Nuestro proceso se basa en metodologías ágiles como Scrum,
               garantizando flexibilidad, transparencia y entregas de valor constantes.
             </p>
             <div className="flex flex-wrap justify-center gap-4">
@@ -177,6 +176,33 @@ const ProcessSection = () => {
             </div>
           </div>
         </div>
+
+        <div className="mt-8 text-center">
+          <div className="bg-capasso-secondary border border-capasso-gray rounded-lg p-6 max-w-3xl mx-auto hover-glow">
+            <div className="flex items-center justify-center gap-3 mb-4">
+              <svg
+                className="w-6 h-6 text-capasso-primary"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M17 20h5v-2a3 3 0 00-5.356-1.857M9 20H4v-2a3 3 0 015.356-1.857M16 3.13a4 4 0 11-4.42 6.74M8 3.13a4 4 0 104.42 6.74"
+                />
+              </svg>
+              <h4 className="text-xl font-semibold text-capasso-light">
+                Trabajo Colaborativo
+              </h4>
+            </div>
+            <p className="text-capasso-light/80 leading-relaxed text-lg">
+              Si el proyecto lo requiere, estamos totalmente abiertos a colaborar con profesionales o equipos externos como marketing, contaduría, legales, entre otros. Nos adaptamos con flexibilidad para encontrar la mejor forma de trabajar en conjunto y alcanzar los objetivos de forma eficiente.
+            </p>
+          </div>
+        </div>
+
       </div>
     </section>
   );

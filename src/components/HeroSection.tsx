@@ -14,7 +14,7 @@ const HeroSection = () => {
     <section id="inicio" className="min-h-screen flex items-center justify-center relative overflow-hidden">
       {/* Background gradient */}
       <div className="absolute inset-0 bg-gradient-to-br from-capasso-dark via-capasso-secondary to-capasso-dark"></div>
-      
+
       {/* Animated background elements */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-capasso-primary/10 rounded-full blur-3xl animate-pulse"></div>
@@ -24,14 +24,13 @@ const HeroSection = () => {
       <div className="container mx-auto px-4 text-center relative z-10">
         <div className="max-w-4xl mx-auto animate-fade-in">
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
-            Creamos{' '}
-            <span className="text-gradient">software a medida</span>
-            {' '}para empresas que buscan{' '}
-            <span className="text-gradient">escalar</span>
+            Desarrollo de{' '}<br /> 
+            <span className="text-gradient">software a medida</span><br /> 
+            {' '}para empresas
           </h1>
-          
+
           <p className="text-xl md:text-2xl text-capasso-light/80 mb-8 max-w-3xl mx-auto">
-            Somos tu partner tecnológico especializado en desarrollo de software, outsourcing de equipos y consultoría. 
+            Somos tu partner tecnológico especializado en desarrollo de software, outsourcing de equipos y consultoría.
             Transformamos ideas en soluciones escalables.
           </p>
 
@@ -51,17 +50,17 @@ const HeroSection = () => {
           </div>
 
           {/* Stats */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-3xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-3xl mx-auto">
             <div className="flex flex-col items-center p-6 bg-capasso-secondary/50 rounded-lg hover-glow">
               <Code className="w-8 h-8 text-capasso-primary mb-4" />
               <div className="text-3xl font-bold text-capasso-primary">15+</div>
               <div className="text-capasso-light/70">Tecnologías</div>
             </div>
-            <div className="flex flex-col items-center p-6 bg-capasso-secondary/50 rounded-lg hover-glow">
+            {/* <div className="flex flex-col items-center p-6 bg-capasso-secondary/50 rounded-lg hover-glow">
               <Users className="w-8 h-8 text-capasso-primary mb-4" />
-              <div className="text-3xl font-bold text-capasso-primary">50+</div>
+              <div className="text-3xl font-bold text-capasso-primary">10+</div>
               <div className="text-capasso-light/70">Proyectos</div>
-            </div>
+            </div> */}
             <div className="flex flex-col items-center p-6 bg-capasso-secondary/50 rounded-lg hover-glow">
               <Zap className="w-8 h-8 text-capasso-primary mb-4" />
               <div className="text-3xl font-bold text-capasso-primary">5+</div>

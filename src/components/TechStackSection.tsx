@@ -15,7 +15,9 @@ const TechStackSection = () => {
       { name: "Express", category: "backend" },
       { name: ".NET Core", category: "backend" },
       { name: ".NET Framework", category: "backend" },
-      { name: "Firebase", category: "backend" }
+      { name: "Firebase", category: "backend" },
+      { name: "Java", category: "backend" },
+      { name: "SpringBoot", category: "backend" }
     ],
     devops: [
       { name: "Docker", category: "devops" },
