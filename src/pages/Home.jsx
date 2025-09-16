@@ -6,7 +6,6 @@ import ServicesSection from "@/components/ServicesSection";
 import TechStackSection from "@/components/TechStackSection";
 import CaseStudiesSection from "@/components/CaseStudiesSection";
 import ProcessSection from "@/components/ProcessSection";
-import Testimonials from "@/components/Testimonials";
 import StickyCTA from "@/components/StickyCTA";
 import ContactForm from "@/components/ContactForm";
 import Footer from "@/components/Footer";
@@ -98,7 +97,6 @@ const Home = () => {
         <TechStackSection />
         <CaseStudiesSection />
         <ProcessSection />
-        <Testimonials />
 
         <section className="bg-capasso-primary/10 py-20">
           <div className="container mx-auto flex flex-col items-center gap-6 px-4 text-center">
