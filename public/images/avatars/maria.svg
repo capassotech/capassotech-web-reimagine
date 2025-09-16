@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" role="img" aria-label="Avatar de María García">
+  <defs>
+    <linearGradient id="mariaGradient" x1="0%" x2="100%" y1="0%" y2="100%">
+      <stop offset="0%" stop-color="#7f5af0" />
+      <stop offset="100%" stop-color="#2cb67d" />
+    </linearGradient>
+  </defs>
+  <circle cx="48" cy="48" r="46" fill="url(#mariaGradient)" />
+  <text x="50%" y="55%" text-anchor="middle" font-family="'Inter', sans-serif" font-size="36" font-weight="700" fill="#ffffff">
+    MG
+  </text>
+</svg>

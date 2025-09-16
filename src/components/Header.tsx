@@ -1,139 +1,140 @@
+import { useEffect, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Button } from "@/components/ui/button";
+import { trackEvent } from "@/lib/analytics";
 
-import { useState, useEffect } from 'react';
-import { Button } from '@/components/ui/button';
+const calendlyUrl = "https://calendly.com/capassoelias/15min";
+const whatsappUrl = "https://wa.me/5493435332132?text=Hola%20CapassoTech%2C%20quiero%20asesor%C3%ADa";
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
+      setIsScrolled(window.scrollY > 10);
     };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+  const navigateOrScroll = (sectionId: string) => {
+    if (location.pathname === "/") {
+      const section = document.getElementById(sectionId);
+      if (section) {
+        section.scrollIntoView({ behavior: "smooth" });
+      }
+      setIsMobileMenuOpen(false);
+    } else {
+      navigate("/", { state: { scrollTo: sectionId } });
       setIsMobileMenuOpen(false);
     }
   };
 
+  const handleCalendly = (from: string) => {
+    trackEvent("calendly_click", { location: from });
+    window.open(calendlyUrl, "_blank", "noopener,noreferrer");
+  };
+
+  const handleWhatsApp = (from: string) => {
+    trackEvent("whatsapp_click", { location: from });
+    window.open(whatsappUrl, "_blank", "noopener,noreferrer");
+  };
+
+  const menuItems = [
+    { label: "Inicio", type: "route" as const, path: "/" },
+    { label: "Servicios", type: "section" as const, target: "servicios" },
+    { label: "Tecnologías", type: "section" as const, target: "tecnologias" },
+    { label: "Casos", type: "section" as const, target: "casos-exito" },
+    { label: "Nosotros", type: "route" as const, path: "/nosotros" },
+    { label: "Contacto", type: "route" as const, path: "/contacto" },
+  ];
+
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'bg-capasso-dark/95 backdrop-blur-md shadow-lg' : 'bg-transparent'
-        }`}
+      className={`fixed left-0 right-0 top-0 z-50 transition-all duration-300 ${
+        isScrolled ? "bg-capasso-dark/95 backdrop-blur-md shadow-lg" : "bg-transparent"
+      }`}
     >
-      <nav className="container mx-auto px-4 py-4">
-        <div className="flex items-center justify-between">
-          <div className="mb-4">
-            <img src="/logo-dark.png" alt="CapassoTech Logo" className="h-10 w-auto" />
-          </div>
-
-          {/* Desktop Menu */}
-          <div className="hidden md:flex items-center space-x-8">
-            <button
-              onClick={() => scrollToSection('inicio')}
-              className="text-capasso-light hover:text-capasso-primary transition-colors duration-300"
-            >
-              Inicio
-            </button>
-            <button
-              onClick={() => scrollToSection('servicios')}
-              className="text-capasso-light hover:text-capasso-primary transition-colors duration-300"
-            >
-              Servicios
-            </button>
-            <button
-              onClick={() => scrollToSection('tecnologias')}
-              className="text-capasso-light hover:text-capasso-primary transition-colors duration-300"
-            >
-              Tecnologías
-            </button>
-            <button
-              onClick={() => scrollToSection('casos-exito')}
-              className="text-capasso-light hover:text-capasso-primary transition-colors duration-300"
-            >
-              Casos de Éxito
-            </button>
-            <button
-              onClick={() => scrollToSection('proceso')}
-              className="text-capasso-light hover:text-capasso-primary transition-colors duration-300"
-            >
-              Proceso
-            </button>
-          </div>
-
-          <div className="hidden md:block">
-            <Button
-              onClick={() => scrollToSection('contacto')}
-              className="btn-primary"
-            >
-              Contactar
-            </Button>
-          </div>
-
-          {/* Mobile Menu Button */}
-          <button
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="md:hidden text-capasso-light"
-          >
-            <div className="w-6 h-6 flex flex-col justify-around">
-              <span className={`h-0.5 w-full bg-current transition-all duration-300 ${isMobileMenuOpen ? 'rotate-45 translate-y-2' : ''}`}></span>
-              <span className={`h-0.5 w-full bg-current transition-all duration-300 ${isMobileMenuOpen ? 'opacity-0' : ''}`}></span>
-              <span className={`h-0.5 w-full bg-current transition-all duration-300 ${isMobileMenuOpen ? '-rotate-45 -translate-y-2' : ''}`}></span>
-            </div>
-          </button>
+      <nav className="container mx-auto flex items-center justify-between px-4 py-4">
+        <Link to="/" className="flex items-center" onClick={() => setIsMobileMenuOpen(false)}>
+          <img src="/logo-dark.png" alt="CapassoTech" className="h-10 w-auto" />
+        </Link>
+        <div className="hidden items-center gap-8 text-sm font-medium text-capasso-light md:flex">
+          {menuItems.map((item) =>
+            item.type === "route" ? (
+              <Link
+                key={item.label}
+                to={item.path}
+                className="hover:text-capasso-primary transition-colors"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                {item.label}
+              </Link>
+            ) : (
+              <button
+                key={item.label}
+                onClick={() => navigateOrScroll(item.target)}
+                className="hover:text-capasso-primary transition-colors"
+              >
+                {item.label}
+              </button>
+            ),
+          )}
         </div>
-
-        {/* Mobile Menu */}
-        {isMobileMenuOpen && (
-          <div className="md:hidden mt-4 py-4 bg-capasso-secondary rounded-lg">
-            <div className="flex flex-col space-y-4 px-4">
-              <button
-                onClick={() => scrollToSection('inicio')}
-                className="text-capasso-light hover:text-capasso-primary transition-colors duration-300 text-left"
-              >
-                Inicio
-              </button>
-              <button
-                onClick={() => scrollToSection('servicios')}
-                className="text-capasso-light hover:text-capasso-primary transition-colors duration-300 text-left"
-              >
-                Servicios
-              </button>
-              <button
-                onClick={() => scrollToSection('tecnologias')}
-                className="text-capasso-light hover:text-capasso-primary transition-colors duration-300 text-left"
-              >
-                Tecnologías
-              </button>
-              <button
-                onClick={() => scrollToSection('casos-exito')}
-                className="text-capasso-light hover:text-capasso-primary transition-colors duration-300 text-left"
-              >
-                Casos de Éxito
-              </button>
-              <button
-                onClick={() => scrollToSection('proceso')}
-                className="text-capasso-light hover:text-capasso-primary transition-colors duration-300 text-left"
-              >
-                Proceso
-              </button>
-              <Button
-                onClick={() => scrollToSection('contacto')}
-                className="btn-primary w-full mt-4"
-              >
-                Contactar
+        <div className="hidden gap-3 md:flex">
+          <Button onClick={() => handleCalendly("header")} className="btn-primary">
+            Agendar 15 min
+          </Button>
+          <Button onClick={() => handleWhatsApp("header")} className="btn-secondary">
+            WhatsApp
+          </Button>
+        </div>
+        <button
+          onClick={() => setIsMobileMenuOpen((prev) => !prev)}
+          className="text-capasso-light md:hidden"
+          aria-label="Abrir menú"
+        >
+          <div className="flex h-6 w-6 flex-col justify-between">
+            <span className={`h-0.5 w-full bg-current transition-transform ${isMobileMenuOpen ? "translate-y-2 rotate-45" : ""}`} />
+            <span className={`h-0.5 w-full bg-current transition-opacity ${isMobileMenuOpen ? "opacity-0" : "opacity-100"}`} />
+            <span className={`h-0.5 w-full bg-current transition-transform ${isMobileMenuOpen ? "-translate-y-2 -rotate-45" : ""}`} />
+          </div>
+        </button>
+      </nav>
+      {isMobileMenuOpen && (
+        <div className="bg-capasso-secondary/95 shadow-lg md:hidden">
+          <div className="container mx-auto flex flex-col gap-4 px-4 py-6 text-capasso-light">
+            {menuItems.map((item) =>
+              item.type === "route" ? (
+                <Link
+                  key={item.label}
+                  to={item.path}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="text-base"
+                >
+                  {item.label}
+                </Link>
+              ) : (
+                <button key={item.label} onClick={() => navigateOrScroll(item.target)} className="text-base text-left">
+                  {item.label}
+                </button>
+              ),
+            )}
+            <div className="mt-4 flex flex-col gap-3">
+              <Button onClick={() => handleCalendly("header_mobile")} className="btn-primary w-full">
+                Agendar 15 min
+              </Button>
+              <Button onClick={() => handleWhatsApp("header_mobile")} className="btn-secondary w-full">
+                WhatsApp
               </Button>
             </div>
           </div>
-        )}
-      </nav>
+        </div>
+      )}
     </header>
   );
 };
