@@ -1,125 +1,77 @@
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import cases from "@/data/cases.json";
+import { trackEvent } from "@/lib/analytics";
 
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
+const gradientMap: Record<string, string> = {
+  "app-gestion-logistica": "from-blue-500 to-capasso-primary",
+  "catalogo-web-autopartes": "from-capasso-primary to-cyan-400",
+  "web-pisos-whatsapp": "from-cyan-400 to-blue-500",
+  "sistema-turnos-online": "from-blue-500 to-capasso-primary",
+};
 
 const CaseStudiesSection = () => {
-  const cases = [
-    {
-      title: "App de Gestión Logística",
-      description: "Desarrollamos una app de escritorio y mobile para registrar cargas de combustible, controlar gastos y exportar reportes en tiempo real.",
-      technologies: ["React", "Node.js", "SQLite", "Electron", "Excel Export"],
-      results: [
-        "Control total de cargas y gastos por camión",
-        "Exportación de reportes en Excel",
-        "Mayor trazabilidad y control administrativo"
-      ],
-      category: "Logística",
-      gradient: "from-blue-500 to-capasso-primary"
-    },
-    {
-      title: "Catálogo Web de Autopartes",
-      description: "Sistema de catalogación y sitio web público para búsqueda de autopartes, con integración entre backend administrativo y frontend de consulta.",
-      technologies: [".NET", "Blazor", "SQL Server", "Bootstrap 5", "Mercado Libre API"],
-      results: [
-        "Miles de productos publicados",
-        "Filtros por marca, categoría y compatibilidades",
-        "Actualización en tiempo real desde sistema interno"
-      ],
-      category: "Distribución",
-      gradient: "from-capasso-primary to-cyan-400"
-    },
-    {
-      title: "Web de Pisos con WhatsApp Integrado",
-      description: "Sitio web institucional con catálogo visual de productos y botón directo a WhatsApp para cotizaciones rápidas.",
-      technologies: ["HTML5", "TailwindCSS", "Firebase", "WhatsApp API"],
-      results: [
-        "Incremento en consultas por producto",
-        "Carga autoadministrable de productos",
-        "Integración directa con WhatsApp para ventas"
-      ],
-      category: "E-commerce",
-      gradient: "from-cyan-400 to-blue-500"
-    },
-    {
-      title: "Sistema de Turnos Online",
-      description: "Página web simple y eficaz para reserva de turnos online, incluyendo opción de turnos recurrentes y notificaciones automáticas.",
-      technologies: ["Angular", "Firebase", "TailwindCSS", "Calendar API"],
-      results: [
-        "Gestión sin llamadas telefónicas",
-        "Reservas frecuentes automatizadas",
-        "Interfaz optimizada para dispositivos móviles"
-      ],
-      category: "Servicios",
-      gradient: "from-blue-500 to-capasso-primary"
-    }
-  ];
+  const caseList = cases.filter((caseStudy) => caseStudy.slug !== "gymfuze-app");
+  const productCase = cases.find((caseStudy) => caseStudy.slug === "gymfuze-app");
 
-  const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
+  const handleCalendly = (location: string) => {
+    trackEvent("calendly_click", { location });
+    window.open("https://calendly.com/capassoelias/15min", "_blank", "noopener,noreferrer");
   };
 
   return (
-    <section id="casos-exito" className="py-20 bg-capasso-secondary/30">
+    <section id="casos-exito" className="bg-capasso-secondary/30 py-20">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-16 animate-fade-in">
+        <div className="mb-16 text-center animate-fade-in">
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
             Casos de <span className="text-gradient">Éxito</span>
           </h2>
           <p className="text-xl text-capasso-light/80 max-w-3xl mx-auto">
-            Estos son algunos de los proyectos que hemos desarrollado,
-            cada uno con resultados concretos y medibles para nuestros clientes.
+            Cada proyecto que encaramos tiene métricas concretas de éxito. Estas son algunas implementaciones recientes y lo que generaron.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-          {cases.map((caseStudy, index) => (
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
+          {caseList.map((caseStudy) => (
             <Card
-              key={index}
-              className="bg-capasso-secondary border-capasso-gray hover:border-capasso-primary transition-all duration-500 hover-glow overflow-hidden group"
+              key={caseStudy.slug}
+              className="group flex h-full flex-col border border-capasso-gray bg-capasso-secondary/80 transition-all duration-500 hover:border-capasso-primary hover:shadow-lg hover:shadow-capasso-primary/10"
             >
-              <div className={`h-2 bg-gradient-to-r ${caseStudy.gradient}`}></div>
-
+              <div className={`h-2 bg-gradient-to-r ${gradientMap[caseStudy.slug] ?? "from-capasso-primary to-blue-500"}`} />
               <CardHeader>
-                <div className="flex items-start justify-between mb-4">
-                  <div className="flex-1">
-                    <div className="text-sm text-capasso-primary font-medium mb-2">
-                      {caseStudy.category}
-                    </div>
-                    <CardTitle className="text-2xl text-capasso-light group-hover:text-capasso-primary transition-colors duration-300">
-                      {caseStudy.title}
-                    </CardTitle>
-                  </div>
+                <div className="flex flex-col gap-2">
+                  <span className="text-sm font-medium uppercase tracking-wide text-capasso-primary/80">
+                    {caseStudy.category}
+                  </span>
+                  <CardTitle className="text-2xl text-capasso-light transition-colors duration-300 group-hover:text-capasso-primary">
+                    {caseStudy.title}
+                  </CardTitle>
                 </div>
-                <CardDescription className="text-capasso-light/70 text-base leading-relaxed">
-                  {caseStudy.description}
+                <CardDescription className="mt-4 text-base text-capasso-light/70">
+                  {caseStudy.summary}
                 </CardDescription>
               </CardHeader>
-
-              <CardContent>
-                <div className="mb-6">
-                  <h4 className="text-sm font-semibold text-capasso-light mb-3">Tecnologías utilizadas:</h4>
-                  <div className="flex flex-wrap gap-2">
-                    {caseStudy.technologies.map((tech, techIndex) => (
+              <CardContent className="flex flex-1 flex-col gap-6">
+                <div>
+                  <h4 className="text-sm font-semibold text-capasso-light">Tecnologías</h4>
+                  <div className="mt-2 flex flex-wrap gap-2">
+                    {caseStudy.technologies.map((tech) => (
                       <span
-                        key={techIndex}
-                        className="bg-capasso-dark text-capasso-primary px-3 py-1 rounded-full text-sm font-medium border border-capasso-primary/30"
+                        key={tech}
+                        className="rounded-full border border-capasso-primary/30 bg-capasso-dark px-3 py-1 text-xs font-medium text-capasso-primary"
                       >
                         {tech}
                       </span>
                     ))}
                   </div>
                 </div>
-
                 <div>
-                  <h4 className="text-sm font-semibold text-capasso-light mb-3">Resultados obtenidos:</h4>
-                  <ul className="space-y-2">
-                    {caseStudy.results.map((result, resultIndex) => (
-                      <li key={resultIndex} className="flex items-center text-capasso-light/80 text-sm">
-                        <div className="w-2 h-2 bg-capasso-primary rounded-full mr-3 flex-shrink-0"></div>
-                        {result}
+                  <h4 className="text-sm font-semibold text-capasso-light">Resultados</h4>
+                  <ul className="mt-2 space-y-2 text-sm text-capasso-light/80">
+                    {caseStudy.results.map((result) => (
+                      <li key={result} className="flex items-start gap-3">
+                        <span className="mt-1 inline-block h-2 w-2 rounded-full bg-capasso-primary" />
+                        <span>{result}</span>
                       </li>
                     ))}
                   </ul>
@@ -129,81 +81,88 @@ const CaseStudiesSection = () => {
           ))}
         </div>
 
-        <div className="mb-12">
-          <Card className="bg-capasso-secondary border-capasso-gray hover:border-capasso-primary transition-all duration-500 hover-glow overflow-hidden">
-            <div className="h-2 bg-gradient-to-r from-green-500 to-capasso-primary"></div>
+        {productCase && (
+          <Card className="mt-12 border border-capasso-gray bg-capasso-secondary/80 transition-all duration-500 hover:border-capasso-primary hover:shadow-lg hover:shadow-capasso-primary/10">
+            <div className="h-2 bg-gradient-to-r from-green-500 to-capasso-primary" />
             <CardHeader>
-              <div className="flex-1">
-                <div className="text-sm text-capasso-primary font-medium mb-2">
-                  Producto Propio
-                </div>
-                <CardTitle className="text-3xl text-capasso-light hover:text-capasso-primary transition-colors duration-300">
-                  GymFuze: App de Gestión para Gimnasios
-                </CardTitle>
-              </div>
-              <CardDescription className="text-capasso-light/70 text-base leading-relaxed mt-4">
-                Creamos una solución completa para gimnasios que permite gestionar alumnos, pagos, rutinas semanales, notificaciones automáticas y más. Ideal para estudios de entrenamiento funcional, box de crossfit, gimnasios tradicionales y entrenadores independientes.
-              </CardDescription>
+              <span className="text-sm font-medium uppercase tracking-wide text-capasso-primary/80">{productCase.category}</span>
+              <CardTitle className="mt-2 text-3xl text-capasso-light">{productCase.title}</CardTitle>
+              <CardDescription className="mt-4 text-base text-capasso-light/70">{productCase.summary}</CardDescription>
             </CardHeader>
-            <CardContent>
-              <div className="mb-6">
-                <h4 className="text-sm font-semibold text-capasso-light mb-3">Tecnologías utilizadas:</h4>
-                <div className="flex flex-wrap gap-2">
-                  {["React Native", "Firebase", "Tailwind", "Expo", "Node.js"].map((tech, i) => (
-                    <span key={i} className="bg-capasso-dark text-capasso-primary px-3 py-1 rounded-full text-sm font-medium border border-capasso-primary/30">
-                      {tech}
-                    </span>
-                  ))}
+            <CardContent className="flex flex-col gap-6">
+              <div className="grid gap-6 md:grid-cols-2">
+                <div>
+                  <h4 className="text-sm font-semibold text-capasso-light">Qué resolvimos</h4>
+                  <ul className="mt-2 space-y-2 text-sm text-capasso-light/80">
+                    {productCase.challenges.map((item) => (
+                      <li key={item} className="flex items-start gap-3">
+                        <span className="mt-1 inline-block h-2 w-2 rounded-full bg-capasso-primary" />
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <div>
+                  <h4 className="text-sm font-semibold text-capasso-light">Lo que entregamos</h4>
+                  <ul className="mt-2 space-y-2 text-sm text-capasso-light/80">
+                    {productCase.solution.map((item) => (
+                      <li key={item} className="flex items-start gap-3">
+                        <span className="mt-1 inline-block h-2 w-2 rounded-full bg-capasso-primary" />
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
               </div>
-
               <div>
-                <h4 className="text-sm font-semibold text-capasso-light mb-3">Lo que permite la app:</h4>
-                <ul className="space-y-2">
-                  {[
-                    "Gestión de alumnos con historial y rutinas personalizadas",
-                    "Cobro manual de membresías y aviso automático de vencimientos",
-                    "Carga de ejercicios y rutinas semanales por parte del administrador",
-                    "Panel para el gimnasio y app individual para cada alumno",
-                    "Multi-gimnasio con base de datos centralizada"
-                  ].map((feature, i) => (
-                    <li key={i} className="flex items-center text-capasso-light/80 text-sm">
-                      <div className="w-2 h-2 bg-capasso-primary rounded-full mr-3 flex-shrink-0"></div>
-                      {feature}
+                <h4 className="text-sm font-semibold text-capasso-light">Resultados</h4>
+                <ul className="mt-2 space-y-2 text-sm text-capasso-light/80">
+                  {productCase.results.map((result) => (
+                    <li key={result} className="flex items-start gap-3">
+                      <span className="mt-1 inline-block h-2 w-2 rounded-full bg-capasso-primary" />
+                      <span>{result}</span>
                     </li>
                   ))}
                 </ul>
               </div>
-
-              <div className="mt-8 text-center">
+              <div className="flex flex-wrap items-center justify-between gap-4 rounded-xl border border-capasso-primary/20 bg-capasso-primary/5 p-6">
+                <div>
+                  <p className="text-sm uppercase tracking-wide text-capasso-primary/70">¿Querés conocerlo en vivo?</p>
+                  <p className="text-lg text-capasso-light/80">Te mostramos un demo y adaptamos módulos a tu gimnasio.</p>
+                </div>
                 <Button
                   asChild
-                  className="btn-primary text-lg px-8 py-4"
+                  className="btn-primary px-6 py-3 text-base"
+                  onClick={() => trackEvent("cta_click", { location: "gymfuze_case" })}
                 >
                   <a href="https://gymfuzeapp.web.app/" target="_blank" rel="noopener noreferrer">
-                    Más información sobre GymFuze
+                    Más información
                   </a>
                 </Button>
               </div>
-
             </CardContent>
           </Card>
-        </div>
+        )}
 
-        <div className="text-center bg-capasso-secondary border border-capasso-gray rounded-lg p-8 hover-glow">
-          <h3 className="text-2xl font-semibold text-capasso-light mb-4">
-            ¿Querés ver tu proyecto aquí?
-          </h3>
-          <p className="text-capasso-light/80 mb-6 max-w-2xl mx-auto">
-            Cada proyecto es único y nos enfocamos en generar resultados medibles
-            que impulsen el crecimiento de tu negocio.
+        <div className="mt-12 rounded-2xl border border-capasso-gray bg-capasso-secondary/80 p-10 text-center">
+          <h3 className="text-2xl font-semibold text-capasso-light">¿Querés ver tu proyecto acá?</h3>
+          <p className="mt-4 text-capasso-light/80">
+            Cada partnership empieza con una charla corta para entender el objetivo y convertirlo en roadmap.
           </p>
-          <Button
-            onClick={() => scrollToSection('contacto')}
-            className="btn-primary text-lg px-8 py-4"
-          >
-            Empezá tu proyecto
-          </Button>
+          <div className="mt-6 flex flex-wrap justify-center gap-4">
+            <Button onClick={() => handleCalendly("case_studies")} className="btn-primary px-8 py-4 text-lg">
+              Agendar 15 min
+            </Button>
+            <Button
+              onClick={() => {
+                trackEvent("whatsapp_click", { location: "case_studies" });
+                window.open("https://wa.me/5493435332132?text=Hola%20CapassoTech%2C%20quiero%20asesor%C3%ADa", "_blank", "noopener,noreferrer");
+              }}
+              className="btn-secondary px-8 py-4 text-lg"
+            >
+              Escribir por WhatsApp
+            </Button>
+          </div>
         </div>
       </div>
     </section>

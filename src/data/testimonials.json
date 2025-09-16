@@ -1,0 +1,16 @@
+[
+  {
+    "name": "María García",
+    "role": "COO",
+    "company": "Retail LATAM",
+    "quote": "Reducimos tiempos de carga de pedidos en 42% en 8 semanas.",
+    "avatar": "/images/avatars/maria.svg"
+  },
+  {
+    "name": "Juan Pérez",
+    "role": "CTO",
+    "company": "EdTech",
+    "quote": "Se integraron sin fricción y entregaron valor desde el primer sprint.",
+    "avatar": "/images/avatars/juan.svg"
+  }
+]
