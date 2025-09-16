@@ -45,7 +45,7 @@ const Header = () => {
   };
 
   const menuItems = [
-    { label: "Inicio", type: "route" as const, path: "/" },
+    { label: "Inicio", type: "section" as const, target: "inicio" },
     { label: "Servicios", type: "section" as const, target: "servicios" },
     { label: "Tecnologías", type: "section" as const, target: "tecnologias" },
     { label: "Casos", type: "section" as const, target: "casos-exito" },
