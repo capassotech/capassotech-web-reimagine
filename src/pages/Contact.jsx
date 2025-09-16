@@ -19,13 +19,12 @@ const Contact = () => {
   };
 
   return (
-    <div className="min-h-screen bg-capasso-dark text-capasso-light">
+    <div className="min-h-screen bg-capasso-dark text-capasso-light mt-24">
       <Header />
       <main>
         <section className="bg-capasso-secondary/20 pt-32 pb-16">
           <div className="container mx-auto px-4 text-center md:text-left">
             <div className="mx-auto max-w-3xl">
-              <p className="text-sm uppercase tracking-wide text-capasso-primary/70">Contacto</p>
               <h1 className="mt-3 text-4xl font-bold text-white md:text-5xl">Contanos qué querés construir</h1>
               <p className="mt-4 text-lg text-capasso-light/80">
                 Respondemos dentro de 1 día hábil con un plan inicial, stack sugerido y próximos pasos.
