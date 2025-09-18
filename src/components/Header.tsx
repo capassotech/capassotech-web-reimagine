@@ -49,6 +49,7 @@ const Header = () => {
     { label: "Servicios", type: "section" as const, target: "servicios" },
     { label: "Tecnologías", type: "section" as const, target: "tecnologias" },
     { label: "Casos", type: "section" as const, target: "casos-exito" },
+    { label: "Blog", type: "route" as const, path: "/blog" },
     { label: "Nosotros", type: "route" as const, path: "/nosotros" },
     { label: "Contacto", type: "route" as const, path: "/contacto" },
   ];
