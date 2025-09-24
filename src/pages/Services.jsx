@@ -72,6 +72,49 @@ const servicesDetail = [
   },
 ];
 
+const baseProvider = {
+  "@type": "Organization",
+  name: "CapassoTech",
+  url: "https://capassotech.com",
+};
+
+const servicesStructuredData = servicesDetail.map((service) => ({
+  "@context": "https://schema.org",
+  "@type": "Service",
+  name: service.title,
+  description: service.intro,
+  serviceType: service.title,
+  provider: { ...baseProvider },
+  areaServed: {
+    "@type": "AdministrativeArea",
+    name: "Latinoamérica",
+  },
+  availableChannel: {
+    "@type": "ServiceChannel",
+    serviceUrl: "https://capassotech.com/servicios",
+  },
+  offers: {
+    "@type": "Offer",
+    availability: "https://schema.org/InStock",
+    url: "https://capassotech.com/contacto",
+    description: "Planes personalizados y squads ágiles según alcance y objetivos.",
+  },
+  hasOfferCatalog: {
+    "@type": "OfferCatalog",
+    name: `${service.title} - Qué incluye`,
+    itemListElement: service.bullets.map((item, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: item,
+    })),
+  },
+  serviceOutput: service.outcomes.map((outcome) => ({
+    "@type": "Thing",
+    name: outcome,
+  })),
+  termsOfService: "https://capassotech.com/servicios",
+}));
+
 const Services = () => {
   usePageSEO({
     title: "Servicios CapassoTech — Desarrollo a medida, pods ágiles, consultoría e IA",
@@ -80,6 +123,7 @@ const Services = () => {
     canonical: "https://capassotech.com/servicios",
     image: "https://capassotech.com/og-image.jpg",
     ogType: "website",
+    structuredData: servicesStructuredData,
   });
 
   const openCalendly = (origin) => {
