@@ -11,6 +11,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { blogPosts } from "@/data/blog-posts";
 import { usePageSEO } from "@/hooks/usePageSEO";
 import { trackEvent } from "@/lib/analytics";
+import { Link } from "react-router-dom";
 
 const calendlyUrl = "https://calendly.com/capassoelias/15min";
 const whatsappUrl = "https://wa.me/5493435332132?text=Hola%20CapassoTech%2C%20quiero%20asesor%C3%ADa";
@@ -45,7 +46,7 @@ const Blog = () => {
           datePublished: post.date,
           dateModified: post.date,
           description: post.summary,
-          url: `https://capassotech.com/blog#${post.slug}`,
+          url: `https://capassotech.com/blog/${post.slug}`,
           inLanguage: "es",
           keywords: post.tags.join(", "),
           author: {
@@ -170,6 +171,18 @@ const Blog = () => {
                       </Badge>
                     ))}
                   </div>
+                  <div className="mt-6">
+                    <Button asChild className="btn-secondary px-6 py-3">
+                      <Link
+                        to={`/blog/${featuredPost.slug}`}
+                        onClick={() =>
+                          trackEvent("blog_featured_open", { slug: featuredPost.slug })
+                        }
+                      >
+                        Leer artículo completo
+                      </Link>
+                    </Button>
+                  </div>
                 </article>
               )}
             </div>
@@ -243,11 +256,6 @@ const Blog = () => {
                     </div>
                     <h3 className="mt-4 text-2xl font-semibold text-white">{post.title}</h3>
                     <p className="mt-3 text-base text-capasso-light/80">{post.summary}</p>
-                    <div className="mt-4 space-y-4 text-sm leading-relaxed text-capasso-light/75">
-                      {post.content.map((paragraph, index) => (
-                        <p key={`${post.slug}-${index}`}>{paragraph}</p>
-                      ))}
-                    </div>
                   </div>
                   <div className="mt-6 flex flex-wrap items-center gap-3">
                     {post.tags.map((tag) => (
@@ -259,6 +267,16 @@ const Blog = () => {
                         {tag}
                       </Badge>
                     ))}
+                    <Button asChild className="btn-secondary px-6 py-3">
+                      <Link
+                        to={`/blog/${post.slug}`}
+                        onClick={() =>
+                          trackEvent("blog_post_open", { slug: post.slug })
+                        }
+                      >
+                        Leer artículo
+                      </Link>
+                    </Button>
                     <Button
                       onClick={() => handleCalendly(`blog_post_${post.slug}`)}
                       className="btn-primary ml-auto px-6 py-3"

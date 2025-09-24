@@ -26,7 +26,7 @@ const staticRoutes: SitemapEntry[] = [
 ];
 
 const blogEntries: SitemapEntry[] = blogPosts.map((post) => ({
-  path: `/blog?post=${post.slug}`,
+  path: `/blog/${post.slug}`,
   priority: 0.7,
   lastmod: normalizeDate(post.date),
 }));
