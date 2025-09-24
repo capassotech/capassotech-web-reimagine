@@ -11,6 +11,7 @@ import ContactForm from "@/components/ContactForm";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { trackEvent } from "@/lib/analytics";
+import { usePageSEO } from "@/hooks/usePageSEO";
 
 const calendlyUrl = "https://calendly.com/capassoelias/15min";
 const whatsappUrl = "https://wa.me/5493435332132?text=Hola%20CapassoTech%2C%20quiero%20asesor%C3%ADa";
@@ -41,6 +42,15 @@ const differentiators = [
 const Home = () => {
   const location = useLocation();
   const navigate = useNavigate();
+
+  usePageSEO({
+    title: "CapassoTech — Software a medida, pods ágiles e IA enfocada en ROI",
+    description:
+      "Equipo de producto y tecnología que diseña y escala software, automatizaciones e IA con métricas claras desde el primer sprint.",
+    canonical: "https://capassotech.com/",
+    image: "https://capassotech.com/og-image.jpg",
+    ogType: "website",
+  });
 
   useEffect(() => {
     const targetId = location.state && typeof location.state === "object" ? location.state.scrollTo : undefined;

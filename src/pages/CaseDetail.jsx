@@ -5,6 +5,7 @@ import Footer from "@/components/Footer";
 import cases from "@/data/cases.json";
 import { Button } from "@/components/ui/button";
 import { trackEvent } from "@/lib/analytics";
+import { usePageSEO } from "@/hooks/usePageSEO";
 
 const calendlyUrl = "https://calendly.com/capassoelias/15min";
 const whatsappUrl = "https://wa.me/5493435332132?text=Hola%20CapassoTech%2C%20quiero%20asesor%C3%ADa";
@@ -13,6 +14,22 @@ const CaseDetail = () => {
   const { caseId } = useParams();
 
   const caseStudy = useMemo(() => cases.find((item) => item.slug === caseId), [caseId]);
+
+  const seoTitle = caseStudy ? `${caseStudy.title} — Caso de éxito CapassoTech` : "Caso de éxito — CapassoTech";
+  const seoDescription = caseStudy
+    ? caseStudy.description
+    : "Casos de éxito de CapassoTech en desarrollo de software, automatización e IA.";
+  const canonicalUrl = caseStudy
+    ? `https://capassotech.com/casos/${caseStudy.slug}`
+    : "https://capassotech.com/casos";
+
+  usePageSEO({
+    title: seoTitle,
+    description: seoDescription,
+    canonical: canonicalUrl,
+    image: "https://capassotech.com/og-image.jpg",
+    ogType: "article",
+  });
 
   if (!caseStudy) {
     return <Navigate to="/casos" replace />;
