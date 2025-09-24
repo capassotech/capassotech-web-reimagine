@@ -3,6 +3,7 @@ import ProcessSection from "@/components/ProcessSection";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { trackEvent } from "@/lib/analytics";
+import { usePageSEO } from "@/hooks/usePageSEO";
 
 const calendlyUrl = "https://calendly.com/capassoelias/15min";
 const whatsappUrl = "https://wa.me/5493435332132?text=Hola%20CapassoTech%2C%20quiero%20asesor%C3%ADa";
@@ -27,6 +28,15 @@ const values = [
 ];
 
 const About = () => {
+  usePageSEO({
+    title: "Nosotros — CapassoTech: equipo ágil de producto y tecnología",
+    description:
+      "Conocé a CapassoTech, un equipo senior que combina producto, diseño y desarrollo para lanzar y escalar software con métricas claras.",
+    canonical: "https://capassotech.com/nosotros",
+    image: "https://capassotech.com/og-image.jpg",
+    ogType: "website",
+  });
+
   window.scrollTo(0, 0);
 
   const openCalendly = (origin) => {

@@ -4,11 +4,21 @@ import Footer from "@/components/Footer";
 import cases from "@/data/cases.json";
 import { Button } from "@/components/ui/button";
 import { trackEvent } from "@/lib/analytics";
+import { usePageSEO } from "@/hooks/usePageSEO";
 
 const calendlyUrl = "https://calendly.com/capassoelias/15min";
 const whatsappUrl = "https://wa.me/5493435332132?text=Hola%20CapassoTech%2C%20quiero%20asesor%C3%ADa";
 
 const Cases = () => {
+  usePageSEO({
+    title: "Casos de éxito CapassoTech — Software y automatización con impacto",
+    description:
+      "Explorá proyectos reales de desarrollo, integraciones e IA donde CapassoTech mejoró métricas clave en empresas de LATAM y Estados Unidos.",
+    canonical: "https://capassotech.com/casos",
+    image: "https://capassotech.com/og-image.jpg",
+    ogType: "website",
+  });
+
   const openCalendly = (origin) => {
     trackEvent("calendly_click", { location: origin });
     window.open(calendlyUrl, "_blank", "noopener,noreferrer");

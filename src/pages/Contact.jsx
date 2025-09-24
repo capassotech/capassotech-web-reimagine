@@ -3,11 +3,21 @@ import Footer from "@/components/Footer";
 import ContactForm from "@/components/ContactForm";
 import { Button } from "@/components/ui/button";
 import { trackEvent } from "@/lib/analytics";
+import { usePageSEO } from "@/hooks/usePageSEO";
 
 const calendlyUrl = "https://calendly.com/capassoelias/15min";
 const whatsappUrl = "https://wa.me/5493435332132?text=Hola%20CapassoTech%2C%20quiero%20asesor%C3%ADa";
 
 const Contact = () => {
+  usePageSEO({
+    title: "Contacto CapassoTech — Agendá una discovery call en 15 minutos",
+    description:
+      "Escribinos o reservá una reunión rápida para hablar sobre tu proyecto de software, automatización o IA con el equipo de CapassoTech.",
+    canonical: "https://capassotech.com/contacto",
+    image: "https://capassotech.com/og-image.jpg",
+    ogType: "website",
+  });
+
   const openCalendly = (origin) => {
     trackEvent("calendly_click", { location: origin });
     window.open(calendlyUrl, "_blank", "noopener,noreferrer");
