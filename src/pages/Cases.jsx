@@ -9,6 +9,56 @@ import { usePageSEO } from "@/hooks/usePageSEO";
 const calendlyUrl = "https://calendly.com/capassoelias/15min";
 const whatsappUrl = "https://wa.me/5493435332132?text=Hola%20CapassoTech%2C%20quiero%20asesor%C3%ADa";
 
+const baseProvider = {
+  "@type": "Organization",
+  name: "CapassoTech",
+  url: "https://capassotech.com",
+};
+
+const casesStructuredData = cases.map((caseStudy) => ({
+  "@context": "https://schema.org",
+  "@type": "CaseStudy",
+  name: caseStudy.title,
+  alternateName: caseStudy.slug,
+  description: caseStudy.description,
+  abstract: caseStudy.summary,
+  genre: caseStudy.category,
+  provider: { ...baseProvider },
+  audience: {
+    "@type": "Audience",
+    audienceType: caseStudy.category,
+  },
+  keywords: [...caseStudy.technologies, ...caseStudy.services],
+  url: `https://capassotech.com/casos/${caseStudy.slug}`,
+  inLanguage: "es",
+  creativeWorkStatus: "Published",
+  about: caseStudy.services.map((service) => ({
+    "@type": "Service",
+    name: service,
+  })),
+  mentions: caseStudy.technologies.map((tech) => ({
+    "@type": "Thing",
+    name: tech,
+  })),
+  hasPart: [
+    {
+      "@type": "CreativeWork",
+      name: "Desafíos abordados",
+      text: caseStudy.challenges.join(" • "),
+    },
+    {
+      "@type": "CreativeWork",
+      name: "Solución implementada",
+      text: caseStudy.solution.join(" • "),
+    },
+    {
+      "@type": "CreativeWork",
+      name: "Resultados destacados",
+      text: caseStudy.results.join(" • "),
+    },
+  ],
+}));
+
 const Cases = () => {
   usePageSEO({
     title: "Casos de éxito CapassoTech — Software y automatización con impacto",
@@ -17,6 +67,7 @@ const Cases = () => {
     canonical: "https://capassotech.com/casos",
     image: "https://capassotech.com/og-image.jpg",
     ogType: "website",
+    structuredData: casesStructuredData,
   });
 
   const openCalendly = (origin) => {
