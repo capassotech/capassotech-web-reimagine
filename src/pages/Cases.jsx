@@ -40,6 +40,15 @@ const casesStructuredData = cases.map((caseStudy) => ({
     "@type": "Thing",
     name: tech,
   })),
+  ...(caseStudy.relatedBlogSlug
+    ? {
+        sameAs: [`https://capassotech.com/blog/${caseStudy.relatedBlogSlug}`],
+        subjectOf: {
+          "@type": "BlogPosting",
+          url: `https://capassotech.com/blog/${caseStudy.relatedBlogSlug}`,
+        },
+      }
+    : {}),
   hasPart: [
     {
       "@type": "CreativeWork",
@@ -122,23 +131,33 @@ const Cases = () => {
                       </span>
                     )}
                   </div>
-                  <ul className="mt-6 space-y-2 text-sm text-capasso-light/80">
-                    {caseStudy.results.slice(0, 3).map((result) => (
-                      <li key={result} className="flex items-start gap-3">
-                        <span className="mt-1 inline-block h-2 w-2 rounded-full bg-capasso-primary" />
-                        <span>{result}</span>
-                      </li>
-                    ))}
-                  </ul>
-                  <div className="mt-8 flex-1" />
+              <ul className="mt-6 space-y-2 text-sm text-capasso-light/80">
+                {caseStudy.results.slice(0, 3).map((result) => (
+                  <li key={result} className="flex items-start gap-3">
+                    <span className="mt-1 inline-block h-2 w-2 rounded-full bg-capasso-primary" />
+                    <span>{result}</span>
+                  </li>
+                ))}
+              </ul>
+              <div className="mt-8 flex-1" />
+              <div className="mt-6 flex flex-wrap items-center gap-4 text-sm">
+                <Link
+                  to={`/casos/${caseStudy.slug}`}
+                  className="inline-flex items-center text-capasso-primary transition-colors hover:text-white"
+                >
+                  Ver caso →
+                </Link>
+                {caseStudy.relatedBlogSlug && (
                   <Link
-                    to={`/casos/${caseStudy.slug}`}
-                    className="mt-6 inline-flex items-center text-capasso-primary transition-colors hover:text-white"
+                    to={`/blog/${caseStudy.relatedBlogSlug}`}
+                    className="inline-flex items-center text-capasso-light/70 transition-colors hover:text-capasso-primary"
                   >
-                    Ver detalle →
+                    Leer artículo →
                   </Link>
-                </article>
-              ))}
+                )}
+              </div>
+            </article>
+          ))}
             </div>
           </div>
         </section>

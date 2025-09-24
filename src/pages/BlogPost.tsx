@@ -8,6 +8,7 @@ import StickyCTA from "@/components/StickyCTA";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { blogPosts } from "@/data/blog-posts";
+import cases from "@/data/cases.json";
 import { usePageSEO } from "@/hooks/usePageSEO";
 import { trackEvent } from "@/lib/analytics";
 
@@ -37,6 +38,16 @@ const BlogPost = () => {
         url: canonicalUrl,
         inLanguage: "es",
         keywords: post.tags.join(", "),
+        ...(post.relatedCaseSlug
+          ? {
+              mentions: [
+                {
+                  "@type": "CaseStudy",
+                  url: `https://capassotech.com/casos/${post.relatedCaseSlug}`,
+                },
+              ],
+            }
+          : {}),
         author: {
           "@type": "Organization",
           name: "CapassoTech",
@@ -95,6 +106,9 @@ const BlogPost = () => {
   const relatedPosts = blogPosts
     .filter((entry) => entry.slug !== post.slug)
     .slice(0, 3);
+  const relatedCase = post.relatedCaseSlug
+    ? cases.find((caseStudy) => caseStudy.slug === post.relatedCaseSlug)
+    : undefined;
 
   const handleCalendly = (origin: string) => {
     trackEvent("calendly_click", { location: origin, slug: post.slug });
@@ -150,18 +164,34 @@ const BlogPost = () => {
                 </Button>
               </div>
             </div>
-            <div className="w-full max-w-xs rounded-2xl border border-capasso-gray/60 bg-capasso-secondary/60 p-6 text-sm text-capasso-light/80">
-              <p className="font-semibold uppercase tracking-wide text-capasso-primary">
-                ¿Por qué este artículo importa?
-              </p>
-              <p className="mt-3">
-                Está basado en proyectos reales donde aplicamos este enfoque. Podés usarlo como checklist para tu próximo sprint o roadmap.
-              </p>
-              <Button asChild variant="link" className="mt-4 px-0 text-capasso-primary">
-                <Link to="/blog" className="hover:underline">
-                  Volver al listado del blog
-                </Link>
-              </Button>
+            <div className="w-full max-w-xs space-y-4">
+              <div className="rounded-2xl border border-capasso-gray/60 bg-capasso-secondary/60 p-6 text-sm text-capasso-light/80">
+                <p className="font-semibold uppercase tracking-wide text-capasso-primary">
+                  ¿Por qué este artículo importa?
+                </p>
+                <p className="mt-3">
+                  Está basado en proyectos reales donde aplicamos este enfoque. Podés usarlo como checklist para tu próximo sprint o roadmap.
+                </p>
+                <Button asChild variant="link" className="mt-4 px-0 text-capasso-primary">
+                  <Link to="/blog" className="hover:underline">
+                    Volver al listado del blog
+                  </Link>
+                </Button>
+              </div>
+              {relatedCase && (
+                <div className="rounded-2xl border border-capasso-primary/30 bg-capasso-primary/10 p-6 text-sm text-capasso-light/80">
+                  <p className="font-semibold uppercase tracking-wide text-capasso-primary">
+                    Caso de éxito relacionado
+                  </p>
+                  <p className="mt-3 text-base text-white">{relatedCase.title}</p>
+                  <p className="mt-2">
+                    Conocé cómo lo implementamos paso a paso y qué métricas movimos junto al cliente.
+                  </p>
+                  <Button asChild className="btn-secondary mt-4 w-full">
+                    <Link to={`/casos/${relatedCase.slug}`}>Ver caso completo</Link>
+                  </Button>
+                </div>
+              )}
             </div>
           </div>
         </section>

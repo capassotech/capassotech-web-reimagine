@@ -182,6 +182,11 @@ const Blog = () => {
                         Leer artículo completo
                       </Link>
                     </Button>
+                    {featuredPost.relatedCaseSlug && (
+                      <Button asChild variant="link" className="mt-3 px-0 text-capasso-primary">
+                        <Link to={`/casos/${featuredPost.relatedCaseSlug}`}>Ver caso de éxito</Link>
+                      </Button>
+                    )}
                   </div>
                 </article>
               )}
@@ -254,38 +259,45 @@ const Blog = () => {
                       <span>{format(new Date(post.date), "d 'de' MMMM yyyy", { locale: es })}</span>
                       <span>• {post.readingTime} min de lectura</span>
                     </div>
-                    <h3 className="mt-4 text-2xl font-semibold text-white">{post.title}</h3>
-                    <p className="mt-3 text-base text-capasso-light/80">{post.summary}</p>
-                  </div>
-                  <div className="mt-6 flex flex-wrap items-center gap-3">
-                    {post.tags.map((tag) => (
-                      <Badge
-                        key={`${post.slug}-${tag}`}
-                        variant="secondary"
-                        className="border border-capasso-gray/40 bg-capasso-dark text-capasso-light"
-                      >
-                        {tag}
-                      </Badge>
-                    ))}
-                    <Button asChild className="btn-secondary px-6 py-3">
-                      <Link
-                        to={`/blog/${post.slug}`}
-                        onClick={() =>
-                          trackEvent("blog_post_open", { slug: post.slug })
-                        }
-                      >
-                        Leer artículo
-                      </Link>
-                    </Button>
-                    <Button
-                      onClick={() => handleCalendly(`blog_post_${post.slug}`)}
-                      className="btn-primary ml-auto px-6 py-3"
+                  <h3 className="mt-4 text-2xl font-semibold text-white">{post.title}</h3>
+                  <p className="mt-3 text-base text-capasso-light/80">{post.summary}</p>
+                </div>
+                <div className="mt-6 flex flex-wrap items-center gap-3">
+                  {post.tags.map((tag) => (
+                    <Badge
+                      key={`${post.slug}-${tag}`}
+                      variant="secondary"
+                      className="border border-capasso-gray/40 bg-capasso-dark text-capasso-light"
                     >
-                      Conversar proyecto
+                      {tag}
+                    </Badge>
+                  ))}
+                </div>
+                <div className="mt-6 flex flex-wrap items-center gap-3">
+                  <Button asChild className="btn-secondary px-6 py-3">
+                    <Link
+                      to={`/blog/${post.slug}`}
+                      onClick={() =>
+                        trackEvent("blog_post_open", { slug: post.slug })
+                      }
+                    >
+                      Leer artículo
+                    </Link>
+                  </Button>
+                  {post.relatedCaseSlug && (
+                    <Button asChild variant="link" className="px-0 text-capasso-primary">
+                      <Link to={`/casos/${post.relatedCaseSlug}`}>Ver caso de éxito</Link>
                     </Button>
-                  </div>
-                </article>
-              ))}
+                  )}
+                  <Button
+                    onClick={() => handleCalendly(`blog_post_${post.slug}`)}
+                    className="btn-primary ml-auto px-6 py-3"
+                  >
+                    Conversar proyecto
+                  </Button>
+                </div>
+              </article>
+            ))}
             </div>
 
             {filteredPosts.length === 0 && (
