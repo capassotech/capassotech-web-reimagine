@@ -12,6 +12,8 @@ const gradientMap: Record<string, string> = {
 };
 
 const CaseStudiesSection = () => {
+  window.scrollTo(0, 0);
+  
   const caseList = cases.filter((caseStudy) => caseStudy.slug !== "gymfuze-app");
   const productCase = cases.find((caseStudy) => caseStudy.slug === "gymfuze-app");
 

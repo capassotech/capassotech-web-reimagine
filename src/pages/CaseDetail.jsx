@@ -12,6 +12,7 @@ const calendlyUrl = "https://calendly.com/capassoelias/15min";
 const whatsappUrl = "https://wa.me/5493435332132?text=Hola%20CapassoTech%2C%20quiero%20asesor%C3%ADa";
 
 const CaseDetail = () => {
+  window.scrollTo(0, 0);
   const { caseId } = useParams();
 
   const caseStudy = useMemo(() => cases.find((item) => item.slug === caseId), [caseId]);
