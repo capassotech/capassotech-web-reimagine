@@ -8,6 +8,7 @@ export type BlogPost = {
   readingTime: number;
   tags: string[];
   serviceFocus: string;
+  relatedCaseSlug?: string;
 };
 
 export const blogPosts: BlogPost[] = [
@@ -29,6 +30,7 @@ export const blogPosts: BlogPost[] = [
     readingTime: 6,
     tags: ["autopartes", "marketplace", "integraciones"],
     serviceFocus: "Desarrollo a medida",
+    relatedCaseSlug: "catalogo-web-autopartes",
   }
   ,
   {

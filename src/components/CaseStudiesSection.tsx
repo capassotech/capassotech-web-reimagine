@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import cases from "@/data/cases.json";
@@ -75,6 +76,16 @@ const CaseStudiesSection = () => {
                       </li>
                     ))}
                   </ul>
+                </div>
+                <div className="mt-auto flex flex-wrap items-center gap-3">
+                  {caseStudy.relatedBlogSlug && (
+                    <Button asChild className="btn-secondary px-6 py-3 text-sm">
+                      <Link to={`/blog/${caseStudy.relatedBlogSlug}`}>Leer artículo del proyecto</Link>
+                    </Button>
+                  )}
+                  <Button asChild variant="link" className="px-0 text-capasso-primary">
+                    <Link to={`/casos/${caseStudy.slug}`}>Ver caso completo →</Link>
+                  </Button>
                 </div>
               </CardContent>
             </Card>

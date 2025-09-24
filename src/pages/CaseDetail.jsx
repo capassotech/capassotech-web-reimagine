@@ -3,6 +3,7 @@ import { Link, Navigate, useParams } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import cases from "@/data/cases.json";
+import { blogPosts } from "@/data/blog-posts";
 import { Button } from "@/components/ui/button";
 import { trackEvent } from "@/lib/analytics";
 import { usePageSEO } from "@/hooks/usePageSEO";
@@ -14,6 +15,13 @@ const CaseDetail = () => {
   const { caseId } = useParams();
 
   const caseStudy = useMemo(() => cases.find((item) => item.slug === caseId), [caseId]);
+  const relatedArticle = useMemo(
+    () =>
+      caseStudy?.relatedBlogSlug
+        ? blogPosts.find((post) => post.slug === caseStudy.relatedBlogSlug)
+        : undefined,
+    [caseStudy?.relatedBlogSlug]
+  );
 
   const seoTitle = caseStudy ? `${caseStudy.title} — Caso de éxito CapassoTech` : "Caso de éxito — CapassoTech";
   const seoDescription = caseStudy
@@ -58,6 +66,14 @@ const CaseDetail = () => {
               <p className="text-sm uppercase tracking-wide text-capasso-primary/70">{caseStudy.category}</p>
               <h1 className="mt-3 text-4xl font-bold text-white md:text-5xl">{caseStudy.title}</h1>
               <p className="mt-4 text-lg text-capasso-light/80">{caseStudy.description}</p>
+              {relatedArticle && (
+                <div className="mt-6 flex flex-wrap items-center gap-3 text-sm text-capasso-light/70">
+                  <span>Profundizá en la historia completa:</span>
+                  <Button asChild className="btn-secondary px-5 py-2 text-sm">
+                    <Link to={`/blog/${relatedArticle.slug}`}>Leer artículo del blog</Link>
+                  </Button>
+                </div>
+              )}
               <div className="mt-6 flex flex-wrap gap-3 text-sm text-capasso-light/60">
                 <span className="rounded-full border border-capasso-primary/30 bg-capasso-secondary/60 px-4 py-2">{caseStudy.duration}</span>
                 {caseStudy.services?.map((service) => (
@@ -119,6 +135,17 @@ const CaseDetail = () => {
                   ))}
                 </div>
               </div>
+              {relatedArticle && (
+                <div className="rounded-2xl border border-capasso-primary/20 bg-capasso-primary/10 p-6">
+                  <h3 className="text-lg font-semibold text-white">Leé el análisis completo</h3>
+                  <p className="mt-3 text-sm text-capasso-light/80">
+                    Detallamos este proyecto en nuestro blog con métricas, aprendizajes y próximos pasos.
+                  </p>
+                  <Button asChild className="btn-secondary mt-4 w-full">
+                    <Link to={`/blog/${relatedArticle.slug}`}>Ir al artículo</Link>
+                  </Button>
+                </div>
+              )}
               <div className="rounded-2xl border border-capasso-primary/20 bg-capasso-primary/10 p-6">
                 <h3 className="text-lg font-semibold text-white">¿Caso parecido al tuyo?</h3>
                 <p className="mt-3 text-sm text-capasso-light/80">

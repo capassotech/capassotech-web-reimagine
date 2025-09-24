@@ -29,6 +29,7 @@
     "title": "Catálogo Web de Autopartes",
     "category": "Distribución",
     "summary": "Sistema de catalogación y sitio público con buscador de autopartes integrado al backend administrativo.",
+    "relatedBlogSlug": "andretich-autopartes-transformacion-digital",
     "description": "Un distribuidor regional necesitaba digitalizar su catálogo para dar soporte a vendedores y clientes finales en varios países.",
     "challenges": [
       "Actualizar miles de referencias en tiempo real",
