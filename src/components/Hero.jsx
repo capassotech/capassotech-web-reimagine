@@ -6,9 +6,10 @@ const calendlyUrl = "https://calendly.com/capassoelias/15min";
 const whatsappUrl = "https://wa.me/5493435332132?text=Hola%20CapassoTech%2C%20quiero%20asesor%C3%ADa";
 
 const Hero = () => {
-  const scrollToSection = (sectionId) => {
+  const handleAnchorNavigation = (event, sectionId) => {
     const element = document.getElementById(sectionId);
     if (element) {
+      event.preventDefault();
       element.scrollIntoView({ behavior: "smooth" });
     }
   };
@@ -48,11 +49,27 @@ const Hero = () => {
           </p>
 
           <div className="mb-12 flex flex-col justify-center gap-4 sm:flex-row">
-            <Button onClick={handleCalendly} className="btn-primary px-8 py-4 text-lg">
-              Agendar 15 min
+            <Button asChild className="btn-primary px-8 py-4 text-lg">
+              <a
+                href={calendlyUrl}
+                onClick={(event) => {
+                  event.preventDefault();
+                  handleCalendly();
+                }}
+              >
+                Agendar 15 min
+              </a>
             </Button>
-            <Button onClick={handleWhatsApp} className="btn-secondary px-8 py-4 text-lg">
-              Escribir por WhatsApp
+            <Button asChild className="btn-secondary px-8 py-4 text-lg">
+              <a
+                href={whatsappUrl}
+                onClick={(event) => {
+                  event.preventDefault();
+                  handleWhatsApp();
+                }}
+              >
+                Escribir por WhatsApp
+              </a>
             </Button>
           </div>
 
@@ -76,12 +93,13 @@ const Hero = () => {
 
           <div className="mt-12 flex flex-col items-center gap-2 text-capasso-light/60">
             <span>Preferís ver más primero?</span>
-            <button
-              onClick={() => scrollToSection("servicios")}
+            <a
+              href="#servicios"
+              onClick={(event) => handleAnchorNavigation(event, "servicios")}
               className="text-capasso-primary transition-colors hover:text-capasso-primary/80"
             >
               Conocé nuestros servicios
-            </button>
+            </a>
           </div>
         </div>
       </div>
