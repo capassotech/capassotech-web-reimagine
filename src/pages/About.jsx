@@ -27,6 +27,8 @@ const values = [
 ];
 
 const About = () => {
+  window.scrollTo(0, 0);
+
   const openCalendly = (origin) => {
     trackEvent("calendly_click", { location: origin });
     window.open(calendlyUrl, "_blank", "noopener,noreferrer");
@@ -49,6 +51,82 @@ const About = () => {
               <p className="mt-4 text-lg text-capasso-light/80">
                 CapassoTech nació para acompañar a empresas que necesitan construir o escalar productos digitales sin sumar burocracia. Nuestra experiencia en proyectos B2B, retail, servicios y SaaS nos permite conectar estrategia y ejecución.
               </p>
+            </div>
+          </div>
+        </section>
+
+        <section className="bg-capasso-dark py-20">
+          <div className="container mx-auto grid gap-12 px-4 lg:grid-cols-[0.9fr,1.1fr] lg:items-center">
+            <div>
+              <div className="text-center">
+                <p className="text-sm uppercase tracking-wide text-capasso-primary/70">
+                  Quién lidera CapassoTech
+                </p>
+              </div>
+              <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6">
+                <div className="mx-auto lg:mx-0 w-28 sm:w-32 md:w-36 lg:w-40 shrink-0 overflow-hidden rounded-lg ring-1 ring-white/10 bg-capasso-secondary/30 shadow-sm">
+                  <img
+                    src="/images/about/eliascapasso.png"
+                    alt="Elías Capasso, fundador de CapassoTech"
+                    className="object-cover"
+                    loading="lazy"
+                    style={{ height: "300px" }}
+                  />
+                </div>
+                <div className="flex-1">
+                  <p className="mt-4 text-capasso-light/80">
+                    Soy Elías Capasso, Ingeniero en Sistemas de Información con más de 7 años
+                    de experiencia en el rubro, construyendo soluciones digitales end-to-end
+                    para fintechs, retail y servicios profesionales.
+                  </p>
+                  <p className="mt-4 text-capasso-light/70">
+                    Comencé mi carrera en consultoras tecnológicas y pasé por roles de
+                    developer, tech lead y product owner. Hoy acompaño a compañías de LATAM a
+                    transformar ideas en productos medibles, con discovery profundo, QA
+                    continuo y despliegues sin fricción.
+                  </p>
+                  <p className="mt-4 text-capasso-light/70">
+                    Desde el día uno me involucro personalmente con cada cliente para alinear
+                    expectativas, destrabar decisiones y asegurar que cada entrega esté
+                    diseñada para generar confianza e impacto real en el negocio.
+                  </p>
+                </div>
+              </div>
+
+              <div className="mt-8 grid gap-4 sm:grid-cols-3">
+                <div className="rounded-2xl border border-capasso-primary/20 bg-capasso-secondary/40 p-4">
+                  <p className="text-2xl font-bold text-white">7+ años</p>
+                  <p className="mt-1 text-xs uppercase tracking-wide text-capasso-light/60">trabajando en productos digitales</p>
+                </div>
+                <div className="rounded-2xl border border-capasso-primary/20 bg-capasso-secondary/40 p-4">
+                  <p className="text-2xl font-bold text-white">20+ lanzamientos</p>
+                  <p className="mt-1 text-xs uppercase tracking-wide text-capasso-light/60">en startups y corporaciones</p>
+                </div>
+              </div>
+              <div className="mt-8 rounded-3xl border border-capasso-primary/20 bg-capasso-secondary/40 p-6">
+                <h3 className="text-lg font-semibold text-white">Cómo trabajamos en CapassoTech</h3>
+                <p className="mt-3 text-sm text-capasso-light/80">
+                  Somos un equipo ágil que combina estrategia, diseño y desarrollo para que cada entrega tenga impacto real en tu negocio. No solo construimos software: nos integramos como parte de tu equipo.
+                </p>
+                <ul className="mt-4 space-y-3 text-sm text-capasso-light/70">
+                  <li className="flex items-start gap-3">
+                    <span className="mt-1 inline-block h-2.5 w-2.5 rounded-full bg-capasso-primary" />
+                    Discovery práctico: entendemos tu modelo, priorizamos funcionalidades y definimos métricas de éxito antes de escribir código.
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <span className="mt-1 inline-block h-2.5 w-2.5 rounded-full bg-capasso-primary" />
+                    Sprints con foco: trabajamos con Scrum adaptado, con roadmaps claros, demos frecuentes y feedback continuo.
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <span className="mt-1 inline-block h-2.5 w-2.5 rounded-full bg-capasso-primary" />
+                    Calidad y velocidad: releases sin fricción, QA integrado y soporte cercano para que la solución crezca junto a tu negocio.
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <span className="mt-1 inline-block h-2.5 w-2.5 rounded-full bg-capasso-primary" />
+                    Acompañamiento real: desde el PO hasta el dev, todos nos involucramos para destrabar decisiones y garantizar resultados sostenibles.
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
         </section>
