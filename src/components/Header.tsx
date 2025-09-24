@@ -1,3 +1,4 @@
+import type { MouseEvent } from "react";
 import { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -21,14 +22,19 @@ const Header = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const navigateOrScroll = (sectionId: string) => {
+  const handleInternalNavigation = (
+    event: MouseEvent<HTMLAnchorElement>,
+    sectionId: string,
+  ) => {
     if (location.pathname === "/") {
+      event.preventDefault();
       const section = document.getElementById(sectionId);
       if (section) {
         section.scrollIntoView({ behavior: "smooth" });
       }
       setIsMobileMenuOpen(false);
     } else {
+      event.preventDefault();
       navigate("/", { state: { scrollTo: sectionId } });
       setIsMobileMenuOpen(false);
     }
@@ -76,13 +82,14 @@ const Header = () => {
                 {item.label}
               </Link>
             ) : (
-              <button
+              <a
                 key={item.label}
-                onClick={() => navigateOrScroll(item.target)}
+                href={`/#${item.target}`}
+                onClick={(event) => handleInternalNavigation(event, item.target)}
                 className="hover:text-capasso-primary transition-colors"
               >
                 {item.label}
-              </button>
+              </a>
             ),
           )}
         </div>
@@ -120,9 +127,14 @@ const Header = () => {
                   {item.label}
                 </Link>
               ) : (
-                <button key={item.label} onClick={() => navigateOrScroll(item.target)} className="text-base text-left">
+                <a
+                  key={item.label}
+                  href={`/#${item.target}`}
+                  onClick={(event) => handleInternalNavigation(event, item.target)}
+                  className="text-base text-left"
+                >
                   {item.label}
-                </button>
+                </a>
               ),
             )}
             <div className="mt-4 flex flex-col gap-3">

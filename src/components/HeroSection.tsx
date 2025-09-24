@@ -1,11 +1,16 @@
 
+import type { MouseEvent } from 'react';
 import { Button } from '@/components/ui/button';
 import { Code, Users, Zap } from 'lucide-react';
 
 const HeroSection = () => {
-  const scrollToSection = (sectionId: string) => {
+  const handleAnchorNavigation = (
+    event: MouseEvent<HTMLAnchorElement>,
+    sectionId: string,
+  ) => {
     const element = document.getElementById(sectionId);
     if (element) {
+      event.preventDefault();
       element.scrollIntoView({ behavior: 'smooth' });
     }
   };
@@ -35,17 +40,21 @@ const HeroSection = () => {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-            <Button
-              onClick={() => scrollToSection('contacto')}
-              className="btn-primary text-lg px-8 py-4"
-            >
-              Solicitá una reunión
+            <Button asChild className="btn-primary text-lg px-8 py-4">
+              <a
+                href="#contacto"
+                onClick={(event) => handleAnchorNavigation(event, 'contacto')}
+              >
+                Solicitá una reunión
+              </a>
             </Button>
-            <Button
-              onClick={() => scrollToSection('servicios')}
-              className="btn-secondary text-lg px-8 py-4"
-            >
-              Conocé nuestros servicios
+            <Button asChild className="btn-secondary text-lg px-8 py-4">
+              <a
+                href="#servicios"
+                onClick={(event) => handleAnchorNavigation(event, 'servicios')}
+              >
+                Conocé nuestros servicios
+              </a>
             </Button>
           </div>
 
