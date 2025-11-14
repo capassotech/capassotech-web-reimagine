@@ -59,7 +59,7 @@ const About = () => {
               <p className="text-sm uppercase tracking-wide text-capasso-primary/70">Nosotros</p>
               <h1 className="mt-3 text-4xl font-bold text-white md:text-5xl">Equipo ágil, obsesionado por el resultado</h1>
               <p className="mt-4 text-lg text-capasso-light/80">
-                CapassoTech nació para acompañar a empresas que necesitan construir o escalar productos digitales sin sumar burocracia. Nuestra experiencia en proyectos B2B, retail, servicios y SaaS nos permite conectar estrategia y ejecución.
+                CapassoTech nació para acompañar empresas que necesitan construir o escalar productos digitales sin sumar burocracia. Nuestra experiencia en proyectos B2B, retail, servicios, SaaS nos permite conectar estrategia, tecnología y ejecución
               </p>
             </div>
           </div>
