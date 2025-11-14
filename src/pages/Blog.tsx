@@ -137,7 +137,7 @@ const Blog = () => {
                   Estrategias para construir productos que mueven la aguja
                 </h1>
                 <p className="mt-5 text-lg text-capasso-light/80">
-                  Publicamos guías y aprendizajes reales de proyectos en Latinoamérica y Estados Unidos. Son artículos pensados para founders, CTOs y líderes de producto que necesitan velocidad sin perder calidad.
+                  Compartimos guías y aprendizajes reales de proyectos en Latinoamérica y Estados Unidos. Contenido diseñado para founders, CTOs y líderes de producto que necesitan velocidad en sus desarrollos sin sacrificar.
                 </p>
                 <div className="mt-8 flex flex-wrap gap-4">
                   <Button onClick={() => handleCalendly("blog_hero")} className="btn-primary px-8 py-4 text-lg">
