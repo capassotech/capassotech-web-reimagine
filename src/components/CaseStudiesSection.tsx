@@ -30,7 +30,7 @@ const CaseStudiesSection = () => {
             Casos de <span className="text-gradient">Éxito</span>
           </h2>
           <p className="text-xl text-capasso-light/80 max-w-3xl mx-auto">
-            Cada proyecto que encaramos tiene métricas concretas de éxito. Estas son algunas implementaciones recientes y lo que generaron.
+            Cada proyecto que desarrollamos tiene métricas claras de éxito. Estas son algunas soluciones recientes y los resultados obtenidos.
           </p>
         </div>
 
