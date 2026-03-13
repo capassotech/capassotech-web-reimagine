@@ -86,7 +86,7 @@ const Home = () => {
             <div className="mx-auto max-w-3xl text-center">
               <h2 className="text-4xl font-bold md:text-5xl">¿Por qué CapassoTech?</h2>
               <p className="mt-4 text-lg text-capasso-light/70">
-                Nos integramos como parte de tu equipo para diseñar soluciones que mueven indicadores, no solo features.
+                Nos sumamos a tu equipo para desarrollar soluciones tecnológicas personalizadas que impulsan tus resultados, no solo features.
               </p>
             </div>
             <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">

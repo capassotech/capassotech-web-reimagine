@@ -45,7 +45,7 @@ const Hero = () => {
             Software que hace crecer tu <span className="text-gradient">negocio</span>
           </h1>
           <p className="mx-auto mb-8 max-w-3xl text-xl text-capasso-light/80">
-            Desarrollamos productos a medida, potenciamos tu equipo y te asesoramos para que escales sin fricción.
+            Desarrollamos software a medida desde Argentina, impulsamos equipos de desarrollo y asesoramos a empresas de Latinoamérica para que escalen sin fricción.
           </p>
 
           <div className="mb-12 flex flex-col justify-center gap-4 sm:flex-row">
