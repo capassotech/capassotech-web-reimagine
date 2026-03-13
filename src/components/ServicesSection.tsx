@@ -72,7 +72,7 @@ const ServicesSection = () => {
             Nuestros <span className="text-gradient">Servicios</span>
           </h2>
           <p className="text-xl text-capasso-light/80 max-w-3xl mx-auto">
-            Construimos, potenciamos y asesoramos equipos digitales con foco absoluto en mover indicadores de negocio.
+            Construimos, potenciamos y asesoramos equipos digitales con foco absoluto en impulsar resultados de negocio mediante soluciones tecnológicas.
           </p>
         </div>
 

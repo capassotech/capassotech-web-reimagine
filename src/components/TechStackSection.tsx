@@ -84,8 +84,7 @@ const TechStackSection = () => {
             Nuestro <span className="text-gradient">Stack Tecnológico</span>
           </h2>
           <p className="text-xl text-capasso-light/80 max-w-3xl mx-auto">
-            Trabajamos con las tecnologías más modernas y robustas del mercado para garantizar 
-            soluciones escalables y de alta calidad.
+            Trabajamos con tecnologías modernas y robustas para garantizar soluciones digitales escalables y de alta calidad.
           </p>
         </div>
 
