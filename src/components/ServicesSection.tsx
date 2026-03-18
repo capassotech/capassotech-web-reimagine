@@ -1,131 +1,116 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Code, Cog, Users, BrainCircuit } from "lucide-react";
+import { Code, Users, BrainCircuit, Cog, ArrowRight } from "lucide-react";
 import { trackEvent } from "@/lib/analytics";
+import { useReveal } from "@/hooks/useReveal";
+
+const services = [
+  {
+    icon: Code,
+    title: "Tu idea, convertida en software",
+    tagline: "De la idea al producto.",
+    features: ["Apps web y móviles a medida", "Conexión con tus sistemas actuales", "Modernización de sistemas viejos", "Seguimiento y mejoras post-lanzamiento"],
+  },
+  {
+    icon: Users,
+    title: "Tu equipo tech, sin el dolor de cabeza",
+    tagline: "Gente que arranca rápido.",
+    features: ["Equipo completo desde el día uno", "Se adaptan a cómo trabajás vos", "Comunicación directa, sin intermediarios", "Disponibles en tu zona horaria"],
+  },
+  {
+    icon: BrainCircuit,
+    title: "Tecnología que resuelve problemas reales",
+    tagline: "Sin modas, sin jerga.",
+    features: ["Análisis de lo que realmente necesitás", "Automatizaciones que se pagan solas", "IA cuando tiene sentido, no por moda", "Sin tecnicismos en ninguna reunión"],
+  },
+  {
+    icon: Cog,
+    title: "Tu sistema siempre funcionando",
+    tagline: "Sin caídas ni sorpresas.",
+    features: ["Monitoreo antes de que algo falle", "Soporte cuando lo necesitás", "Nuevas funciones cuando el negocio lo pide", "Costos claros, sin letra chica"],
+  },
+];
 
 const ServicesSection = () => {
-  const services = [
-    {
-      icon: Code,
-      title: "Desarrollo a medida",
-      description:
-        "Diseñamos y construimos software web, mobile e integraciones que responden a tus objetivos comerciales.",
-      features: [
-        "Aplicaciones web y mobile listas para escalar",
-        "Integraciones con ERPs, CRMs y APIs de terceros",
-        "Modernización de sistemas legacy sin interrumpir la operación",
-        "Equipos dedicados para evolutivos y soporte continuo",
-      ],
-      color: "from-blue-500 to-capasso-primary",
-    },
-    {
-      icon: Users,
-      title: "Outsourcing de equipos",
-      description:
-        "Podemos sumarnos con pods ágiles y multidisciplinarios para acelerar tu roadmap sin fricción.",
-      features: [
-        "Pods con PM, Tech Lead, Devs y QA",
-        "Onboarding express para integrarnos a tu stack",
-        "Gestión transparente con tableros y métricas",
-        "Cobertura de husos horarios para LATAM y EEUU",
-      ],
-      color: "from-capasso-primary to-cyan-400",
-    },
-    {
-      icon: BrainCircuit,
-      title: "Consultoría & IA",
-      description:
-        "Te ayudamos a traducir tus objetivos de negocio en decisiones técnicas, automatizaciones y pruebas de valor.",
-      features: [
-        "Workshops de discovery y definición de roadmap",
-        "Arquitecturas escalables y planes de migración",
-        "Automatizaciones con IA cuando genera ROI real",
-        "PoCs medibles para validar con stakeholders",
-      ],
-      color: "from-purple-500 to-blue-500",
-    },
-    {
-      icon: Cog,
-      title: "Mantenimiento proactivo",
-      description:
-        "Monitoreamos, optimizamos y evolucionamos tus plataformas con acuerdos de servicio claros.",
-      features: [
-        "SLA definidos y soporte post-lanzamiento",
-        "Monitoreo preventivo de performance y seguridad",
-        "Roadmaps trimestrales basados en métricas",
-        "Planes de optimización de costos en infraestructura",
-      ],
-      color: "from-cyan-400 to-blue-500",
-    },
-  ];
+  const sectionRef = useReveal<HTMLElement>();
 
-  const handleCalendlyClick = (location: string) => {
-    trackEvent("calendly_click", { location });
+  const handleCalendly = (loc: string) => {
+    trackEvent("calendly_click", { location: loc });
     window.open("https://calendly.com/capassoelias/15min", "_blank", "noopener,noreferrer");
   };
 
   return (
-    <section id="servicios" className="bg-capasso-secondary/30 py-20">
-      <div className="container mx-auto px-4">
-        <div className="text-center mb-16 animate-fade-in">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6">
-            Nuestros <span className="text-gradient">Servicios</span>
+    <section id="servicios" ref={sectionRef} className="bg-capasso-light-blue section-default">
+      <div className="mx-auto max-w-6xl px-6">
+
+        {/* Header */}
+        <div className="mb-14 text-center reveal">
+          <span className="section-label">En qué te podemos ayudar</span>
+          <h2 className="text-[2.5rem] font-extrabold leading-tight tracking-tight text-capasso-dark md:text-[3rem]">
+            Lo que hacemos,{" "}
+            <span className="text-gradient">dicho sin vueltas</span>
           </h2>
-          <p className="text-xl text-capasso-light/80 max-w-3xl mx-auto">
-            Construimos, potenciamos y asesoramos equipos digitales con foco absoluto en impulsar resultados de negocio mediante soluciones tecnológicas.
-          </p>
+          <p className="mt-3 text-sm text-capasso-medium-grey">Pasá el cursor sobre cada servicio para ver el detalle.</p>
         </div>
 
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 xl:grid-cols-4">
-          {services.map((service) => (
-            <Card
-              key={service.title}
-              className="group flex h-full flex-col border border-capasso-gray bg-capasso-secondary/80 transition-all duration-500 hover:border-capasso-primary hover:shadow-lg hover:shadow-capasso-primary/10"
-            >
-              <CardHeader className="flex-1">
-                <div className="mb-4 flex items-center">
-                  <div className={`mr-4 rounded-lg bg-gradient-to-r p-3 ${service.color}`}>
-                    <service.icon className="h-6 w-6 text-white" />
+        {/* Flip cards */}
+        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          {services.map((s, i) => {
+            const Icon = s.icon;
+            return (
+              <div
+                key={s.title}
+                className={`reveal reveal-delay-${Math.min(i + 1, 4)} flip-card`}
+                style={{ minHeight: "300px" }}
+              >
+                <div className="flip-card-inner" style={{ minHeight: "300px" }}>
+
+                  {/* Front */}
+                  <div className="flip-card-front flex flex-col items-start justify-center gap-4">
+                    <div className="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-capasso-mid-blue text-capasso-primary">
+                      <Icon className="h-6 w-6" strokeWidth={1.5} />
+                    </div>
+                    <div>
+                      <h3 className="text-lg font-bold leading-snug text-capasso-dark">{s.title}</h3>
+                      <p className="mt-1.5 text-sm text-capasso-medium-grey">{s.tagline}</p>
+                    </div>
                   </div>
-                  <CardTitle className="text-2xl text-capasso-light transition-colors duration-300 group-hover:text-capasso-primary">
-                    {service.title}
-                  </CardTitle>
+
+                  {/* Back */}
+                  <div className="flip-card-back">
+                    <h3 className="mb-4 text-base font-extrabold text-white">{s.title}</h3>
+                    <ul className="space-y-2">
+                      {s.features.map((f) => (
+                        <li key={f} className="flex items-start gap-2 text-sm text-white/90">
+                          <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-white/70" />
+                          {f}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
                 </div>
-                <CardDescription className="text-base text-capasso-light/70">{service.description}</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <ul className="space-y-3 text-sm text-capasso-light/80">
-                  {service.features.map((feature) => (
-                    <li key={feature} className="flex items-start gap-3">
-                      <span className="mt-1 inline-block h-2 w-2 rounded-full bg-capasso-primary" />
-                      <span>{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-              </CardContent>
-            </Card>
-          ))}
+              </div>
+            );
+          })}
         </div>
 
-        <div className="mt-16 rounded-2xl border border-capasso-primary/30 bg-capasso-primary/10 p-8 text-center">
-          <p className="text-lg text-capasso-light/80">
-            ¿Tenés un objetivo para este trimestre? Conversemos 15 minutos y armamos un plan.
-          </p>
-          <div className="mt-6 flex flex-wrap justify-center gap-4">
-            <Button onClick={() => handleCalendlyClick("services_intermediate")} className="btn-primary px-8 py-4 text-lg">
-              Agendar 15 min
-            </Button>
-            <Button
-              onClick={() => {
-                trackEvent("whatsapp_click", { location: "services_intermediate" });
-                window.open("https://wa.me/5493435332132?text=Hola%20CapassoTech%2C%20quiero%20asesor%C3%ADa", "_blank", "noopener,noreferrer");
-              }}
-              className="btn-secondary px-8 py-4 text-lg"
-            >
-              Escribir por WhatsApp
-            </Button>
+        {/* CTA banner */}
+        <div
+          className="reveal mt-12 flex flex-col items-center justify-between gap-6 rounded-2xl p-8 text-center md:flex-row md:text-left"
+          style={{ background: "linear-gradient(135deg, #49b5e7 0%, #216AD9 100%)" }}
+        >
+          <div>
+            <h3 className="text-xl font-bold text-white">¿No sabés bien por dónde empezar?</h3>
+            <p className="mt-1 text-sm text-white/80">Contanos el problema en 15 minutos y te decimos cómo lo encaramos.</p>
           </div>
+          <button
+            onClick={() => handleCalendly("services_cta")}
+            className="btn-white flex-shrink-0 text-sm"
+          >
+            Agendar 15 min
+            <ArrowRight className="h-4 w-4" />
+          </button>
         </div>
+
       </div>
     </section>
   );

@@ -1,68 +1,56 @@
 import { useMemo, useState } from "react";
 import { format } from "date-fns";
 import { es } from "date-fns/locale";
+import { Link } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import StickyCTA from "@/components/StickyCTA";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { blogPosts } from "@/data/blog-posts";
 import { usePageSEO } from "@/hooks/usePageSEO";
+import { useReveal } from "@/hooks/useReveal";
 import { trackEvent } from "@/lib/analytics";
-import { Link } from "react-router-dom";
+import { ArrowRight, Search } from "lucide-react";
 
 const calendlyUrl = "https://calendly.com/capassoelias/15min";
 const whatsappUrl = "https://wa.me/5493435332132?text=Hola%20CapassoTech%2C%20quiero%20asesor%C3%ADa";
 
 const Blog = () => {
   const [categoryFilter, setCategoryFilter] = useState("todas");
-  const [serviceFilter, setServiceFilter] = useState("todos");
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery]       = useState("");
+  const headerRef = useReveal();
 
   const blogStructuredData = useMemo(
-    () => [
-      {
-        "@context": "https://schema.org",
-        "@type": "Blog",
-        name: "Blog de CapassoTech",
-        description:
-          "Consejos accionables sobre desarrollo de software a medida, pods ágiles e IA aplicada para compañías en crecimiento.",
-        url: "https://capassotech.com/blog",
-        inLanguage: "es",
-        publisher: {
-          "@type": "Organization",
-          name: "CapassoTech",
-          url: "https://capassotech.com/",
-          logo: {
-            "@type": "ImageObject",
-            url: "https://capassotech.com/logo-light.png",
-          },
-        },
-        blogPost: blogPosts.map((post) => ({
-          "@type": "BlogPosting",
-          headline: post.title,
-          datePublished: post.date,
-          dateModified: post.date,
-          description: post.summary,
-          url: `https://capassotech.com/blog/${post.slug}`,
-          inLanguage: "es",
-          keywords: post.tags.join(", "),
-          author: {
-            "@type": "Organization",
-            name: "CapassoTech",
-          },
-        })),
+    () => [{
+      "@context": "https://schema.org",
+      "@type": "Blog",
+      name: "Blog de CapassoTech",
+      description: "Artículos sobre desarrollo de software, automatizaciones y tecnología aplicada a negocios reales.",
+      url: "https://capassotech.com/blog",
+      inLanguage: "es",
+      publisher: {
+        "@type": "Organization",
+        name: "CapassoTech",
+        url: "https://capassotech.com/",
+        logo: { "@type": "ImageObject", url: "https://capassotech.com/logo-light.png" },
       },
-    ],
+      blogPost: blogPosts.map((post) => ({
+        "@type": "BlogPosting",
+        headline: post.title,
+        datePublished: post.date,
+        dateModified: post.date,
+        description: post.summary,
+        url: `https://capassotech.com/blog/${post.slug}`,
+        inLanguage: "es",
+        keywords: post.tags.join(", "),
+        author: { "@type": "Organization", name: "CapassoTech" },
+      })),
+    }],
     []
   );
 
   usePageSEO({
-    title: "Blog de CapassoTech — Desarrollo de software, pods ágiles e IA aplicada",
-    description:
-      "Aprendé con nuestros especialistas cómo escalar productos digitales con pods ágiles, migraciones cloud e inteligencia artificial enfocada en ROI.",
+    title: "Blog — CapassoTech",
+    description: "Casos reales, aprendizajes y consejos sobre software, automatizaciones e IA aplicada a negocios.",
     canonical: "https://capassotech.com/blog",
     image: "https://capassotech.com/og-image.jpg",
     ogType: "blog",
@@ -70,123 +58,92 @@ const Blog = () => {
   });
 
   const sortedPosts = useMemo(
-    () =>
-      [...blogPosts].sort(
-        (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
-      ),
+    () => [...blogPosts].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()),
     []
   );
 
   const categories = useMemo(() => {
-    const unique = new Set(sortedPosts.map((post) => post.category));
+    const unique = new Set(sortedPosts.map((p) => p.category));
     return ["todas", ...unique];
   }, [sortedPosts]);
 
-  const serviceLines = useMemo(() => {
-    const unique = new Set(sortedPosts.map((post) => post.serviceFocus));
-    return ["todos", ...unique];
-  }, [sortedPosts]);
-
   const filteredPosts = useMemo(() => {
-    const normalizedSearch = searchQuery.trim().toLowerCase();
-
-    return sortedPosts.filter((post) => {
-      const matchesCategory =
-        categoryFilter === "todas" || post.category === categoryFilter;
-      const matchesService =
-        serviceFilter === "todos" || post.serviceFocus === serviceFilter;
-      const matchesSearch =
-        normalizedSearch.length === 0 ||
-        [post.title, post.summary, post.serviceFocus, post.category, post.tags.join(" "), post.content.join(" ")]
-          .join(" ")
-          .toLowerCase()
-          .includes(normalizedSearch);
-
-      return matchesCategory && matchesService && matchesSearch;
+    const q = searchQuery.trim().toLowerCase();
+    return sortedPosts.filter((p) => {
+      const matchCat    = categoryFilter === "todas" || p.category === categoryFilter;
+      const matchSearch = !q || [p.title, p.summary, p.category, p.tags.join(" "), p.content.join(" ")]
+        .join(" ").toLowerCase().includes(q);
+      return matchCat && matchSearch;
     });
-  }, [categoryFilter, serviceFilter, sortedPosts, searchQuery]);
+  }, [categoryFilter, searchQuery, sortedPosts]);
 
   const featuredPost = sortedPosts[0];
 
-  const handleCalendly = (origin: string) => {
-    trackEvent("calendly_click", { location: origin });
+  const handleCalendly = (from: string) => {
+    trackEvent("calendly_click", { location: from });
     window.open(calendlyUrl, "_blank", "noopener,noreferrer");
   };
 
-  const handleWhatsApp = (origin: string) => {
-    trackEvent("whatsapp_click", { location: origin });
+  const handleWhatsApp = (from: string) => {
+    trackEvent("whatsapp_click", { location: from });
     window.open(whatsappUrl, "_blank", "noopener,noreferrer");
   };
 
-  const resetFilters = () => {
-    setCategoryFilter("todas");
-    setServiceFilter("todos");
-    setSearchQuery("");
-  };
-
   return (
-    <div className="min-h-screen bg-capasso-dark text-capasso-light">
+    <div className="min-h-screen bg-white text-capasso-dark">
       <Header />
       <main>
-        <section className="bg-capasso-secondary/20 pt-32 pb-16">
-          <div className="container mx-auto px-4">
-            <div className="grid gap-10 lg:grid-cols-[2fr_1fr] lg:items-center">
-              <div>
-                <p className="text-sm uppercase tracking-wide text-capasso-primary/70">Blog CapassoTech</p>
-                <h1 className="mt-3 text-4xl font-bold text-white md:text-5xl">
-                  Estrategias para construir productos que mueven la aguja
+
+        {/* ── Hero ── */}
+        <section ref={headerRef} className="bg-capasso-light-blue pt-28 pb-16 md:pt-36 md:pb-20">
+          <div className="mx-auto max-w-6xl px-6">
+            <div className="grid gap-10 lg:grid-cols-[1.2fr_1fr] lg:items-center">
+
+              <div className="reveal">
+                <span className="section-label">Blog</span>
+                <h1 className="mt-3 text-[2.5rem] font-extrabold leading-tight tracking-tight text-capasso-dark md:text-[3rem]">
+                  Casos reales y aprendizajes{" "}
+                  <span className="text-gradient">sin filtro</span>
                 </h1>
-                <p className="mt-5 text-lg text-capasso-light/80">
-                  Compartimos guías y aprendizajes reales de proyectos en Latinoamérica y Estados Unidos. Contenido diseñado para founders, CTOs y líderes de producto que necesitan velocidad en sus desarrollos sin sacrificar.
+                <p className="mt-4 text-lg text-capasso-dark-grey">
+                  Lo que aprendemos en cada proyecto, contado de forma simple.
+                  Sin marketing, sin buzzwords.
                 </p>
-                <div className="mt-8 flex flex-wrap gap-4">
-                  <Button onClick={() => handleCalendly("blog_hero")} className="btn-primary px-8 py-4 text-lg">
-                    Planificar proyecto
-                  </Button>
-                  <Button onClick={() => handleWhatsApp("blog_hero")} className="btn-secondary px-8 py-4 text-lg">
-                    Escribir por WhatsApp
-                  </Button>
+                <div className="mt-8 flex flex-wrap gap-3">
+                  <button onClick={() => handleCalendly("blog_hero")} className="btn-primary text-base">
+                    Hablemos de tu proyecto
+                    <ArrowRight className="h-4 w-4" />
+                  </button>
+                  <button onClick={() => handleWhatsApp("blog_hero")} className="btn-outline text-base">
+                    WhatsApp
+                  </button>
                 </div>
               </div>
+
+              {/* Featured post */}
               {featuredPost && (
-                <article className="rounded-2xl border border-capasso-gray/60 bg-capasso-secondary/60 p-6 shadow-lg shadow-black/10">
-                  <span className="inline-flex items-center rounded-full bg-capasso-primary/20 px-3 py-1 text-sm font-medium text-capasso-primary">
-                    Nuevo
-                  </span>
-                  <h2 className="mt-4 text-2xl font-semibold text-white">{featuredPost.title}</h2>
-                  <p className="mt-3 text-capasso-light/80">{featuredPost.summary}</p>
-                  <div className="mt-4 flex flex-wrap items-center gap-2 text-sm text-capasso-light/60">
-                    <span>{format(new Date(featuredPost.date), "d 'de' MMMM yyyy", { locale: es })}</span>
-                    <span>• {featuredPost.readingTime} min de lectura</span>
-                    <span>• {featuredPost.category}</span>
-                  </div>
-                  <div className="mt-4 flex flex-wrap gap-2">
+                <article className="reveal reveal-delay-1 content-card shadow-card">
+                  <span className="tag-pill mb-3 inline-block">Último artículo</span>
+                  <h2 className="mb-2 text-xl font-bold leading-snug text-capasso-dark">
+                    {featuredPost.title}
+                  </h2>
+                  <p className="mb-4 text-sm text-capasso-dark-grey">{featuredPost.summary}</p>
+                  <div className="mb-4 flex flex-wrap gap-1.5">
                     {featuredPost.tags.map((tag) => (
-                      <Badge
-                        key={`${featuredPost.slug}-${tag}`}
-                        variant="secondary"
-                        className="border border-capasso-gray/40 bg-capasso-dark text-capasso-light"
-                      >
-                        {tag}
-                      </Badge>
+                      <span key={tag} className="tech-badge">{tag}</span>
                     ))}
                   </div>
-                  <div className="mt-6">
-                    <Button asChild className="btn-secondary px-6 py-3">
-                      <Link
-                        to={`/blog/${featuredPost.slug}`}
-                        onClick={() =>
-                          trackEvent("blog_featured_open", { slug: featuredPost.slug })
-                        }
-                      >
-                        Leer artículo completo
-                      </Link>
-                    </Button>
-                    {featuredPost.relatedCaseSlug && (
-                      <Button asChild variant="link" className="mt-3 px-0 text-capasso-primary">
-                        <Link to={`/casos/${featuredPost.relatedCaseSlug}`}>Ver caso de éxito</Link>
-                      </Button>
-                    )}
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs text-capasso-medium-grey">
+                      {format(new Date(featuredPost.date), "d 'de' MMMM yyyy", { locale: es })} · {featuredPost.readingTime} min
+                    </span>
+                    <Link
+                      to={`/blog/${featuredPost.slug}`}
+                      onClick={() => trackEvent("blog_featured_open", { slug: featuredPost.slug })}
+                      className="inline-flex items-center gap-1 text-sm font-semibold text-capasso-primary hover:text-capasso-primary-hover transition-colors"
+                    >
+                      Leer <ArrowRight className="h-3.5 w-3.5" />
+                    </Link>
                   </div>
                 </article>
               )}
@@ -194,166 +151,130 @@ const Blog = () => {
           </div>
         </section>
 
-        <section className="bg-capasso-dark py-16">
-          <div className="container mx-auto px-4">
-            <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
-              <div className="max-w-2xl">
-                <h2 className="text-3xl font-bold text-white md:text-4xl">Explorá los artículos</h2>
-                <p className="mt-3 text-capasso-light/70">
-                  Filtrá por categoría, línea de servicio o buscá palabras clave para encontrar ideas listas para implementar en tu equipo.
-                </p>
-              </div>
-              <div className="grid w-full gap-4 md:w-auto md:grid-cols-3">
-                <label className="flex flex-col text-sm text-capasso-light/70">
-                  <span className="mb-2 font-semibold text-capasso-light">Buscar</span>
-                  <Input
-                    value={searchQuery}
-                    onChange={(event) => setSearchQuery(event.target.value)}
-                    placeholder="Ej: migración cloud"
-                    className="border-capasso-gray bg-capasso-secondary/70 text-capasso-light placeholder:text-capasso-light/50"
-                  />
-                </label>
-                <label className="flex flex-col text-sm text-capasso-light/70">
-                  <span className="mb-2 font-semibold text-capasso-light">Categoría</span>
-                  <Select value={categoryFilter} onValueChange={setCategoryFilter}>
-                    <SelectTrigger className="border-capasso-gray bg-capasso-secondary/70 text-capasso-light">
-                      <SelectValue placeholder="Todas las categorías" />
-                    </SelectTrigger>
-                    <SelectContent className="border border-capasso-gray bg-capasso-dark text-capasso-light">
-                      {categories.map((category) => (
-                        <SelectItem key={category} value={category}>
-                          {category === "todas" ? "Todas las categorías" : category}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </label>
-                <label className="flex flex-col text-sm text-capasso-light/70">
-                  <span className="mb-2 font-semibold text-capasso-light">Servicio</span>
-                  <Select value={serviceFilter} onValueChange={setServiceFilter}>
-                    <SelectTrigger className="border-capasso-gray bg-capasso-secondary/70 text-capasso-light">
-                      <SelectValue placeholder="Todas las líneas" />
-                    </SelectTrigger>
-                    <SelectContent className="border border-capasso-gray bg-capasso-dark text-capasso-light">
-                      {serviceLines.map((service) => (
-                        <SelectItem key={service} value={service}>
-                          {service === "todos" ? "Todos los servicios" : service}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </label>
-              </div>
-            </div>
+        {/* ── Posts ── */}
+        <section className="section-default bg-white">
+          <div className="mx-auto max-w-6xl px-6">
 
-            <div className="mt-12 grid gap-8 md:grid-cols-2">
-              {filteredPosts.map((post) => (
-                <article
-                  key={post.slug}
-                  id={post.slug}
-                  className="flex h-full flex-col justify-between rounded-2xl border border-capasso-gray/60 bg-capasso-secondary/70 p-8 shadow-lg shadow-black/10 transition-transform duration-300 hover:-translate-y-1 hover:shadow-capasso-primary/10"
-                >
-                  <div>
-                    <div className="flex flex-wrap items-center gap-3 text-sm text-capasso-light/70">
-                      <span className="rounded-full bg-capasso-primary/20 px-3 py-1 text-capasso-primary">{post.category}</span>
-                      <span>{format(new Date(post.date), "d 'de' MMMM yyyy", { locale: es })}</span>
-                      <span>• {post.readingTime} min de lectura</span>
-                    </div>
-                  <h3 className="mt-4 text-2xl font-semibold text-white">{post.title}</h3>
-                  <p className="mt-3 text-base text-capasso-light/80">{post.summary}</p>
-                </div>
-                <div className="mt-6 flex flex-wrap items-center gap-3">
-                  {post.tags.map((tag) => (
-                    <Badge
-                      key={`${post.slug}-${tag}`}
-                      variant="secondary"
-                      className="border border-capasso-gray/40 bg-capasso-dark text-capasso-light"
-                    >
-                      {tag}
-                    </Badge>
-                  ))}
-                </div>
-                <div className="mt-6 flex flex-wrap items-center gap-3">
-                  <Button asChild className="btn-secondary px-6 py-3">
-                    <Link
-                      to={`/blog/${post.slug}`}
-                      onClick={() =>
-                        trackEvent("blog_post_open", { slug: post.slug })
-                      }
-                    >
-                      Leer artículo
-                    </Link>
-                  </Button>
-                  {post.relatedCaseSlug && (
-                    <Button asChild variant="link" className="px-0 text-capasso-primary">
-                      <Link to={`/casos/${post.relatedCaseSlug}`}>Ver caso de éxito</Link>
-                    </Button>
-                  )}
-                  <Button
-                    onClick={() => handleCalendly(`blog_post_${post.slug}`)}
-                    className="btn-primary ml-auto px-6 py-3"
+            {/* Filters */}
+            <div className="mb-10 flex flex-wrap items-center gap-3">
+              {/* Search */}
+              <div className="relative flex-1 min-w-[200px] max-w-xs">
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-capasso-medium-grey" />
+                <input
+                  type="text"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  placeholder="Buscar artículos..."
+                  className="field-input pl-9 py-2.5 text-sm"
+                  style={{ minHeight: "auto" }}
+                />
+              </div>
+
+              {/* Category pills */}
+              <div className="flex flex-wrap gap-2">
+                {categories.map((cat) => (
+                  <button
+                    key={cat}
+                    onClick={() => setCategoryFilter(cat)}
+                    className={`rounded-full px-4 py-2 text-sm font-semibold transition-colors ${
+                      categoryFilter === cat
+                        ? "bg-capasso-primary text-white"
+                        : "bg-capasso-mid-blue text-capasso-primary hover:bg-capasso-primary/20"
+                    }`}
                   >
-                    Conversar proyecto
-                  </Button>
-                </div>
-              </article>
-            ))}
+                    {cat === "todas" ? "Todos" : cat}
+                  </button>
+                ))}
+              </div>
             </div>
 
-            {filteredPosts.length === 0 && (
-              <div className="mt-12 rounded-2xl border border-dashed border-capasso-gray/60 bg-capasso-secondary/50 p-12 text-center">
-                <h3 className="text-2xl font-semibold text-white">No encontramos artículos para esa búsqueda.</h3>
-                <p className="mt-3 text-capasso-light/70">
-                  Probá con otra palabra clave o escribinos y armamos un plan a medida para tu proyecto digital.
-                </p>
-                <div className="mt-6 flex flex-wrap justify-center gap-4">
-                  <Button onClick={resetFilters} className="btn-secondary px-6 py-3">
-                    Limpiar filtros
-                  </Button>
-                  <Button onClick={() => handleWhatsApp("blog_empty_state")} className="btn-primary px-6 py-3">
-                    Hablar con un especialista
-                  </Button>
-                </div>
+            {/* Grid */}
+            {filteredPosts.length > 0 ? (
+              <div className="grid gap-6 md:grid-cols-2">
+                {filteredPosts.map((post) => (
+                  <article
+                    key={post.slug}
+                    className="content-card flex flex-col transition-all duration-300 hover:-translate-y-1 hover:shadow-card hover:border-capasso-primary/20"
+                  >
+                    <div className="mb-3 flex flex-wrap items-center gap-2">
+                      <span className="tag-pill">{post.category}</span>
+                      <span className="text-xs text-capasso-medium-grey">
+                        {format(new Date(post.date), "d MMM yyyy", { locale: es })} · {post.readingTime} min
+                      </span>
+                    </div>
+
+                    <h3 className="mb-2 text-lg font-bold leading-snug text-capasso-dark">
+                      {post.title}
+                    </h3>
+                    <p className="mb-4 flex-1 text-sm leading-relaxed text-capasso-dark-grey">
+                      {post.summary}
+                    </p>
+
+                    <div className="mb-4 flex flex-wrap gap-1.5">
+                      {post.tags.map((tag) => (
+                        <span key={tag} className="tech-badge">{tag}</span>
+                      ))}
+                    </div>
+
+                    <div className="flex flex-wrap items-center gap-3 pt-1">
+                      <Link
+                        to={`/blog/${post.slug}`}
+                        onClick={() => trackEvent("blog_post_open", { slug: post.slug })}
+                        className="inline-flex items-center gap-1 text-sm font-semibold text-capasso-primary hover:text-capasso-primary-hover transition-colors"
+                      >
+                        Leer artículo <ArrowRight className="h-3.5 w-3.5" />
+                      </Link>
+                      {post.relatedCaseSlug && (
+                        <Link
+                          to={`/casos/${post.relatedCaseSlug}`}
+                          className="text-sm font-medium text-capasso-dark-grey hover:text-capasso-primary transition-colors"
+                        >
+                          Ver caso de éxito
+                        </Link>
+                      )}
+                    </div>
+                  </article>
+                ))}
+              </div>
+            ) : (
+              <div className="content-card py-16 text-center">
+                <h3 className="text-xl font-bold text-capasso-dark">Sin resultados para esa búsqueda.</h3>
+                <p className="mt-2 text-sm text-capasso-dark-grey">Probá con otra palabra clave o limpiá los filtros.</p>
+                <button
+                  onClick={() => { setCategoryFilter("todas"); setSearchQuery(""); }}
+                  className="btn-outline mt-5 text-sm"
+                >
+                  Limpiar filtros
+                </button>
               </div>
             )}
           </div>
         </section>
 
-        <section className="bg-capasso-secondary/30 py-20">
-          <div className="container mx-auto grid gap-12 px-4 lg:grid-cols-2">
-            <div>
-              <h2 className="text-3xl font-bold text-white md:text-4xl">Llevemos estas ideas a tu roadmap</h2>
-              <p className="mt-4 text-capasso-light/70">
-                Contanos en qué etapa está tu producto y diseñamos una propuesta con hitos, métricas y equipo asignado en menos de 48 horas.
-              </p>
-              <div className="mt-6 flex flex-wrap gap-4">
-                <Button onClick={() => handleCalendly("blog_cta")} className="btn-primary px-8 py-4 text-lg">
-                  Agendar 15 min
-                </Button>
-                <Button onClick={() => handleWhatsApp("blog_cta")} className="btn-secondary px-8 py-4 text-lg">
-                  Escribir por WhatsApp
-                </Button>
-              </div>
-            </div>
-            <div className="rounded-2xl border border-capasso-gray/60 bg-capasso-secondary/70 p-6 shadow-lg shadow-black/10">
-              <h3 className="text-2xl font-semibold text-white">¿Qué te llevás en la primera reunión?</h3>
-              <ul className="mt-4 space-y-3 text-capasso-light/75">
-                <li className="flex items-start gap-3">
-                  <span className="mt-1 inline-block h-2 w-2 rounded-full bg-capasso-primary" />
-                  <span>Diagnóstico express del estado de tu producto o proceso.</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="mt-1 inline-block h-2 w-2 rounded-full bg-capasso-primary" />
-                  <span>Ideas priorizadas según impacto en revenue, eficiencia o experiencia de usuario.</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="mt-1 inline-block h-2 w-2 rounded-full bg-capasso-primary" />
-                  <span>Roadmap sugerido con pods ágiles, automatizaciones o consultoría según tu objetivo.</span>
-                </li>
-              </ul>
+        {/* ── CTA ── */}
+        <section className="bg-capasso-dark section-large">
+          <div className="mx-auto max-w-6xl px-6 text-center">
+            <span className="mb-4 inline-block text-sm font-bold uppercase tracking-widest text-capasso-primary">
+              Siguiente paso
+            </span>
+            <h2 className="text-[2.5rem] font-extrabold leading-tight text-white md:text-[3rem]">
+              ¿Algo de esto aplica a tu negocio?
+            </h2>
+            <p className="mt-5 mx-auto max-w-xl text-lg text-white/60">
+              Contanos en qué estás y te decimos cómo lo encaramos.
+            </p>
+            <div className="mt-10 flex flex-wrap justify-center gap-4">
+              <button onClick={() => handleCalendly("blog_cta")} className="btn-primary text-base">
+                Agendar 15 min gratis
+                <ArrowRight className="h-4 w-4" />
+              </button>
+              <button onClick={() => handleWhatsApp("blog_cta")} className="btn-white text-base">
+                WhatsApp
+              </button>
             </div>
           </div>
         </section>
+
       </main>
       <Footer />
       <StickyCTA />

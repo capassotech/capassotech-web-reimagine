@@ -1,8 +1,4 @@
 import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { trackEvent } from "@/lib/analytics";
 
@@ -108,65 +104,68 @@ const ContactForm = ({ context = "home" }) => {
 
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
         <div>
-          <Label htmlFor="name" className="text-capasso-light">Nombre *</Label>
-          <Input
+          <label htmlFor="name" className="mb-1 block text-sm font-semibold text-capasso-dark">Nombre *</label>
+          <input
             id="name"
             name="name"
+            type="text"
             value={formData.name}
             onChange={handleChange}
             required
-            className="bg-capasso-dark border-capasso-gray text-capasso-light focus:border-capasso-primary"
+            className="field-input"
             placeholder="Juan Pérez"
             aria-invalid={!!errors.name}
             aria-describedby={errors.name ? "name-error" : undefined}
           />
-          {errors.name && <p id="name-error" className="mt-1 text-sm text-red-400">{errors.name}</p>}
+          {errors.name && <p id="name-error" className="mt-1 text-sm text-red-500">{errors.name}</p>}
         </div>
         <div>
-          <Label htmlFor="email" className="text-capasso-light">Email *</Label>
-          <Input
+          <label htmlFor="email" className="mb-1 block text-sm font-semibold text-capasso-dark">Email *</label>
+          <input
             id="email"
             name="email"
             type="email"
             value={formData.email}
             onChange={handleChange}
             required
-            className="bg-capasso-dark border-capasso-gray text-capasso-light focus:border-capasso-primary"
+            className="field-input"
             placeholder="hola@empresa.com"
             aria-invalid={!!errors.email}
             aria-describedby={errors.email ? "email-error" : undefined}
           />
-          {errors.email && <p id="email-error" className="mt-1 text-sm text-red-400">{errors.email}</p>}
+          {errors.email && <p id="email-error" className="mt-1 text-sm text-red-500">{errors.email}</p>}
         </div>
       </div>
 
       <div>
-        <Label htmlFor="company" className="text-capasso-light">Empresa</Label>
-        <Input
+        <label htmlFor="company" className="mb-1 block text-sm font-semibold text-capasso-dark">Empresa</label>
+        <input
           id="company"
           name="company"
+          type="text"
           value={formData.company}
           onChange={handleChange}
-          className="bg-capasso-dark border-capasso-gray text-capasso-light focus:border-capasso-primary"
+          className="field-input"
           placeholder="Nombre de tu empresa (opcional)"
         />
       </div>
 
       <div>
-        <Label htmlFor="message" className="text-capasso-light">Mensaje *</Label>
-        <Textarea
+        <label htmlFor="message" className="mb-1 block text-sm font-semibold text-capasso-dark">Mensaje *</label>
+        <textarea
           id="message"
           name="message"
           value={formData.message}
           onChange={handleChange}
           required
           minLength={10}
-          className="bg-capasso-dark border-capasso-gray text-capasso-light focus:border-capasso-primary"
-          placeholder="Contanos tu desafío: objetivos, plazos, stack preferido, métricas a mover..."
+          rows={4}
+          className="field-input"
+          placeholder="Contanos en qué andás y cómo te podemos ayudar..."
           aria-invalid={!!errors.message}
           aria-describedby={errors.message ? "message-error" : undefined}
         />
-        {errors.message && <p id="message-error" className="mt-1 text-sm text-red-400">{errors.message}</p>}
+        {errors.message && <p id="message-error" className="mt-1 text-sm text-red-500">{errors.message}</p>}
       </div>
 
       {/* Helpers para Formspree */}
@@ -174,11 +173,11 @@ const ContactForm = ({ context = "home" }) => {
       <input type="hidden" name="_subject" value={`Nuevo contacto desde ${context} — ${formData.name}`} />
       {/* <input type="hidden" name="_redirect" value="https://tu-sitio.com/gracias" /> */}
 
-      <Button type="submit" disabled={isSubmitting} className="btn-primary w-full text-lg">
+      <button type="submit" disabled={isSubmitting} className="btn-primary w-full text-lg">
         {isSubmitting ? "Enviando..." : "Enviar mensaje"}
-      </Button>
+      </button>
 
-      <p className="text-sm text-capasso-light/60 text-center">
+      <p className="text-sm text-capasso-medium-grey text-center">
         Respondemos dentro de 1 día hábil.
       </p>
     </form>

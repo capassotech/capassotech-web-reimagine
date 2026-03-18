@@ -1,182 +1,205 @@
 import { Link } from "react-router-dom";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import cases from "@/data/cases.json";
 import { trackEvent } from "@/lib/analytics";
+import { useReveal } from "@/hooks/useReveal";
+import { ArrowRight } from "lucide-react";
 
-const gradientMap: Record<string, string> = {
-  "app-gestion-logistica": "from-blue-500 to-capasso-primary",
-  "catalogo-web-autopartes": "from-capasso-primary to-cyan-400",
-  "web-pisos-whatsapp": "from-cyan-400 to-blue-500",
-  "sistema-turnos-online": "from-blue-500 to-capasso-primary",
+const accentMap: Record<string, { from: string; to: string; text: string }> = {
+  "app-gestion-logistica":   { from: "#49b5e7", to: "#3a9fd4", text: "Logística" },
+  "catalogo-web-autopartes": { from: "#438DF9", to: "#216AD9", text: "E-commerce" },
+  "web-pisos-whatsapp":      { from: "#22d3ee", to: "#49b5e7", text: "Web + WhatsApp" },
+  "sistema-turnos-online":   { from: "#6E7ED4", to: "#438DF9", text: "SaaS" },
 };
 
 const CaseStudiesSection = () => {
-  window.scrollTo(0, 0);
-  
-  const caseList = cases.filter((caseStudy) => caseStudy.slug !== "gymfuze-app");
-  const productCase = cases.find((caseStudy) => caseStudy.slug === "gymfuze-app");
+  const sectionRef = useReveal<HTMLElement>();
 
-  const handleCalendly = (location: string) => {
-    trackEvent("calendly_click", { location });
+  const productSlugs = ["gymfuze-app", "vialto-app"];
+  const caseList     = cases.filter((c) => !productSlugs.includes(c.slug));
+  const productCases = cases.filter((c) =>  productSlugs.includes(c.slug));
+
+  const handleCalendly = (loc: string) => {
+    trackEvent("calendly_click", { location: loc });
     window.open("https://calendly.com/capassoelias/15min", "_blank", "noopener,noreferrer");
   };
 
   return (
-    <section id="casos-exito" className="bg-capasso-secondary/30 py-20">
-      <div className="container mx-auto px-4">
-        <div className="mb-16 text-center animate-fade-in">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6">
+    <section id="casos-exito" ref={sectionRef} className="section-default bg-white">
+      <div className="mx-auto max-w-6xl px-6">
+
+        {/* Header */}
+        <div className="mb-14 text-center reveal">
+          <span className="section-label">Resultados reales</span>
+          <h2 className="text-[2.5rem] font-extrabold leading-tight tracking-tight text-capasso-dark md:text-[3rem]">
             Casos de <span className="text-gradient">Éxito</span>
           </h2>
-          <p className="text-xl text-capasso-light/80 max-w-3xl mx-auto">
-            Cada proyecto que desarrollamos tiene métricas claras de éxito. Estas son algunas soluciones recientes y los resultados obtenidos.
-          </p>
+          <p className="mt-3 text-sm text-capasso-medium-grey">Pasá el cursor sobre cada caso para ver los resultados.</p>
         </div>
 
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
-          {caseList.map((caseStudy) => (
-            <Card
-              key={caseStudy.slug}
-              className="group flex h-full flex-col border border-capasso-gray bg-capasso-secondary/80 transition-all duration-500 hover:border-capasso-primary hover:shadow-lg hover:shadow-capasso-primary/10"
-            >
-              <div className={`h-2 bg-gradient-to-r ${gradientMap[caseStudy.slug] ?? "from-capasso-primary to-blue-500"}`} />
-              <CardHeader>
-                <div className="flex flex-col gap-2">
-                  <span className="text-sm font-medium uppercase tracking-wide text-capasso-primary/80">
-                    {caseStudy.category}
-                  </span>
-                  <CardTitle className="text-2xl text-capasso-light transition-colors duration-300 group-hover:text-capasso-primary">
-                    {caseStudy.title}
-                  </CardTitle>
-                </div>
-                <CardDescription className="mt-4 text-base text-capasso-light/70">
-                  {caseStudy.summary}
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="flex flex-1 flex-col gap-6">
-                <div>
-                  <h4 className="text-sm font-semibold text-capasso-light">Tecnologías</h4>
-                  <div className="mt-2 flex flex-wrap gap-2">
-                    {caseStudy.technologies.map((tech) => (
-                      <span
-                        key={tech}
-                        className="rounded-full border border-capasso-primary/30 bg-capasso-dark px-3 py-1 text-xs font-medium text-capasso-primary"
-                      >
-                        {tech}
-                      </span>
-                    ))}
+        {/* Flip cards grid */}
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+          {caseList.map((c, i) => {
+            const accent = accentMap[c.slug] ?? { from: "#49b5e7", to: "#3a9fd4", text: c.category };
+            return (
+              <div
+                key={c.slug}
+                className={`reveal reveal-delay-${Math.min(i + 1, 4)} flip-card`}
+                style={{ minHeight: "340px" }}
+              >
+                <div className="flip-card-inner" style={{ minHeight: "340px" }}>
+
+                  {/* Front */}
+                  <div className="flip-card-front flex flex-col justify-between">
+                    {/* Top stripe */}
+                    <div
+                      className="mb-5 h-1.5 rounded-full"
+                      style={{ background: `linear-gradient(90deg, ${accent.from}, ${accent.to})` }}
+                    />
+                    <div className="flex-1">
+                      <span className="tag-pill mb-3 inline-block">{accent.text}</span>
+                      <h3 className="text-xl font-bold leading-snug text-capasso-dark">{c.title}</h3>
+                      <p className="mt-2 text-sm text-capasso-medium-grey">{c.summary}</p>
+                    </div>
+                    <p className="mt-4 text-xs font-semibold text-capasso-primary/60">
+                      {c.technologies.slice(0, 3).join(" · ")}
+                      {c.technologies.length > 3 ? ` · +${c.technologies.length - 3}` : ""}
+                    </p>
                   </div>
+
+                  {/* Back */}
+                  <div
+                    className="flip-card-back flex flex-col justify-between"
+                    style={{ background: `linear-gradient(135deg, ${accent.from} 0%, ${accent.to} 100%)` }}
+                  >
+                    <div>
+                      <span className="mb-3 inline-block rounded-full bg-white/20 px-3 py-1 text-xs font-bold text-white">
+                        {accent.text}
+                      </span>
+                      <h3 className="mb-4 text-lg font-extrabold text-white">{c.title}</h3>
+                      <ul className="space-y-2">
+                        {c.results.map((r) => (
+                          <li key={r} className="flex items-start gap-2 text-sm text-white/90">
+                            <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-white/70" />
+                            {r}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                    <div className="mt-4 flex flex-wrap items-center gap-3">
+                      {c.relatedBlogSlug && (
+                        <Link
+                          to={`/blog/${c.relatedBlogSlug}`}
+                          className="text-sm font-semibold text-white/80 underline underline-offset-2 hover:text-white transition-colors"
+                          onClick={() => trackEvent("blog_click", { location: c.slug })}
+                        >
+                          Leer artículo
+                        </Link>
+                      )}
+                      <Link
+                        to={`/casos/${c.slug}`}
+                        className="inline-flex items-center gap-1 rounded-full bg-white/20 px-4 py-1.5 text-sm font-semibold text-white hover:bg-white/30 transition-colors"
+                        onClick={() => trackEvent("case_click", { location: c.slug })}
+                      >
+                        Ver caso completo <ArrowRight className="h-3.5 w-3.5" />
+                      </Link>
+                    </div>
+                  </div>
+
                 </div>
-                <div>
-                  <h4 className="text-sm font-semibold text-capasso-light">Resultados</h4>
-                  <ul className="mt-2 space-y-2 text-sm text-capasso-light/80">
-                    {caseStudy.results.map((result) => (
-                      <li key={result} className="flex items-start gap-3">
-                        <span className="mt-1 inline-block h-2 w-2 rounded-full bg-capasso-primary" />
-                        <span>{result}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                <div className="mt-auto flex flex-wrap items-center gap-3">
-                  {caseStudy.relatedBlogSlug && (
-                    <Button asChild className="btn-secondary px-6 py-3 text-sm">
-                      <Link to={`/blog/${caseStudy.relatedBlogSlug}`}>Leer artículo del proyecto</Link>
-                    </Button>
-                  )}
-                  <Button asChild variant="link" className="px-0 text-capasso-primary">
-                    <Link to={`/casos/${caseStudy.slug}`}>Ver caso completo →</Link>
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
+              </div>
+            );
+          })}
         </div>
 
-        {productCase && (
-          <Card className="mt-12 border border-capasso-gray bg-capasso-secondary/80 transition-all duration-500 hover:border-capasso-primary hover:shadow-lg hover:shadow-capasso-primary/10">
-            <div className="h-2 bg-gradient-to-r from-green-500 to-capasso-primary" />
-            <CardHeader>
-              <span className="text-sm font-medium uppercase tracking-wide text-capasso-primary/80">{productCase.category}</span>
-              <CardTitle className="mt-2 text-3xl text-capasso-light">{productCase.title}</CardTitle>
-              <CardDescription className="mt-4 text-base text-capasso-light/70">{productCase.summary}</CardDescription>
-            </CardHeader>
-            <CardContent className="flex flex-col gap-6">
-              <div className="grid gap-6 md:grid-cols-2">
-                <div>
-                  <h4 className="text-sm font-semibold text-capasso-light">Qué resolvimos</h4>
-                  <ul className="mt-2 space-y-2 text-sm text-capasso-light/80">
-                    {productCase.challenges.map((item) => (
-                      <li key={item} className="flex items-start gap-3">
-                        <span className="mt-1 inline-block h-2 w-2 rounded-full bg-capasso-primary" />
-                        <span>{item}</span>
-                      </li>
-                    ))}
-                  </ul>
+        {/* Product cases */}
+        {productCases.length > 0 && (
+          <div className="mt-6 grid grid-cols-1 gap-6 md:grid-cols-2">
+            {productCases.map((p) => {
+              const isGymFuze   = p.slug === "gymfuze-app";
+              const externalUrl = (p as any).externalUrl;
+              const previewImg  = (p as any).previewImage;
+              const logoSrc     = isGymFuze ? "/logo-gymfuze.jpg" : "/logo-vialto.png";
+              const gradientClass = isGymFuze
+                ? "from-emerald-400 to-capasso-primary"
+                : "from-orange-400 to-orange-600";
+
+              return (
+                <div key={p.slug} className="reveal content-card flex flex-col overflow-hidden p-0">
+
+                  {/* Preview image */}
+                  <div className="relative h-48 w-full overflow-hidden rounded-t-2xl bg-capasso-light-blue">
+                    {previewImg && (
+                      <img
+                        src={previewImg}
+                        alt={`${p.title} preview`}
+                        className="h-full w-full object-cover object-center"
+                      />
+                    )}
+                    {/* Gradient overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+                    {/* Logo on top of image */}
+                    <img
+                      src={logoSrc}
+                      alt={p.title}
+                      className={`absolute bottom-3 left-4 w-auto object-contain drop-shadow-md ${isGymFuze ? "h-10 rounded-lg" : "h-7"}`}
+                    />
+                    <span className="absolute right-3 top-3 rounded-full bg-white/90 px-3 py-1 text-xs font-bold text-capasso-dark">
+                      Producto propio
+                    </span>
+                  </div>
+
+                  {/* Content */}
+                  <div className="flex flex-1 flex-col p-5">
+                    <div className={`mb-3 h-1 rounded-full bg-gradient-to-r ${gradientClass}`} />
+                    <h3 className="mb-1.5 text-lg font-bold text-capasso-dark">{p.title}</h3>
+                    <p className="mb-4 flex-1 text-sm text-capasso-dark-grey">{p.summary}</p>
+
+                    <ul className="mb-4 space-y-1.5">
+                      {p.results.map((r) => (
+                        <li key={r} className="flex items-start gap-2 text-sm text-capasso-dark-grey">
+                          <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-capasso-primary" />
+                          {r}
+                        </li>
+                      ))}
+                    </ul>
+
+                    <a
+                      href={externalUrl ?? (isGymFuze ? "https://gymfuzeapp.web.app/" : "#")}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={() => trackEvent("cta_click", { location: p.slug })}
+                      className="btn-primary mt-auto text-sm"
+                    >
+                      Ver demo <ArrowRight className="h-4 w-4" />
+                    </a>
+                  </div>
+
                 </div>
-                <div>
-                  <h4 className="text-sm font-semibold text-capasso-light">Lo que entregamos</h4>
-                  <ul className="mt-2 space-y-2 text-sm text-capasso-light/80">
-                    {productCase.solution.map((item) => (
-                      <li key={item} className="flex items-start gap-3">
-                        <span className="mt-1 inline-block h-2 w-2 rounded-full bg-capasso-primary" />
-                        <span>{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-              <div>
-                <h4 className="text-sm font-semibold text-capasso-light">Resultados</h4>
-                <ul className="mt-2 space-y-2 text-sm text-capasso-light/80">
-                  {productCase.results.map((result) => (
-                    <li key={result} className="flex items-start gap-3">
-                      <span className="mt-1 inline-block h-2 w-2 rounded-full bg-capasso-primary" />
-                      <span>{result}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <div className="flex flex-wrap items-center justify-between gap-4 rounded-xl border border-capasso-primary/20 bg-capasso-primary/5 p-6">
-                <div>
-                  <p className="text-sm uppercase tracking-wide text-capasso-primary/70">¿Querés conocerlo en vivo?</p>
-                  <p className="text-lg text-capasso-light/80">Te mostramos un demo y adaptamos módulos a tu gimnasio.</p>
-                </div>
-                <Button
-                  asChild
-                  className="btn-primary px-6 py-3 text-base"
-                  onClick={() => trackEvent("cta_click", { location: "gymfuze_case" })}
-                >
-                  <a href="https://gymfuzeapp.web.app/" target="_blank" rel="noopener noreferrer">
-                    Más información
-                  </a>
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
+              );
+            })}
+          </div>
         )}
 
-        <div className="mt-12 rounded-2xl border border-capasso-gray bg-capasso-secondary/80 p-10 text-center">
-          <h3 className="text-2xl font-semibold text-capasso-light">¿Querés ver tu proyecto acá?</h3>
-          <p className="mt-4 text-capasso-light/80">
-            Cada partnership empieza con una charla corta para entender el objetivo y convertirlo en roadmap.
-          </p>
-          <div className="mt-6 flex flex-wrap justify-center gap-4">
-            <Button onClick={() => handleCalendly("case_studies")} className="btn-primary px-8 py-4 text-lg">
+        {/* Bottom CTA */}
+        <div className="reveal mt-6 content-card text-center">
+          <h3 className="text-xl font-bold text-capasso-dark">¿Querés ver tu proyecto acá?</h3>
+          <p className="mt-2 text-sm text-capasso-dark-grey">Empezamos con una charla corta para entender qué necesitás.</p>
+          <div className="mt-6 flex flex-wrap justify-center gap-3">
+            <button onClick={() => handleCalendly("case_studies")} className="btn-primary text-base">
               Agendar 15 min
-            </Button>
-            <Button
+            </button>
+            <button
               onClick={() => {
                 trackEvent("whatsapp_click", { location: "case_studies" });
                 window.open("https://wa.me/5493435332132?text=Hola%20CapassoTech%2C%20quiero%20asesor%C3%ADa", "_blank", "noopener,noreferrer");
               }}
-              className="btn-secondary px-8 py-4 text-lg"
+              className="btn-outline text-base"
             >
               Escribir por WhatsApp
-            </Button>
+            </button>
           </div>
         </div>
+
       </div>
     </section>
   );

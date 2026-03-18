@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "WebSearch",
+      "WebFetch(domain:technoai.html.themexriver.com)",
+      "WebFetch(domain:technoai-demo.html)",
+      "WebFetch(domain:www.templatemonster.com)",
+      "WebFetch(domain:folderit.net)",
+      "Bash(curl -s https://folderit.net/)",
+      "WebFetch(domain:www.diveria.com)",
+      "Bash(curl -s \"https://www.diveria.com/es\" -H \"User-Agent: Mozilla/5.0\")",
+      "Bash(curl -s \"https://www.diveria.com/es\")",
+      "Bash(curl -s \"https://cdn.prod.website-files.com/670e7b53191effdf49a304ad/css/diveria-website.webflow.shared.0d6c8f008.css\")"
+    ]
+  }
+}

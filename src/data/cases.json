@@ -101,7 +101,35 @@
     "duration": "10 semanas"
   },
   {
+    "slug": "vialto-app",
+    "previewImage": "https://movildata.com/wp-content/uploads/2018/09/unenfoquemasinteligente-0.jpg",
+    "title": "Vialto: Control de Combustible para Flotas",
+    "category": "Producto Propio",
+    "summary": "Plataforma web y mobile para que empresas de transporte registren cargas de combustible, controlen gastos por vehículo y generen reportes al instante.",
+    "description": "Producto propio para digitalizar el seguimiento de flotas de transporte. Reemplaza planillas manuales con una app usable por choferes y un panel de control para administración.",
+    "challenges": [
+      "Eliminar el registro manual en papel o planillas",
+      "Dar visibilidad por camión, chofer y viaje en tiempo real",
+      "Facilitar el uso para choferes sin experiencia técnica"
+    ],
+    "solution": [
+      "App mobile simple para que choferes registren cargas en segundos",
+      "Dashboard web con filtros, gráficos y exportación a Excel",
+      "Sincronización en la nube sin dependencia de conexión constante"
+    ],
+    "results": [
+      "Control total de consumo por vehículo y chofer",
+      "Reportes listos en un clic, sin armar planillas",
+      "Adopción rápida gracias a una interfaz simple"
+    ],
+    "technologies": ["React", "Node.js", "Firebase", "React Native"],
+    "services": ["Producto propio", "Evolución continua"],
+    "externalUrl": "https://vialto.uno/",
+    "duration": "Producto en evolución"
+  },
+  {
     "slug": "gymfuze-app",
+    "previewImage": "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800&q=80",
     "title": "GymFuze: Gestión Integral para Gimnasios",
     "category": "Producto Propio",
     "summary": "Plataforma SaaS para administrar alumnos, pagos, rutinas y comunicación omnicanal.",

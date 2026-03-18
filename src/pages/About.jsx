@@ -1,37 +1,44 @@
 import Header from "@/components/Header";
-import ProcessSection from "@/components/ProcessSection";
+import TechStackSection from "@/components/TechStackSection";
 import Footer from "@/components/Footer";
-import { Button } from "@/components/ui/button";
+import StickyCTA from "@/components/StickyCTA";
 import { trackEvent } from "@/lib/analytics";
 import { usePageSEO } from "@/hooks/usePageSEO";
+import { useReveal } from "@/hooks/useReveal";
+import { ArrowRight, CheckCircle } from "lucide-react";
 
 const calendlyUrl = "https://calendly.com/capassoelias/15min";
 const whatsappUrl = "https://wa.me/5493435332132?text=Hola%20CapassoTech%2C%20quiero%20asesor%C3%ADa";
 
 const values = [
   {
-    title: "Accountability",
-    description: "Nos hacemos cargo de los resultados y comunicamos con total transparencia cada decisión.",
+    title: "Nos hacemos cargo",
+    description: "Si algo no sale como esperaban, lo decimos antes de que te enteres por otro lado. Y lo resolvemos.",
   },
   {
-    title: "Aprendizaje continuo",
-    description: "Capacitaciones internas, guilds técnicos y rotación de roles para mantenernos al día.",
+    title: "Siempre aprendiendo",
+    description: "Estamos atentos a lo que aparece. No para vender novedades, sino para usarlo cuando de verdad tiene sentido.",
   },
   {
-    title: "Colaboración sin silos",
-    description: "Producto, diseño y tecnología trabajan como un solo equipo, junto al cliente.",
+    title: "Trabajamos como un equipo, no como proveedores",
+    description: "Nos involucramos con tu negocio. No mandamos código y chau — queremos que funcione de verdad.",
   },
   {
-    title: "Impacto medible",
-    description: "Cada iniciativa tiene una métrica objetivo y un plan para validarla.",
+    title: "Lo que se mide, mejora",
+    description: "Cada cosa que hacemos tiene un objetivo claro. Si no podemos medir si funcionó, algo está mal.",
   },
 ];
 
 const About = () => {
+  const heroRef  = useReveal();
+  const bioRef   = useReveal();
+  const valRef   = useReveal();
+  const ctaRef   = useReveal();
+
   usePageSEO({
-    title: "Nosotros — CapassoTech: equipo ágil de producto y tecnología",
+    title: "Nosotros — CapassoTech: el equipo detrás del software",
     description:
-      "Conocé a CapassoTech, un equipo senior que combina producto, diseño y desarrollo para lanzar y escalar software con métricas claras.",
+      "Conocé a CapassoTech. Más de 7 años resolviendo problemas reales con tecnología, sin vueltas y sin tecnicismos.",
     canonical: "https://capassotech.com/nosotros",
     image: "https://capassotech.com/og-image.jpg",
     ogType: "website",
@@ -39,177 +46,160 @@ const About = () => {
 
   window.scrollTo(0, 0);
 
-  const openCalendly = (origin) => {
-    trackEvent("calendly_click", { location: origin });
+  const handleCalendly = (from) => {
+    trackEvent("calendly_click", { location: from });
     window.open(calendlyUrl, "_blank", "noopener,noreferrer");
   };
 
-  const openWhatsApp = (origin) => {
-    trackEvent("whatsapp_click", { location: origin });
+  const handleWhatsApp = (from) => {
+    trackEvent("whatsapp_click", { location: from });
     window.open(whatsappUrl, "_blank", "noopener,noreferrer");
   };
 
   return (
-    <div className="min-h-screen bg-capasso-dark text-capasso-light">
+    <div className="min-h-screen bg-white text-capasso-dark">
       <Header />
       <main>
-        <section className="bg-capasso-secondary/20 pt-32 pb-16">
-          <div className="container mx-auto px-4 text-center md:text-left">
-            <div className="mx-auto max-w-4xl">
-              <p className="text-sm uppercase tracking-wide text-capasso-primary/70">Nosotros</p>
-              <h1 className="mt-3 text-4xl font-bold text-white md:text-5xl">Equipo ágil, obsesionado por el resultado</h1>
-              <p className="mt-4 text-lg text-capasso-light/80">
-                CapassoTech nació para acompañar empresas que necesitan construir o escalar productos digitales sin sumar burocracia. Nuestra experiencia en proyectos B2B, retail, servicios, SaaS nos permite conectar estrategia, tecnología y ejecución
+
+        {/* ── Hero ── */}
+        <section ref={heroRef} className="bg-white pt-28 pb-20 md:pt-36 md:pb-28">
+          <div className="mx-auto max-w-6xl px-6 text-center">
+            <div className="reveal">
+              <span className="section-label">Quiénes somos</span>
+              <h1 className="mt-4 text-[2.5rem] font-extrabold leading-tight tracking-tight text-capasso-dark md:text-[3.5rem]">
+                El equipo que resuelve,{" "}
+                <span className="text-gradient">no el que complica</span>
+              </h1>
+              <p className="mt-5 mx-auto max-w-2xl text-lg text-capasso-dark-grey">
+                Más de 7 años trabajando con empresas de distintos rubros para
+                convertir problemas reales en soluciones digitales que funcionan.
+                Sin vueltas, sin excusas y sin jerga técnica innecesaria.
               </p>
             </div>
           </div>
         </section>
 
-        <section className="bg-capasso-dark py-20">
-          <div className="container mx-auto grid gap-12 px-4 lg:grid-cols-[0.9fr,1.1fr] lg:items-center">
-            <div>
-              <div className="text-center">
-                <p className="text-sm uppercase tracking-wide text-capasso-primary/70">
-                  Quién lidera CapassoTech
+        {/* ── Elías ── */}
+        <section ref={bioRef} className="bg-capasso-light-blue section-default">
+          <div className="mx-auto max-w-6xl px-6">
+            <div className="grid gap-12 lg:grid-cols-2 lg:gap-20 items-center">
+
+              <div className="reveal">
+                <span className="section-label">La persona detrás</span>
+                <h2 className="mt-3 text-[2rem] font-extrabold leading-tight text-capasso-dark md:text-[2.5rem]">
+                  Hola, soy Elías
+                </h2>
+                <p className="mt-4 text-lg text-capasso-dark-grey">
+                  Soy Ingeniero en Sistemas con más de 7 años trabajando en
+                  proyectos de software, desde startups hasta empresas medianas.
+                  Pasé por todos los roles — desarrollador, líder técnico,
+                  responsable de producto — y eso me ayuda a entender el problema
+                  completo, no solo la parte técnica.
                 </p>
+                <p className="mt-4 text-capasso-dark-grey">
+                  Arranqué CapassoTech porque vi que muchas empresas necesitaban
+                  tecnología pero no querían lidiar con la burocracia de una
+                  consultora grande. Acá somos directos: entendemos lo que
+                  necesitás, lo hacemos bien y te contamos todo en el camino.
+                </p>
+                <div className="mt-8 flex flex-wrap gap-3">
+                  <button onClick={() => handleCalendly("about_bio")} className="btn-primary text-base">
+                    Charlar con Elías
+                    <ArrowRight className="h-4 w-4" />
+                  </button>
+                </div>
               </div>
-              <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6">
-                <div className="mx-auto lg:mx-0 w-28 sm:w-32 md:w-36 lg:w-40 shrink-0 overflow-hidden rounded-lg ring-1 ring-white/10 bg-capasso-secondary/30 shadow-sm">
+
+              <div className="reveal reveal-delay-1 flex flex-col gap-5">
+                <div className="overflow-hidden rounded-3xl shadow-card">
                   <img
                     src="/images/about/eliascapasso.png"
                     alt="Elías Capasso, fundador de CapassoTech"
-                    className="object-cover"
+                    className="w-full object-cover"
                     loading="lazy"
-                    style={{ height: "300px" }}
+                    style={{ maxHeight: "380px" }}
                   />
                 </div>
-                <div className="flex-1">
-                  <p className="mt-4 text-capasso-light/80">
-                    Soy Elías Capasso, Ingeniero en Sistemas de Información con más de 7 años
-                    de experiencia en el rubro, construyendo soluciones digitales end-to-end
-                    para fintechs, retail y servicios profesionales.
-                  </p>
-                  <p className="mt-4 text-capasso-light/70">
-                    Comencé mi carrera en consultoras tecnológicas y pasé por roles de
-                    developer, tech lead y product owner. Hoy acompaño a compañías de LATAM a
-                    transformar ideas en productos medibles, con discovery profundo, QA
-                    continuo y despliegues sin fricción.
-                  </p>
-                  <p className="mt-4 text-capasso-light/70">
-                    Desde el día uno me involucro personalmente con cada cliente para alinear
-                    expectativas, destrabar decisiones y asegurar que cada entrega esté
-                    diseñada para generar confianza e impacto real en el negocio.
-                  </p>
-                </div>
-              </div>
-
-              <div className="mt-8 grid gap-4 sm:grid-cols-3">
-                <div className="rounded-2xl border border-capasso-primary/20 bg-capasso-secondary/40 p-4">
-                  <p className="text-2xl font-bold text-white">7+ años</p>
-                  <p className="mt-1 text-xs uppercase tracking-wide text-capasso-light/60">trabajando en productos digitales</p>
-                </div>
-                <div className="rounded-2xl border border-capasso-primary/20 bg-capasso-secondary/40 p-4">
-                  <p className="text-2xl font-bold text-white">20+ lanzamientos</p>
-                  <p className="mt-1 text-xs uppercase tracking-wide text-capasso-light/60">en startups y corporaciones</p>
-                </div>
-              </div>
-              <div className="mt-8 rounded-3xl border border-capasso-primary/20 bg-capasso-secondary/40 p-6">
-                <h3 className="text-lg font-semibold text-white">Cómo trabajamos en CapassoTech</h3>
-                <p className="mt-3 text-sm text-capasso-light/80">
-                  Somos un equipo ágil que combina estrategia, diseño y desarrollo para que cada entrega tenga impacto real en tu negocio. No solo construimos software: nos integramos como parte de tu equipo.
-                </p>
-                <ul className="mt-4 space-y-3 text-sm text-capasso-light/70">
-                  <li className="flex items-start gap-3">
-                    <span className="mt-1 inline-block h-2.5 w-2.5 rounded-full bg-capasso-primary" />
-                    Discovery práctico: entendemos tu modelo, priorizamos funcionalidades y definimos métricas de éxito antes de escribir código.
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <span className="mt-1 inline-block h-2.5 w-2.5 rounded-full bg-capasso-primary" />
-                    Sprints con foco: trabajamos con Scrum adaptado, con roadmaps claros, demos frecuentes y feedback continuo.
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <span className="mt-1 inline-block h-2.5 w-2.5 rounded-full bg-capasso-primary" />
-                    Calidad y velocidad: releases sin fricción, QA integrado y soporte cercano para que la solución crezca junto a tu negocio.
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <span className="mt-1 inline-block h-2.5 w-2.5 rounded-full bg-capasso-primary" />
-                    Acompañamiento real: desde el PO hasta el dev, todos nos involucramos para destrabar decisiones y garantizar resultados sostenibles.
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section className="bg-capasso-dark py-20">
-          <div className="container mx-auto grid gap-12 px-4 lg:grid-cols-2">
-            <div>
-              <h2 className="text-3xl font-bold text-white md:text-4xl">Nuestros valores</h2>
-              <p className="mt-4 text-capasso-light/70">
-                Construimos relaciones de largo plazo basadas en confianza, comunicación directa y foco en KPI’s de negocio.
-              </p>
-              <div className="mt-8 grid gap-6">
-                {values.map((value) => (
-                  <div key={value.title} className="rounded-2xl border border-capasso-gray/60 bg-capasso-secondary/70 p-6">
-                    <h3 className="text-xl font-semibold text-white">{value.title}</h3>
-                    <p className="mt-3 text-capasso-light/70">{value.description}</p>
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="content-card text-center">
+                    <p className="text-3xl font-extrabold text-capasso-primary">7+</p>
+                    <p className="mt-1 text-sm text-capasso-dark-grey">Años de experiencia</p>
                   </div>
-                ))}
-              </div>
-            </div>
-            <div className="rounded-2xl border border-capasso-primary/20 bg-capasso-primary/10 p-8">
-              <h2 className="text-3xl font-bold text-white md:text-4xl">Nuestra metodología</h2>
-              <p className="mt-4 text-capasso-light/70">
-                Trabajamos con Scrum y prácticas ágiles adaptadas a cada cliente. Cada sprint tiene objetivos claros, demos con stakeholders y métricas visibles en tableros compartidos.
-              </p>
-              <ul className="mt-6 space-y-3 text-sm text-capasso-light/80">
-                <li className="flex items-start gap-3">
-                  <span className="mt-1 inline-block h-2 w-2 rounded-full bg-capasso-primary" />
-                  Sprint Planning, Daily, Review y Retro facilitadas por Scrum Master certificado
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="mt-1 inline-block h-2 w-2 rounded-full bg-capasso-primary" />
-                  Roadmaps trimestrales y OKRs para alinear negocio y tecnología
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="mt-1 inline-block h-2 w-2 rounded-full bg-capasso-primary" />
-                  Tableros con métricas de throughput, calidad y satisfacción del usuario
-                </li>
-              </ul>
-              <div className="mt-8 flex flex-wrap gap-4">
-                <Button onClick={() => openCalendly("about_methodology")} className="btn-primary px-8 py-4 text-lg">
-                  Agendar 15 min
-                </Button>
-                <Button onClick={() => openWhatsApp("about_methodology")} className="btn-secondary px-8 py-4 text-lg">
-                  Escribir por WhatsApp
-                </Button>
+                  <div className="content-card text-center">
+                    <p className="text-3xl font-extrabold text-capasso-primary">30+</p>
+                    <p className="mt-1 text-sm text-capasso-dark-grey">Proyectos entregados</p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </section>
 
-        <ProcessSection />
-
-        <section className="bg-capasso-secondary/30 py-20">
-          <div className="container mx-auto grid gap-12 px-4 md:grid-cols-2">
-            <div>
-              <h2 className="text-3xl font-bold text-white md:text-4xl">¿Hablamos?</h2>
-              <p className="mt-4 text-capasso-light/70">
-                Coordinemos una reunión para entender tu desafío y proponerte un plan accionable en menos de 24 horas.
+        {/* ── Valores ── */}
+        <section ref={valRef} className="section-default bg-white">
+          <div className="mx-auto max-w-6xl px-6">
+            <div className="mb-14 text-center reveal">
+              <span className="section-label">Cómo nos manejamos</span>
+              <h2 className="text-[2.5rem] font-extrabold leading-tight tracking-tight text-capasso-dark md:text-[3rem]">
+                Lo que nos importa,{" "}
+                <span className="text-gradient">de verdad</span>
+              </h2>
+              <p className="mt-4 mx-auto max-w-2xl text-lg text-capasso-dark-grey">
+                No son valores que ponemos en una pared. Son las cosas que guían
+                cómo trabajamos con cada cliente.
               </p>
             </div>
-            <div className="flex flex-wrap items-center gap-4">
-              <Button onClick={() => openCalendly("about_cta")} className="btn-primary px-8 py-4 text-lg">
-                Agendar 15 min
-              </Button>
-              <Button onClick={() => openWhatsApp("about_cta")} className="btn-secondary px-8 py-4 text-lg">
-                Escribir por WhatsApp
-              </Button>
+
+            <div className="grid gap-5 sm:grid-cols-2">
+              {values.map((v, i) => (
+                <div
+                  key={v.title}
+                  className={`reveal reveal-delay-${Math.min(i + 1, 4)} flex items-start gap-4 content-card transition-all duration-300 hover:border-capasso-primary/30 hover:shadow-card`}
+                >
+                  <CheckCircle className="mt-0.5 h-5 w-5 shrink-0 text-capasso-primary" strokeWidth={2} />
+                  <div>
+                    <h3 className="font-bold text-capasso-dark">{v.title}</h3>
+                    <p className="mt-1 text-sm text-capasso-dark-grey">{v.description}</p>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </section>
+
+        {/* ── Tech Stack ── */}
+        <TechStackSection />
+
+        {/* ── CTA final ── */}
+        <section ref={ctaRef} className="bg-capasso-dark section-large">
+          <div className="mx-auto max-w-6xl px-6 text-center">
+            <div className="reveal">
+              <span className="mb-4 inline-block text-sm font-bold uppercase tracking-widest text-capasso-primary">
+                Siguiente paso
+              </span>
+              <h2 className="text-[2.5rem] font-extrabold leading-tight text-white md:text-[3rem]">
+                ¿Querés que trabajemos juntos?
+              </h2>
+            </div>
+            <p className="reveal reveal-delay-1 mt-5 mx-auto max-w-xl text-lg text-white/60">
+              Contanos tu problema en 15 minutos y te decimos cómo lo
+              encaramos, con quién y en qué tiempo.
+            </p>
+            <div className="reveal reveal-delay-2 mt-10 flex flex-wrap justify-center gap-4">
+              <button onClick={() => handleCalendly("about_cta")} className="btn-primary text-base">
+                Agendar 15 min gratis
+                <ArrowRight className="h-4 w-4" />
+              </button>
+              <button onClick={() => handleWhatsApp("about_cta")} className="btn-white text-base">
+                WhatsApp
+              </button>
+            </div>
+          </div>
+        </section>
+
       </main>
       <Footer />
+      <StickyCTA />
     </div>
   );
 };

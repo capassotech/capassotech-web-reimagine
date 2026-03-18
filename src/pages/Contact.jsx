@@ -1,82 +1,108 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ContactForm from "@/components/ContactForm";
-import { Button } from "@/components/ui/button";
+import StickyCTA from "@/components/StickyCTA";
 import { trackEvent } from "@/lib/analytics";
 import { usePageSEO } from "@/hooks/usePageSEO";
+import { useReveal } from "@/hooks/useReveal";
+import { ArrowRight } from "lucide-react";
 
 const calendlyUrl = "https://calendly.com/capassoelias/15min";
 const whatsappUrl = "https://wa.me/5493435332132?text=Hola%20CapassoTech%2C%20quiero%20asesor%C3%ADa";
 
 const Contact = () => {
+  const sectionRef = useReveal();
+
   usePageSEO({
-    title: "Contacto CapassoTech — Agendá una discovery call en 15 minutos",
-    description:
-      "Escribinos o reservá una reunión rápida para hablar sobre tu proyecto de software, automatización o IA con el equipo de CapassoTech.",
+    title: "Contacto — CapassoTech",
+    description: "Escribinos o agendá una charla de 15 minutos. Te respondemos dentro de 1 día hábil con un plan concreto.",
     canonical: "https://capassotech.com/contacto",
     image: "https://capassotech.com/og-image.jpg",
     ogType: "website",
   });
 
-  const openCalendly = (origin) => {
-    trackEvent("calendly_click", { location: origin });
+  window.scrollTo(0, 0);
+
+  const handleCalendly = (from) => {
+    trackEvent("calendly_click", { location: from });
     window.open(calendlyUrl, "_blank", "noopener,noreferrer");
   };
 
-  const openWhatsApp = (origin) => {
-    trackEvent("whatsapp_click", { location: origin });
+  const handleWhatsApp = (from) => {
+    trackEvent("whatsapp_click", { location: from });
     window.open(whatsappUrl, "_blank", "noopener,noreferrer");
   };
 
   return (
-    <div className="min-h-screen bg-capasso-dark text-capasso-light mt-24">
+    <div className="min-h-screen bg-white text-capasso-dark">
       <Header />
       <main>
-        <section className="bg-capasso-secondary/20 pt-32 pb-16">
-          <div className="container mx-auto px-4 text-center md:text-left">
-            <div className="mx-auto max-w-3xl">
-              <h1 className="mt-3 text-4xl font-bold text-white md:text-5xl">Contanos qué querés construir</h1>
-              <p className="mt-4 text-lg text-capasso-light/80">
-                Respondemos dentro de 1 día hábil con un plan inicial, stack sugerido y próximos pasos.
-              </p>
+
+        <section ref={sectionRef} className="bg-capasso-light-blue section-default pt-32">
+          <div className="mx-auto max-w-6xl px-6">
+            <div className="grid gap-12 lg:grid-cols-2">
+
+              {/* Left */}
+              <div className="flex flex-col justify-center reveal">
+                <span className="section-label">Hablemos</span>
+                <h1 className="text-[2rem] font-extrabold leading-tight text-capasso-dark md:text-[2.5rem]">
+                  Contanos tu desafío.
+                </h1>
+                <p className="mt-4 text-lg text-capasso-dark-grey">
+                  Agendamos una charla de 15 minutos para entender qué necesitás.
+                  En 24 horas te enviamos un plan concreto.
+                </p>
+
+                <div className="mt-8 space-y-4">
+                  <div className="content-card">
+                    <p className="text-xs font-bold uppercase tracking-widest text-capasso-primary">
+                      Preferís mensaje directo
+                    </p>
+                    <button
+                      onClick={() => handleWhatsApp("contact_page")}
+                      className="btn-outline mt-3 text-sm"
+                    >
+                      Escribir por WhatsApp
+                    </button>
+                  </div>
+                  <div className="content-card">
+                    <p className="text-xs font-bold uppercase tracking-widest text-capasso-primary">
+                      O agendá cuando te quede cómodo
+                    </p>
+                    <button
+                      onClick={() => handleCalendly("contact_page")}
+                      className="btn-primary mt-3 text-sm"
+                    >
+                      Ver agenda de 15 min
+                      <ArrowRight className="h-4 w-4" />
+                    </button>
+                  </div>
+                  <div className="content-card">
+                    <p className="text-xs font-bold uppercase tracking-widest text-capasso-primary">
+                      Email
+                    </p>
+                    <a
+                      href="mailto:contacto@capasso.tech"
+                      className="mt-2 block text-sm font-semibold text-capasso-dark hover:text-capasso-primary transition-colors"
+                    >
+                      contacto@capasso.tech
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              {/* Right: form */}
+              <div className="reveal reveal-delay-1 content-card shadow-card">
+                <ContactForm context="contact" />
+              </div>
+
             </div>
           </div>
         </section>
 
-        <section className="bg-capasso-secondary/30 py-20">
-          <div className="container mx-auto grid gap-12 px-4 lg:grid-cols-2">
-            <div className="rounded-2xl border border-capasso-gray/60 bg-capasso-secondary/70 p-6 shadow-lg shadow-black/10">
-              <ContactForm context="contact" />
-            </div>
-            <div className="flex flex-col justify-center space-y-6">
-              <div>
-                <h2 className="text-2xl font-semibold text-white">Agendá cuando te quede cómodo</h2>
-                <p className="mt-2 text-capasso-light/70">
-                  Elegí un horario libre en nuestra agenda y llevá la charla con los decision makers que necesites.
-                </p>
-                <Button onClick={() => openCalendly("contact_page")} className="btn-primary mt-4 w-full sm:w-auto px-8 py-4 text-lg">
-                  Agendar 15 min
-                </Button>
-              </div>
-              <div>
-                <h2 className="text-2xl font-semibold text-white">¿Preferís WhatsApp?</h2>
-                <p className="mt-2 text-capasso-light/70">
-                  Enviános tu mensaje y coordinamos por ahí.
-                </p>
-                <Button onClick={() => openWhatsApp("contact_page")} className="btn-secondary mt-4 w-full sm:w-auto px-8 py-4 text-lg">
-                  Escribir por WhatsApp
-                </Button>
-              </div>
-              <div className="rounded-2xl border border-capasso-primary/20 bg-capasso-primary/10 p-6">
-                <h3 className="text-lg font-semibold text-white">También podés escribirnos</h3>
-                <p className="mt-2 text-capasso-light/70">contacto@capasso.tech</p>
-                <p className="text-capasso-light/70">+54 9 343 5332132</p>
-              </div>
-            </div>
-          </div>
-        </section>
       </main>
       <Footer />
+      <StickyCTA />
     </div>
   );
 };

@@ -1,7 +1,6 @@
 import type { MouseEvent } from "react";
 import { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { Button } from "@/components/ui/button";
 import { trackEvent } from "@/lib/analytics";
 
 const calendlyUrl = "https://calendly.com/capassoelias/15min";
@@ -14,24 +13,15 @@ const Header = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10);
-    };
-
+    const handleScroll = () => setIsScrolled(window.scrollY > 40);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const handleInternalNavigation = (
-    event: MouseEvent<HTMLAnchorElement>,
-    sectionId: string,
-  ) => {
+  const handleInternalNavigation = (event: MouseEvent<HTMLAnchorElement>, sectionId: string) => {
     if (location.pathname === "/") {
       event.preventDefault();
-      const section = document.getElementById(sectionId);
-      if (section) {
-        section.scrollIntoView({ behavior: "smooth" });
-      }
+      document.getElementById(sectionId)?.scrollIntoView({ behavior: "smooth" });
       setIsMobileMenuOpen(false);
     } else {
       event.preventDefault();
@@ -51,32 +41,40 @@ const Header = () => {
   };
 
   const menuItems = [
-    { label: "Inicio", type: "section" as const, target: "inicio" },
+    { label: "Inicio",    type: "section" as const, target: "inicio" },
     { label: "Servicios", type: "section" as const, target: "servicios" },
-    { label: "Tecnologías", type: "section" as const, target: "tecnologias" },
-    { label: "Casos", type: "section" as const, target: "casos-exito" },
-    { label: "Blog", type: "route" as const, path: "/blog" },
-    { label: "Nosotros", type: "route" as const, path: "/nosotros" },
-    { label: "Contacto", type: "route" as const, path: "/contacto" },
+    { label: "Casos",     type: "section" as const, target: "casos-exito" },
+    { label: "Blog",      type: "route" as const,   path: "/blog" },
+    { label: "Nosotros",  type: "route" as const,   path: "/nosotros" },
   ];
 
   return (
     <header
       className={`fixed left-0 right-0 top-0 z-50 transition-all duration-300 ${
-        isScrolled ? "bg-capasso-dark/95 backdrop-blur-md shadow-lg" : "bg-transparent"
+        isScrolled
+          ? "bg-white/95 backdrop-blur-md shadow-soft border-b border-capasso-light-grey"
+          : "bg-transparent"
       }`}
     >
-      <nav className="container mx-auto flex items-center justify-between px-4 py-4">
-        <Link to="/" className="flex items-center" onClick={() => setIsMobileMenuOpen(false)}>
-          <img src="/logo-dark.png" alt="CapassoTech" className="h-10 w-auto" />
+      <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
+
+        {/* Logo */}
+        <Link to="/" onClick={() => setIsMobileMenuOpen(false)} className="flex-shrink-0">
+          <img
+            src="/logo-light.png"
+            alt="CapassoTech"
+            className="h-12 w-auto"
+          />
         </Link>
-        <div className="hidden items-center gap-8 text-sm font-medium text-capasso-light md:flex">
+
+        {/* Desktop nav links */}
+        <div className="hidden items-center gap-8 md:flex">
           {menuItems.map((item) =>
             item.type === "route" ? (
               <Link
                 key={item.label}
                 to={item.path}
-                className="hover:text-capasso-primary transition-colors"
+                className="nav-link"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 {item.label}
@@ -85,44 +83,54 @@ const Header = () => {
               <a
                 key={item.label}
                 href={`/#${item.target}`}
-                onClick={(event) => handleInternalNavigation(event, item.target)}
-                className="hover:text-capasso-primary transition-colors"
+                onClick={(e) => handleInternalNavigation(e, item.target)}
+                className="nav-link"
               >
                 {item.label}
               </a>
             ),
           )}
         </div>
-        <div className="hidden gap-3 md:flex">
-          <Button onClick={() => handleCalendly("header")} className="btn-primary">
-            Agendar 15 min
-          </Button>
-          <Button onClick={() => handleWhatsApp("header")} className="btn-secondary">
+
+        {/* Desktop CTA */}
+        <div className="hidden items-center gap-3 md:flex">
+          <button
+            onClick={() => handleWhatsApp("header")}
+            className="btn-outline px-5 py-2.5 text-sm"
+          >
             WhatsApp
-          </Button>
+          </button>
+          <button
+            onClick={() => handleCalendly("header")}
+            className="btn-primary px-5 py-2.5 text-sm"
+          >
+            Agendar 15 min
+          </button>
         </div>
+
+        {/* Mobile hamburger */}
         <button
-          onClick={() => setIsMobileMenuOpen((prev) => !prev)}
-          className="text-capasso-light md:hidden"
+          onClick={() => setIsMobileMenuOpen((p) => !p)}
+          className="flex h-9 w-9 flex-col items-center justify-center gap-[5px] md:hidden"
           aria-label="Abrir menú"
         >
-          <div className="flex h-6 w-6 flex-col justify-between">
-            <span className={`h-0.5 w-full bg-current transition-transform ${isMobileMenuOpen ? "translate-y-2 rotate-45" : ""}`} />
-            <span className={`h-0.5 w-full bg-current transition-opacity ${isMobileMenuOpen ? "opacity-0" : "opacity-100"}`} />
-            <span className={`h-0.5 w-full bg-current transition-transform ${isMobileMenuOpen ? "-translate-y-2 -rotate-45" : ""}`} />
-          </div>
+          <span className={`h-[2px] w-5 bg-capasso-dark rounded transition-all duration-300 ${isMobileMenuOpen ? "translate-y-[7px] rotate-45" : ""}`} />
+          <span className={`h-[2px] w-5 bg-capasso-dark rounded transition-opacity duration-300 ${isMobileMenuOpen ? "opacity-0" : ""}`} />
+          <span className={`h-[2px] w-5 bg-capasso-dark rounded transition-all duration-300 ${isMobileMenuOpen ? "-translate-y-[7px] -rotate-45" : ""}`} />
         </button>
       </nav>
+
+      {/* Mobile dropdown */}
       {isMobileMenuOpen && (
-        <div className="bg-capasso-secondary/95 shadow-lg md:hidden">
-          <div className="container mx-auto flex flex-col gap-4 px-4 py-6 text-capasso-light">
+        <div className="border-t border-capasso-light-grey bg-white/98 backdrop-blur-md md:hidden">
+          <div className="mx-auto flex max-w-6xl flex-col gap-1 px-6 py-5">
             {menuItems.map((item) =>
               item.type === "route" ? (
                 <Link
                   key={item.label}
                   to={item.path}
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="text-base"
+                  className="rounded-xl px-4 py-3 text-base font-semibold text-capasso-dark hover:bg-capasso-light-blue hover:text-capasso-primary transition-colors"
                 >
                   {item.label}
                 </Link>
@@ -130,20 +138,26 @@ const Header = () => {
                 <a
                   key={item.label}
                   href={`/#${item.target}`}
-                  onClick={(event) => handleInternalNavigation(event, item.target)}
-                  className="text-base text-left"
+                  onClick={(e) => handleInternalNavigation(e, item.target)}
+                  className="rounded-xl px-4 py-3 text-base font-semibold text-capasso-dark hover:bg-capasso-light-blue hover:text-capasso-primary transition-colors"
                 >
                   {item.label}
                 </a>
               ),
             )}
-            <div className="mt-4 flex flex-col gap-3">
-              <Button onClick={() => handleCalendly("header_mobile")} className="btn-primary w-full">
-                Agendar 15 min
-              </Button>
-              <Button onClick={() => handleWhatsApp("header_mobile")} className="btn-secondary w-full">
+            <div className="mt-3 flex flex-col gap-3">
+              <button
+                onClick={() => { handleWhatsApp("header_mobile"); setIsMobileMenuOpen(false); }}
+                className="btn-outline w-full py-3 text-base"
+              >
                 WhatsApp
-              </Button>
+              </button>
+              <button
+                onClick={() => { handleCalendly("header_mobile"); setIsMobileMenuOpen(false); }}
+                className="btn-primary w-full py-3 text-base"
+              >
+                Agendar 15 min
+              </button>
             </div>
           </div>
         </div>

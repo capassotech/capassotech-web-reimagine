@@ -1,18 +1,25 @@
-import { Button } from "@/components/ui/button";
+import { useEffect, useRef } from "react";
 import { trackEvent } from "@/lib/analytics";
-import { Code, Users, Zap } from "lucide-react";
 
 const calendlyUrl = "https://calendly.com/capassoelias/15min";
 const whatsappUrl = "https://wa.me/5493435332132?text=Hola%20CapassoTech%2C%20quiero%20asesor%C3%ADa";
 
+const stats = [
+  { value: "7+",  label: "Años de experiencia" },
+  { value: "30+", label: "Proyectos entregados" },
+];
+
 const Hero = () => {
-  const handleAnchorNavigation = (event, sectionId) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      event.preventDefault();
-      element.scrollIntoView({ behavior: "smooth" });
-    }
-  };
+  const sectionRef = useRef(null);
+
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
+    const t = setTimeout(() => {
+      el.querySelectorAll(".reveal").forEach((n) => n.classList.add("revealed"));
+    }, 80);
+    return () => clearTimeout(t);
+  }, []);
 
   const handleCalendly = () => {
     trackEvent("calendly_click", { location: "hero" });
@@ -24,89 +31,146 @@ const Hero = () => {
     window.open(whatsappUrl, "_blank", "noopener,noreferrer");
   };
 
+  const handleScrollDown = (e) => {
+    e.preventDefault();
+    document.getElementById("servicios")?.scrollIntoView({ behavior: "smooth" });
+  };
+
   return (
     <section
       id="inicio"
-      className="relative flex min-h-screen items-center justify-center overflow-hidden"
+      ref={sectionRef}
+      className="relative overflow-hidden bg-white pt-28 pb-20 md:pt-36 md:pb-28"
     >
-      <div className="absolute inset-0 bg-gradient-to-br from-capasso-dark via-capasso-secondary to-capasso-dark" />
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute left-1/4 top-1/4 h-64 w-64 animate-pulse rounded-full bg-capasso-primary/10 blur-3xl" />
-        <div className="absolute right-1/4 bottom-1/4 h-96 w-96 animate-pulse rounded-full bg-blue-400/5 blur-3xl delay-1000" />
-      </div>
+      {/* Subtle dot grid background */}
+      <div
+        className="pointer-events-none absolute inset-0 opacity-40"
+        style={{
+          backgroundImage: "radial-gradient(circle, #E9E9E9 1px, transparent 1px)",
+          backgroundSize: "24px 24px",
+        }}
+      />
 
-      <div className="container relative z-10 mx-auto mt-[120px] mb-[120px] px-4 text-center">
-        <div className="mx-auto max-w-4xl animate-fade-in">
-          <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-white/5 px-4 py-2 text-sm text-capasso-light/80 shadow-sm shadow-capasso-primary/20">
-            <span className="h-2 w-2 rounded-full bg-capasso-primary" />
-            Equipos ágiles, foco en resultados, integración con IA cuando aporta valor.
-          </div>
-          <h1 className="mb-6 text-4xl font-bold leading-tight md:text-6xl lg:text-7xl">
-            Software que hace crecer tu <span className="text-gradient">negocio</span>
-          </h1>
-          <p className="mx-auto mb-8 max-w-3xl text-xl text-capasso-light/80">
-            Desarrollamos software a medida desde Argentina, impulsamos equipos de desarrollo y asesoramos a empresas de Latinoamérica para que escalen sin fricción.
-          </p>
+      {/* Light blue gradient blob */}
+      <div
+        className="pointer-events-none absolute -top-32 -right-32 h-[600px] w-[600px] rounded-full opacity-30"
+        style={{
+          background: "radial-gradient(circle, #EFF8FD 0%, transparent 70%)",
+        }}
+      />
 
-          <div className="mb-12 flex flex-col justify-center gap-4 sm:flex-row">
-            <Button asChild className="btn-primary px-8 py-4 text-lg">
-              <a
-                href={calendlyUrl}
-                onClick={(event) => {
-                  event.preventDefault();
-                  handleCalendly();
-                }}
-              >
-                Agendar 15 min
-              </a>
-            </Button>
-            <Button asChild className="btn-secondary px-8 py-4 text-lg">
-              <a
-                href={whatsappUrl}
-                onClick={(event) => {
-                  event.preventDefault();
-                  handleWhatsApp();
-                }}
-              >
-                Escribir por WhatsApp
-              </a>
-            </Button>
-          </div>
+      <div className="relative z-10 mx-auto max-w-6xl px-6">
+        <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
 
-          <div className="mx-auto grid max-w-3xl grid-cols-1 gap-8 md:grid-cols-3">
-            <div className="flex flex-col items-center rounded-lg bg-capasso-secondary/50 p-6 hover-glow">
-              <Code className="mb-4 h-8 w-8 text-capasso-primary" />
-              <div className="text-3xl font-bold text-capasso-primary">15+</div>
-              <div className="text-capasso-light/70">Tecnologías</div>
+          {/* ── Left: text content ── */}
+          <div>
+            {/* Category tag */}
+            <div className="reveal mb-6">
+              <span className="section-label">Para negocios que quieren crecer</span>
             </div>
-            <div className="flex flex-col items-center rounded-lg bg-capasso-secondary/50 p-6 hover-glow">
-              <Users className="mb-4 h-8 w-8 text-capasso-primary" />
-              <div className="text-3xl font-bold text-capasso-primary">Pods ágiles</div>
-              <div className="text-capasso-light/70">PM, Tech Lead, Dev, QA</div>
-            </div>
-            <div className="flex flex-col items-center rounded-lg bg-capasso-secondary/50 p-6 hover-glow">
-              <Zap className="mb-4 h-8 w-8 text-capasso-primary" />
-              <div className="text-3xl font-bold text-capasso-primary">5+</div>
-              <div className="text-capasso-light/70">Años de experiencia</div>
-            </div>
-          </div>
 
-          <div className="mt-12 flex flex-col items-center gap-2 text-capasso-light/60">
-            <span>Preferís ver más primero?</span>
-            <a
-              href="#servicios"
-              onClick={(event) => handleAnchorNavigation(event, "servicios")}
-              className="text-capasso-primary transition-colors hover:text-capasso-primary/80"
+            {/* Main heading */}
+            <h1
+              className="reveal reveal-delay-1 mb-6 text-[3rem] font-extrabold leading-[1.15] tracking-tight text-capasso-dark md:text-[3.5rem] lg:text-[3.875rem]"
             >
-              Conocé nuestros servicios
-            </a>
+              Hacemos que la tecnología{" "}
+              <span className="text-gradient">trabaje para vos</span>
+            </h1>
+
+            {/* Subtitle */}
+            <p className="reveal reveal-delay-2 mb-10 max-w-lg text-lg font-normal leading-relaxed text-capasso-dark-grey">
+              Tenés una idea, un problema o un sistema que da guerra.
+              Nosotros lo resolvemos — sin llenar tu cabeza de términos técnicos,
+              con fechas reales y resultados que podés medir.
+            </p>
+
+            {/* CTA buttons */}
+            <div className="reveal reveal-delay-3 flex flex-wrap items-center gap-4">
+              <button onClick={handleCalendly} className="btn-primary text-base">
+                Contanos tu proyecto
+              </button>
+              <button onClick={handleWhatsApp} className="btn-outline text-base">
+                Escribir por WhatsApp
+              </button>
+            </div>
+
+            {/* Stats row */}
+            <div className="reveal reveal-delay-4 mt-12 flex flex-wrap gap-8">
+              {stats.map((s) => (
+                <div key={s.label}>
+                  <div className="text-3xl font-extrabold text-capasso-primary">{s.value}</div>
+                  <div className="mt-0.5 text-sm font-medium text-capasso-dark-grey">{s.label}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* ── Right: visual card ── */}
+          <div className="reveal reveal-delay-2">
+            <div
+              className="relative overflow-hidden rounded-3xl"
+              style={{
+                background: "linear-gradient(135deg, #49b5e7 0%, #216AD9 100%)",
+                minHeight: "420px",
+                boxShadow: "0 32px 80px rgba(73, 181, 231, 0.25)",
+              }}
+            >
+              {/* Inner pattern */}
+              <div
+                className="absolute inset-0 opacity-20"
+                style={{
+                  backgroundImage: "radial-gradient(circle, rgba(255,255,255,0.4) 1px, transparent 1px)",
+                  backgroundSize: "24px 24px",
+                }}
+              />
+
+              {/* Content inside card */}
+              <div className="relative z-10 flex h-full flex-col justify-center gap-4 p-8">
+                {[
+                  {
+                    title: "Tu problema, primero",
+                    desc:  "Entendemos tu negocio antes de escribir una línea de código.",
+                  },
+                  {
+                    title: "Plazos honestos",
+                    desc:  "Sin sorpresas ni excusas a mitad del proyecto.",
+                  },
+                  {
+                    title: "Tu resultado, no el código",
+                    desc:  "El software es el medio — tu crecimiento es el fin.",
+                  },
+                ].map((m) => (
+                  <div
+                    key={m.title}
+                    className="rounded-2xl bg-white/15 px-6 py-5 backdrop-blur-sm"
+                  >
+                    <div className="flex items-center gap-2.5">
+                      <span className="h-2 w-2 shrink-0 rounded-full bg-white/80" />
+                      <p className="text-base font-bold text-white">{m.title}</p>
+                    </div>
+                    <p className="mt-1.5 pl-[18px] text-sm leading-relaxed text-white/60">{m.desc}</p>
+                  </div>
+                ))}
+              </div>
+
+              {/* Decorative bottom gradient */}
+              <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-blue-700/30 to-transparent" />
+            </div>
           </div>
         </div>
-      </div>
 
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
-        <div className="flex h-10 w-6 justify-center rounded-full border-2 border-capasso-primary">
-          <div className="mt-2 h-3 w-1 animate-pulse rounded-full bg-capasso-primary" />
+        {/* Scroll nudge */}
+        <div className="reveal reveal-delay-5 mt-16 flex justify-center">
+          <a
+            href="#servicios"
+            onClick={handleScrollDown}
+            className="flex flex-col items-center gap-2 text-sm font-medium text-capasso-dark-grey transition-colors hover:text-capasso-primary"
+          >
+            <span>¿Qué hacemos?</span>
+            <div className="flex h-9 w-6 justify-center rounded-full border-2 border-current">
+              <div className="mt-1.5 h-2.5 w-0.5 animate-bounce rounded-full bg-current" />
+            </div>
+          </a>
         </div>
       </div>
     </section>
