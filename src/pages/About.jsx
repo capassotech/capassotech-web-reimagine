@@ -1,38 +1,21 @@
 import Header from "@/components/Header";
 import TechStackSection from "@/components/TechStackSection";
+import TeamSection from "@/components/TeamSection";
+import HowWeWorkSection from "@/components/HowWeWorkSection";
 import Footer from "@/components/Footer";
 import StickyCTA from "@/components/StickyCTA";
 import { trackEvent } from "@/lib/analytics";
 import { usePageSEO } from "@/hooks/usePageSEO";
 import { useReveal } from "@/hooks/useReveal";
-import { ArrowRight, CheckCircle } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
 const calendlyUrl = "https://calendly.com/capassoelias/15min";
 const whatsappUrl = "https://wa.me/5493435332132?text=Hola%20CapassoTech%2C%20quiero%20asesor%C3%ADa";
 
-const values = [
-  {
-    title: "Nos hacemos cargo",
-    description: "Si algo no sale como esperaban, lo decimos antes de que te enteres por otro lado. Y lo resolvemos.",
-  },
-  {
-    title: "Siempre aprendiendo",
-    description: "Estamos atentos a lo que aparece. No para vender novedades, sino para usarlo cuando de verdad tiene sentido.",
-  },
-  {
-    title: "Trabajamos como un equipo, no como proveedores",
-    description: "Nos involucramos con tu negocio. No mandamos código y chau — queremos que funcione de verdad.",
-  },
-  {
-    title: "Lo que se mide, mejora",
-    description: "Cada cosa que hacemos tiene un objetivo claro. Si no podemos medir si funcionó, algo está mal.",
-  },
-];
 
 const About = () => {
   const heroRef  = useReveal();
   const bioRef   = useReveal();
-  const valRef   = useReveal();
   const ctaRef   = useReveal();
 
   usePageSEO({
@@ -67,13 +50,14 @@ const About = () => {
             <div className="reveal">
               <span className="section-label">Quiénes somos</span>
               <h1 className="mt-4 text-[2.5rem] font-extrabold leading-tight tracking-tight text-capasso-dark md:text-[3.5rem]">
-                El equipo que resuelve,{" "}
-                <span className="text-gradient">no el que complica</span>
+                Un equipo real, con ganas de{" "}
+                <span className="text-gradient">hacer las cosas bien</span>
               </h1>
               <p className="mt-5 mx-auto max-w-2xl text-lg text-capasso-dark-grey">
-                Más de 7 años trabajando con empresas de distintos rubros para
-                convertir problemas reales en soluciones digitales que funcionan.
-                Sin vueltas, sin excusas y sin jerga técnica innecesaria.
+                Somos un equipo de 11 personas distribuidas por Argentina, con base en Paraná.
+                Arrancamos como una idea y hoy tenemos estructura, proceso y experiencia —
+                sin la burocracia de las empresas grandes ni la incertidumbre de contratar
+                a alguien solo. El punto medio que la mayoría de las empresas necesita.
               </p>
             </div>
           </div>
@@ -135,37 +119,12 @@ const About = () => {
           </div>
         </section>
 
-        {/* ── Valores ── */}
-        <section ref={valRef} className="section-default bg-white">
-          <div className="mx-auto max-w-6xl px-6">
-            <div className="mb-14 text-center reveal">
-              <span className="section-label">Cómo nos manejamos</span>
-              <h2 className="text-[2.5rem] font-extrabold leading-tight tracking-tight text-capasso-dark md:text-[3rem]">
-                Lo que nos importa,{" "}
-                <span className="text-gradient">de verdad</span>
-              </h2>
-              <p className="mt-4 mx-auto max-w-2xl text-lg text-capasso-dark-grey">
-                No son valores que ponemos en una pared. Son las cosas que guían
-                cómo trabajamos con cada cliente.
-              </p>
-            </div>
 
-            <div className="grid gap-5 sm:grid-cols-2">
-              {values.map((v, i) => (
-                <div
-                  key={v.title}
-                  className={`reveal reveal-delay-${Math.min(i + 1, 4)} flex items-start gap-4 content-card transition-all duration-300 hover:border-capasso-primary/30 hover:shadow-card`}
-                >
-                  <CheckCircle className="mt-0.5 h-5 w-5 shrink-0 text-capasso-primary" strokeWidth={2} />
-                  <div>
-                    <h3 className="font-bold text-capasso-dark">{v.title}</h3>
-                    <p className="mt-1 text-sm text-capasso-dark-grey">{v.description}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
+        {/* ── Equipo ── */}
+        <TeamSection />
+
+        {/* ── Cómo trabajamos ── */}
+        <HowWeWorkSection />
 
         {/* ── Tech Stack ── */}
         <TechStackSection />
