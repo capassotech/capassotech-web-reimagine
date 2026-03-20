@@ -90,7 +90,7 @@ const About = () => {
                   Hola, soy Elías
                 </h2>
                 <p className="mt-4 text-lg text-capasso-dark-grey">
-                  Soy Ingeniero en Sistemas con más de 7 años trabajando en
+                  Ingeniero en Sistemas con más de 7 años trabajando en
                   proyectos de software, desde startups hasta empresas medianas.
                   Pasé por todos los roles — desarrollador, líder técnico,
                   responsable de producto — y eso me ayuda a entender el problema

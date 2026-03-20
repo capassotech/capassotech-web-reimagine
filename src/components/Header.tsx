@@ -61,7 +61,7 @@ const Header = () => {
         {/* Logo */}
         <Link to="/" onClick={() => setIsMobileMenuOpen(false)} className="flex-shrink-0">
           <img
-            src="/logo-light.png"
+            src={isScrolled ? "/logo-light.png" : "/logo-dark.png"}
             alt="CapassoTech"
             className="h-12 w-auto"
           />
