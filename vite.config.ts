@@ -3,7 +3,6 @@ import react from "@vitejs/plugin-react-swc";
 import path from "path";
 import { readFileSync } from "fs";
 import { fileURLToPath } from "url";
-import { componentTagger } from "lovable-tagger";
 import Sitemap from "vite-plugin-sitemap";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -57,8 +56,7 @@ export default defineConfig(({ mode }) => ({
       changefreq: "weekly",
       priority,
       generateRobotsTxt: true,
-    }),
-    mode === "development" && componentTagger(),
+    })
   ].filter(Boolean),
   resolve: {
     alias: {
