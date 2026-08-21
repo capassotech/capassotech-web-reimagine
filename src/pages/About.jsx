@@ -9,8 +9,10 @@ import { usePageSEO } from "@/hooks/usePageSEO";
 import { useReveal } from "@/hooks/useReveal";
 import { ArrowRight } from "lucide-react";
 import WhatsAppIcon from "@/components/icons/WhatsAppIcon";
+import { getYearsOfExperience } from "@/lib/experience";
 
 const defaultWhatsappMessage = "Hola CapassoTech, quiero asesoría";
+const yearsOfExperience = getYearsOfExperience();
 
 
 const About = () => {
@@ -21,7 +23,7 @@ const About = () => {
   usePageSEO({
     title: "Nosotros - el equipo detrás de tu software",
     description:
-      "Conocé a CapassoTech. Más de 7 años resolviendo problemas reales con tecnología, sin vueltas y sin tecnicismos.",
+      `Conocé a CapassoTech. Más de ${yearsOfExperience} años resolviendo problemas reales con tecnología, sin vueltas y sin tecnicismos.`,
     canonical: "https://capassotech.com/nosotros",
     image: "https://capassotech.com/og-image.jpg",
     ogType: "website",
@@ -69,7 +71,7 @@ const About = () => {
                   Hola, soy Elías
                 </h2>
                 <p className="mt-4 text-lg text-capasso-dark-grey">
-                  Ingeniero en Sistemas con más de 7 años trabajando en
+                  Ingeniero en Sistemas con más de {yearsOfExperience} años trabajando en
                   proyectos de software, desde startups hasta empresas medianas y grandes.
                   Pasé por muchos roles tales como programador, líder técnico,
                   responsable de producto, y toda esa experiencia me ayuda a entender el problema
@@ -101,7 +103,7 @@ const About = () => {
                 </div>
                 <div className="grid grid-cols-2 gap-4">
                   <div className="content-card text-center">
-                    <p className="text-3xl font-extrabold text-capasso-primary">7+</p>
+                    <p className="text-3xl font-extrabold text-capasso-primary">{yearsOfExperience}+</p>
                     <p className="mt-1 text-sm text-capasso-dark-grey">Años de experiencia</p>
                   </div>
                   <div className="content-card text-center">
