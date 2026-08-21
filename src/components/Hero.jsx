@@ -2,7 +2,7 @@
 import { useEffect, useRef, useState, useCallback } from "react";
 import { trackEvent } from "@/lib/analytics";
 import WhatsAppIcon from "@/components/icons/WhatsAppIcon";
-import { getYearsOfExperience } from "@/lib/experience";
+import { getYearsOfExperience, PROJECTS_DELIVERED } from "@/lib/experience";
 
 const whatsappUrl = "https://wa.me/5493435332132?text=Hola%20CapassoTech%2C%20quiero%20asesor%C3%ADa";
 
@@ -391,7 +391,7 @@ const LiveBuildCard = ({ mx, my }) => {
 const TYPEWRITER_WORDS = ["software a medida", "APIs escalables", "equipos remotos", "soluciones web", "apps móviles"];
 const stats = [
   { value: `${getYearsOfExperience()}+`, label: "Años de experiencia" },
-  { value: "30+", label: "Proyectos entregados" },
+  { value: `${PROJECTS_DELIVERED}+`, label: "Proyectos entregados" },
 ];
 
 const Hero = () => {

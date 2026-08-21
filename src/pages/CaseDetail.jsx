@@ -12,7 +12,6 @@ import WhatsAppIcon from "@/components/icons/WhatsAppIcon";
 const defaultWhatsappMessage = "Hola CapassoTech, quiero asesoría";
 
 const CaseDetail = () => {
-  window.scrollTo(0, 0);
   const { caseId } = useParams();
 
   const caseStudy = useMemo(() => cases.find((item) => item.slug === caseId), [caseId]);

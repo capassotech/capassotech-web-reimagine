@@ -465,6 +465,12 @@
   }
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee {
+    animation-play-state: paused;
+  }
+}
+
 /* ══════════════════════════════════
    AUTOFILL — evita el fondo amarillo del navegador
 ══════════════════════════════════ */

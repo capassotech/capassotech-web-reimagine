@@ -9,7 +9,7 @@ import { usePageSEO } from "@/hooks/usePageSEO";
 import { useReveal } from "@/hooks/useReveal";
 import { ArrowRight } from "lucide-react";
 import WhatsAppIcon from "@/components/icons/WhatsAppIcon";
-import { getYearsOfExperience } from "@/lib/experience";
+import { getYearsOfExperience, PROJECTS_DELIVERED } from "@/lib/experience";
 
 const defaultWhatsappMessage = "Hola CapassoTech, quiero asesoría";
 const yearsOfExperience = getYearsOfExperience();
@@ -28,8 +28,6 @@ const About = () => {
     image: "https://capassotech.com/og-image.jpg",
     ogType: "website",
   });
-
-  window.scrollTo(0, 0);
 
   const handleWhatsApp = (from, message = defaultWhatsappMessage) => {
     trackEvent("whatsapp_click", { location: from });
@@ -107,7 +105,7 @@ const About = () => {
                     <p className="mt-1 text-sm text-capasso-dark-grey">Años de experiencia</p>
                   </div>
                   <div className="content-card text-center">
-                    <p className="text-3xl font-extrabold text-capasso-primary">30+</p>
+                    <p className="text-3xl font-extrabold text-capasso-primary">{PROJECTS_DELIVERED}+</p>
                     <p className="mt-1 text-sm text-capasso-dark-grey">Proyectos entregados</p>
                   </div>
                 </div>

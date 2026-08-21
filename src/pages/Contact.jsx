@@ -21,8 +21,6 @@ const Contact = () => {
     ogType: "website",
   });
 
-  window.scrollTo(0, 0);
-
   const handleWhatsApp = (from, message = defaultWhatsappMessage) => {
     trackEvent("whatsapp_click", { location: from });
     window.open(`https://wa.me/5493435332132?text=${encodeURIComponent(message)}`, "_blank", "noopener,noreferrer");

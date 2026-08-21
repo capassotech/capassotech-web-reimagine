@@ -11,8 +11,8 @@ const services = [
   },
   {
     icon: Users,
-    title: "Tu equipo tech, sin el dolor de cabeza",
-    tagline: "Gente que arranca rápido.",
+    title: "Tu equipo tech siempre a disposición",
+    tagline: "Desde el dia 1 siendo parte de la solución.",
     features: ["Equipo completo desde el día uno", "Se adaptan a cómo trabajás vos", "Comunicación directa, sin intermediarios", "Disponibles en tu zona horaria"],
   },
   {

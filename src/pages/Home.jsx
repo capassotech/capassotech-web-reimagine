@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import ServicesSection from "@/components/ServicesSection";
-import CaseStudiesSection from "@/components/CaseStudiesSection";
+import TrustedBySection from "@/components/TrustedBySection";
 import ProcessSection from "@/components/ProcessSection";
 import StickyCTA from "@/components/StickyCTA";
 import ContactForm from "@/components/ContactForm";
@@ -15,13 +15,14 @@ import { ArrowRight, CheckCircle } from "lucide-react";
 import WhatsAppIcon from "@/components/icons/WhatsAppIcon";
 
 const defaultWhatsappMessage = "Hola CapassoTech, quiero asesoría";
+const calendlyUrl = "https://calendly.com/capassoelias/15min";
 
 const differentiators = [
-  { title: "Resultados rápidos, sin apuros",    description: "No te hacemos esperar meses para ver algo. Desde el primer momento trabajamos para que tengas avances concretos." },
+  { title: "Resultados concretos",    description: "No te hacemos esperar meses para ver algo. Desde el primer momento trabajamos para que tengas avances concretos." },
   { title: "Hablamos tu idioma",                description: "Sin tecnicismos innecesarios. Te explicamos qué se hace, por qué y cuánto cuesta, en términos que tienen sentido para tu negocio." },
   { title: "Lo que construimos, dura",          description: "No hacemos parches. Pensamos en que lo que entregamos hoy siga funcionando bien cuando tu negocio crezca." },
   { title: "Usamos IA solo cuando tiene sentido", description: "No te vendemos inteligencia artificial porque está de moda. La usamos cuando de verdad te ahorra tiempo o plata." },
-  { title: "Sabés en todo momento qué pasa",   description: "Sin sorpresas. Te contamos cómo va el proyecto, qué decidimos y por qué. Siempre." },
+  { title: "Sabés en todo momento qué pasa",   description: "Te contamos cómo va el proyecto, qué decidimos y por qué. Siempre." },
 ];
 
 const Home = () => {
@@ -54,6 +55,11 @@ const Home = () => {
     window.open(`https://wa.me/5493435332132?text=${encodeURIComponent(message)}`, "_blank", "noopener,noreferrer");
   };
 
+  const handleCalendly = (from) => {
+    trackEvent("calendly_click", { location: from });
+    window.open(calendlyUrl, "_blank", "noopener,noreferrer");
+  };
+
   return (
     <div className="min-h-screen bg-white text-capasso-dark">
       <Header />
@@ -72,10 +78,6 @@ const Home = () => {
                   Somos el equipo tech que{" "}
                   <span className="text-gradient">querés tener</span>
                 </h2>
-                <p className="mt-5 text-lg text-capasso-dark-grey">
-                  Sin las complicaciones de contratar, capacitar y retener. Te sumamos
-                  experiencia real desde el primer día.
-                </p>
                 <div className="mt-8 flex flex-wrap gap-3">
                   <button onClick={() => handleWhatsApp("why_section", "Hola CapassoTech, quiero hablar con el equipo sobre mi proyecto")} className="btn-primary text-base">
                     Hablar con el equipo
@@ -108,7 +110,7 @@ const Home = () => {
         </section>
 
         <ServicesSection />
-<CaseStudiesSection />
+        <TrustedBySection />
         <ProcessSection />
 
         {/* ── Final CTA (dark section like Diveria) ── */}
@@ -121,11 +123,11 @@ const Home = () => {
                 Siguiente paso
               </span>
               <h2 className="text-[2.5rem] font-extrabold leading-tight text-white md:text-[3rem]">
-                ¿Listo para escalar tu producto<br className="hidden md:block" /> sin fricción?
+                ¿Listo para escalar tu producto?
               </h2>
             </div>
             <p className="reveal reveal-delay-1 mt-5 mx-auto max-w-xl text-lg text-white/60">
-              Contanos qué querés lograr este trimestre y te proponemos un plan
+              Contanos qué querés lograr y te proponemos un plan
               con hitos, métricas y equipo asignado.
             </p>
             <div className="reveal reveal-delay-2 mt-10 flex flex-wrap justify-center gap-4">
@@ -175,7 +177,7 @@ const Home = () => {
                       O agendá cuando te quede cómodo
                     </p>
                     <button
-                      onClick={() => handleWhatsApp("home_contact", "Hola CapassoTech, quiero coordinar una llamada")}
+                      onClick={() => handleCalendly("home_contact")}
                       className="btn-primary mt-3 text-sm"
                     >
                       Ver agenda de 15 min

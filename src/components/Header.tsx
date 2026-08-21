@@ -38,8 +38,8 @@ const Header = () => {
   const menuItems = [
     { label: "Inicio",    type: "section" as const, target: "inicio" },
     { label: "Servicios", type: "section" as const, target: "servicios" },
-    { label: "Casos",     type: "section" as const, target: "casos-exito" },
-    { label: "Blog",      type: "route" as const,   path: "/blog" },
+    { label: "Clientes",  type: "section" as const, target: "casos-exito" },
+    { label: "Proyectos", type: "route" as const,   path: "/portafolio" },
     { label: "Nosotros",  type: "route" as const,   path: "/nosotros" },
   ];
 
