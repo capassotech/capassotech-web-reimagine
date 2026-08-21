@@ -211,7 +211,7 @@ const BlogPost = () => {
               </p>
               <div className="mt-6 flex flex-wrap gap-4">
                 <Button onClick={() => handleWhatsApp("blog_post_cta", `Hola CapassoTech, leí "${post.title}" y quiero agendar una llamada`)} className="btn-primary px-8 py-4 text-lg">
-                  Agendar 15 min
+                  Agendar reunión
                 </Button>
                 <Button onClick={() => handleWhatsApp("blog_post_cta")} className="btn-secondary inline-flex items-center gap-2 px-8 py-4 text-lg">
                   <WhatsAppIcon className="h-4 w-4" />

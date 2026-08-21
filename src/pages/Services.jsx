@@ -145,7 +145,7 @@ const Services = () => {
               </p>
               <div className="mt-8 flex flex-wrap gap-4">
                 <Button onClick={() => openWhatsApp("services_hero", "Hola CapassoTech, quiero agendar una llamada para conocer sus servicios")} className="btn-primary px-8 py-4 text-lg">
-                  Agendar 15 min
+                  Agendar reunión
                 </Button>
                 <Button onClick={() => openWhatsApp("services_hero")} className="btn-secondary inline-flex items-center gap-2 px-8 py-4 text-lg">
                   <WhatsAppIcon className="h-4 w-4" />
@@ -210,7 +210,7 @@ const Services = () => {
               </p>
               <div className="mt-6 flex flex-wrap gap-4">
                 <Button onClick={() => openWhatsApp("services_form", "Hola CapassoTech, quiero agendar una llamada para armar un plan a medida")} className="btn-primary px-8 py-4 text-lg">
-                  Agendar 15 min
+                  Agendar reunión
                 </Button>
                 <Button onClick={() => openWhatsApp("services_form")} className="btn-secondary inline-flex items-center gap-2 px-8 py-4 text-lg">
                   <WhatsAppIcon className="h-4 w-4" />

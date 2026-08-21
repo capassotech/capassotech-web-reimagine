@@ -132,7 +132,7 @@ const Home = () => {
             </p>
             <div className="reveal reveal-delay-2 mt-10 flex flex-wrap justify-center gap-4">
               <button onClick={() => handleWhatsApp("home_cta_final", "Hola CapassoTech, quiero agendar una llamada para escalar mi producto")} className="btn-primary text-base">
-                Agendar 15 min gratis
+                Agendar reunión gratis
                 <ArrowRight className="h-4 w-4" />
               </button>
               <button onClick={() => handleWhatsApp("home_cta_final")} className="btn-white inline-flex items-center gap-2 text-base">

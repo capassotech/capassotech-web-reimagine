@@ -8,7 +8,7 @@ import { ChevronDown } from "lucide-react";
 const defaultWhatsappMessage = "Hola CapassoTech, quiero asesoría";
 
 const products = [
-  { label: "Vialto",           url: "https://vialto.uno/",                                              logo: "/products/vialto.png" },
+  { label: "Vialto Software",           url: "https://vialto.uno/",                                              logo: "/products/vialto.png" },
   { label: "GymFuze",          url: "https://gymfuzeapp.web.app/",                                       logo: "/products/gymfuze.png" },
   { label: "Control de gastos", url: "https://play.google.com/store/apps/details?id=gastos.app",         logo: "/products/gastos.png" },
 ];

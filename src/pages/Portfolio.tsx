@@ -142,7 +142,7 @@ const Portfolio = () => {
             </p>
             <div className="mt-8 flex flex-wrap justify-center gap-4">
               <Button onClick={() => openWhatsApp("portfolio_cta", "Hola CapassoTech, vi el portafolio completo y quiero agendar una llamada para contarles mi proyecto")} className="btn-primary px-8 py-4 text-lg">
-                Agendar 15 min
+                Agendar reunión
               </Button>
               <Button onClick={() => openWhatsApp("portfolio_cta")} className="btn-secondary inline-flex items-center gap-2 px-8 py-4 text-lg">
                 <WhatsAppIcon className="h-4 w-4" />

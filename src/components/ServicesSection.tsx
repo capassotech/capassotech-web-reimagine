@@ -1,31 +1,31 @@
-import { Code, Users, BrainCircuit, Cog, ArrowRight } from "lucide-react";
+import { Code, Cog, Users, GraduationCap, ArrowRight } from "lucide-react";
 import { trackEvent } from "@/lib/analytics";
 import { useReveal } from "@/hooks/useReveal";
 
 const services = [
   {
     icon: Code,
-    title: "Tu idea, convertida en software",
-    tagline: "De la idea al producto.",
-    features: ["Apps web y móviles a medida", "Conexión con tus sistemas actuales", "Modernización de sistemas viejos", "Seguimiento y mejoras post-lanzamiento"],
-  },
-  {
-    icon: Users,
-    title: "Tu equipo tech siempre a disposición",
-    tagline: "Desde el dia 1 siendo parte de la solución.",
-    features: ["Equipo completo desde el día uno", "Se adaptan a cómo trabajás vos", "Comunicación directa, sin intermediarios", "Disponibles en tu zona horaria"],
-  },
-  {
-    icon: BrainCircuit,
-    title: "Tecnología que resuelve problemas reales",
-    tagline: "Sin modas, sin jerga.",
-    features: ["Análisis de lo que realmente necesitás", "Automatizaciones que se pagan solas", "IA cuando tiene sentido, no por moda", "Sin tecnicismos en ninguna reunión"],
+    title: "Desarrollo de software a medida",
+    tagline: "Tu sistema a la medida de tu negocio.",
+    features: ["Apps web y móviles a medida", "Integración con tus sistemas actuales", "Arquitectura pensada para escalar", "Acompañamiento después del lanzamiento"],
   },
   {
     icon: Cog,
-    title: "Tu sistema siempre funcionando",
-    tagline: "Sin caídas ni sorpresas.",
-    features: ["Monitoreo antes de que algo falle", "Soporte cuando lo necesitás", "Nuevas funciones cuando el negocio lo pide", "Costos claros, sin letra chica"],
+    title: "Mantenimiento de sistemas existentes",
+    tagline: "Cuidamos lo que ya tenés funcionando.",
+    features: ["Corrección de errores y soporte continuo", "Monitoreo antes de que algo falle", "Actualizaciones y mejoras de performance", "Nuevas funciones sobre lo que ya existe"],
+  },
+  {
+    icon: Users,
+    title: "Outsourcing de equipos",
+    tagline: "Sumamos gente a tu equipo, sin que tengas que contratar.",
+    features: ["Devs, QA y líderes técnicos disponibles", "Se integran a tu forma de trabajar", "Comunicación directa, sin intermediarios", "Escalás o reducís el equipo cuando quieras"],
+  },
+  {
+    icon: GraduationCap,
+    title: "Capacitaciones",
+    tagline: "Formamos a tu equipo para que gane autonomía.",
+    features: ["Talleres a medida según tu stack", "Buenas prácticas de desarrollo", "Mentoría para perfiles junior", "Contenido práctico, no solo teoría"],
   },
 ];
 
@@ -45,8 +45,8 @@ const ServicesSection = () => {
         <div className="mb-14 text-center reveal">
           <span className="section-label">En qué te podemos ayudar</span>
           <h2 className="text-[2.5rem] font-extrabold leading-tight tracking-tight text-capasso-dark md:text-[3rem]">
-            Lo que hacemos,{" "}
-            <span className="text-gradient">dicho sin vueltas</span>
+            Cuales son{" "}
+            <span className="text-gradient">nuestros servicios</span>
           </h2>
         </div>
 
@@ -105,7 +105,7 @@ const ServicesSection = () => {
             onClick={() => handleWhatsApp("services_cta", "Hola CapassoTech, no sé bien por dónde empezar con mi proyecto y quiero agendar una llamada")}
             className="btn-white flex-shrink-0 text-sm"
           >
-            Agendar 15 min
+            Agendar reunión
             <ArrowRight className="h-4 w-4" />
           </button>
         </div>

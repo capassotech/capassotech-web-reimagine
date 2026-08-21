@@ -148,7 +148,7 @@ const CaseDetail = () => {
                 </p>
                 <div className="mt-4 flex flex-col gap-3">
                   <Button onClick={() => openWhatsApp("case_detail_sidebar", `Hola CapassoTech, vi el caso "${caseStudy.title}" y quiero agendar una llamada para un proyecto similar`)} className="btn-primary w-full">
-                    Agendar 15 min
+                    Agendar reunión
                   </Button>
                   <Button onClick={() => openWhatsApp("case_detail_sidebar")} className="btn-secondary inline-flex w-full items-center justify-center gap-2">
                     <WhatsAppIcon className="h-4 w-4" />
@@ -169,7 +169,7 @@ const CaseDetail = () => {
               </p>
               <div className="mt-6 flex flex-wrap gap-4">
                 <Button onClick={() => openWhatsApp("case_detail_cta", `Hola CapassoTech, vi el caso "${caseStudy.title}" y quiero agendar una llamada`)} className="btn-primary px-8 py-4 text-lg">
-                  Agendar 15 min
+                  Agendar reunión
                 </Button>
                 <Button onClick={() => openWhatsApp("case_detail_cta")} className="btn-secondary inline-flex items-center gap-2 px-8 py-4 text-lg">
                   <WhatsAppIcon className="h-4 w-4" />

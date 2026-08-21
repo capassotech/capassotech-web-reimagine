@@ -141,7 +141,7 @@ const About = () => {
             </p>
             <div className="reveal reveal-delay-2 mt-10 flex flex-wrap justify-center gap-4">
               <button onClick={() => handleWhatsApp("about_cta", "Hola CapassoTech, quiero agendar una llamada para hablar de mi proyecto")} className="btn-primary text-base">
-                Agendar 15 min gratis
+                Agendar reunión gratis
                 <ArrowRight className="h-4 w-4" />
               </button>
               <button onClick={() => handleWhatsApp("about_cta")} className="btn-white inline-flex items-center gap-2 text-base">

@@ -166,7 +166,7 @@ const Cases = () => {
               </p>
               <div className="mt-6 flex flex-wrap gap-4">
                 <Button onClick={() => openWhatsApp("cases_cta", "Hola CapassoTech, vi los casos de éxito y quiero agendar una llamada para contarles mi proyecto")} className="btn-primary px-8 py-4 text-lg">
-                  Agendar 15 min
+                  Agendar reunión
                 </Button>
                 <Button onClick={() => openWhatsApp("cases_cta")} className="btn-secondary inline-flex items-center gap-2 px-8 py-4 text-lg">
                   <WhatsAppIcon className="h-4 w-4" />
