@@ -1,6 +1,7 @@
 
 import { useEffect, useRef, useState, useCallback } from "react";
 import { trackEvent } from "@/lib/analytics";
+import WhatsAppIcon from "@/components/icons/WhatsAppIcon";
 
 const whatsappUrl = "https://wa.me/5493435332132?text=Hola%20CapassoTech%2C%20quiero%20asesor%C3%ADa";
 
@@ -440,7 +441,10 @@ const Hero = () => {
 
             <div className="flex flex-wrap items-center gap-4 mb-12">
               <button onClick={handleNosotros} className="btn-primary text-base">Conocenos</button>
-              <button onClick={handleWhatsApp} className="btn-secondary text-base">Escribir por WhatsApp</button>
+              <button onClick={handleWhatsApp} className="btn-secondary inline-flex items-center gap-2 text-base">
+                <WhatsAppIcon className="h-4 w-4" />
+                Escribir por WhatsApp
+              </button>
             </div>
 
             <div className="flex flex-wrap gap-6">

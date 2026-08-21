@@ -3,6 +3,7 @@ import cases from "@/data/cases.json";
 import { trackEvent } from "@/lib/analytics";
 import { useReveal } from "@/hooks/useReveal";
 import { ArrowRight } from "lucide-react";
+import WhatsAppIcon from "@/components/icons/WhatsAppIcon";
 
 const accentMap: Record<string, { from: string; to: string; text: string }> = {
   "app-gestion-logistica":   { from: "#49b5e7", to: "#3a9fd4", text: "Logística" },
@@ -33,7 +34,6 @@ const CaseStudiesSection = () => {
           <h2 className="text-[2.5rem] font-extrabold leading-tight tracking-tight text-capasso-dark md:text-[3rem]">
             Casos de <span className="text-gradient">Éxito</span>
           </h2>
-          <p className="mt-3 text-sm text-capasso-medium-grey">Pasá el cursor sobre cada caso para ver los resultados.</p>
         </div>
 
         {/* Flip cards grid */}
@@ -185,16 +185,12 @@ const CaseStudiesSection = () => {
           <h3 className="text-xl font-bold text-capasso-dark">¿Querés ver tu proyecto acá?</h3>
           <p className="mt-2 text-sm text-capasso-dark-grey">Empezamos con una charla corta para entender qué necesitás.</p>
           <div className="mt-6 flex flex-wrap justify-center gap-3">
-            <button
-              onClick={() => handleWhatsApp("case_studies", "Hola CapassoTech, vi los casos de éxito y quiero agendar una llamada de para mi proyecto")}
-              className="btn-primary text-base"
-            >
-              Agendar 15 min
-            </button>
+            
             <button
               onClick={() => handleWhatsApp("case_studies", "Hola CapassoTech, quiero asesoría")}
-              className="btn-outline text-base"
+              className="btn-outline inline-flex items-center gap-2 text-base"
             >
+              <WhatsAppIcon className="h-4 w-4" />
               Escribir por WhatsApp
             </button>
           </div>

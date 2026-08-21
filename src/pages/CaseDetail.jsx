@@ -7,6 +7,7 @@ import { blogPosts } from "@/data/blog-posts";
 import { Button } from "@/components/ui/button";
 import { trackEvent } from "@/lib/analytics";
 import { usePageSEO } from "@/hooks/usePageSEO";
+import WhatsAppIcon from "@/components/icons/WhatsAppIcon";
 
 const defaultWhatsappMessage = "Hola CapassoTech, quiero asesoría";
 
@@ -150,7 +151,8 @@ const CaseDetail = () => {
                   <Button onClick={() => openWhatsApp("case_detail_sidebar", `Hola CapassoTech, vi el caso "${caseStudy.title}" y quiero agendar una llamada para un proyecto similar`)} className="btn-primary w-full">
                     Agendar 15 min
                   </Button>
-                  <Button onClick={() => openWhatsApp("case_detail_sidebar")} className="btn-secondary w-full">
+                  <Button onClick={() => openWhatsApp("case_detail_sidebar")} className="btn-secondary inline-flex w-full items-center justify-center gap-2">
+                    <WhatsAppIcon className="h-4 w-4" />
                     Escribir por WhatsApp
                   </Button>
                 </div>
@@ -170,7 +172,8 @@ const CaseDetail = () => {
                 <Button onClick={() => openWhatsApp("case_detail_cta", `Hola CapassoTech, vi el caso "${caseStudy.title}" y quiero agendar una llamada`)} className="btn-primary px-8 py-4 text-lg">
                   Agendar 15 min
                 </Button>
-                <Button onClick={() => openWhatsApp("case_detail_cta")} className="btn-secondary px-8 py-4 text-lg">
+                <Button onClick={() => openWhatsApp("case_detail_cta")} className="btn-secondary inline-flex items-center gap-2 px-8 py-4 text-lg">
+                  <WhatsAppIcon className="h-4 w-4" />
                   Escribir por WhatsApp
                 </Button>
               </div>

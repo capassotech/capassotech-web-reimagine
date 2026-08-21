@@ -48,7 +48,6 @@ const ServicesSection = () => {
             Lo que hacemos,{" "}
             <span className="text-gradient">dicho sin vueltas</span>
           </h2>
-          <p className="mt-3 text-sm text-capasso-medium-grey">Pasá el cursor sobre cada servicio para ver el detalle.</p>
         </div>
 
         {/* Flip cards */}

@@ -2,6 +2,7 @@ import type { MouseEvent } from "react";
 import { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { trackEvent } from "@/lib/analytics";
+import WhatsAppIcon from "@/components/icons/WhatsAppIcon";
 
 const defaultWhatsappMessage = "Hola CapassoTech, quiero asesoría";
 
@@ -47,7 +48,7 @@ const Header = () => {
       className={`fixed left-0 right-0 top-0 z-50 transition-all duration-300 ${
         isScrolled
           ? "bg-white/95 backdrop-blur-md shadow-soft border-b border-capasso-light-grey"
-          : "bg-transparent"
+          : "bg-capasso-dark/70 backdrop-blur-sm"
       }`}
     >
       <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
@@ -68,7 +69,7 @@ const Header = () => {
               <Link
                 key={item.label}
                 to={item.path}
-                className="nav-link"
+                className={`nav-link ${isScrolled ? "" : "nav-link-inverted"}`}
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 {item.label}
@@ -78,7 +79,7 @@ const Header = () => {
                 key={item.label}
                 href={`/#${item.target}`}
                 onClick={(e) => handleInternalNavigation(e, item.target)}
-                className="nav-link"
+                className={`nav-link ${isScrolled ? "" : "nav-link-inverted"}`}
               >
                 {item.label}
               </a>
@@ -90,15 +91,10 @@ const Header = () => {
         <div className="hidden items-center gap-3 md:flex">
           <button
             onClick={() => handleWhatsApp("header")}
-            className="btn-outline px-5 py-2.5 text-sm"
+            className="btn-outline inline-flex items-center gap-2 px-5 py-2.5 text-sm"
           >
+            <WhatsAppIcon className="h-4 w-4" />
             WhatsApp
-          </button>
-          <button
-            onClick={() => handleWhatsApp("header", "Hola CapassoTech, quiero agendar una llamada")}
-            className="btn-primary px-5 py-2.5 text-sm"
-          >
-            Agendar 15 min
           </button>
         </div>
 
@@ -108,9 +104,9 @@ const Header = () => {
           className="flex h-9 w-9 flex-col items-center justify-center gap-[5px] md:hidden"
           aria-label="Abrir menú"
         >
-          <span className={`h-[2px] w-5 bg-capasso-dark rounded transition-all duration-300 ${isMobileMenuOpen ? "translate-y-[7px] rotate-45" : ""}`} />
-          <span className={`h-[2px] w-5 bg-capasso-dark rounded transition-opacity duration-300 ${isMobileMenuOpen ? "opacity-0" : ""}`} />
-          <span className={`h-[2px] w-5 bg-capasso-dark rounded transition-all duration-300 ${isMobileMenuOpen ? "-translate-y-[7px] -rotate-45" : ""}`} />
+          <span className={`h-[2px] w-5 rounded transition-all duration-300 ${isScrolled ? "bg-capasso-dark" : "bg-white"} ${isMobileMenuOpen ? "translate-y-[7px] rotate-45" : ""}`} />
+          <span className={`h-[2px] w-5 rounded transition-opacity duration-300 ${isScrolled ? "bg-capasso-dark" : "bg-white"} ${isMobileMenuOpen ? "opacity-0" : ""}`} />
+          <span className={`h-[2px] w-5 rounded transition-all duration-300 ${isScrolled ? "bg-capasso-dark" : "bg-white"} ${isMobileMenuOpen ? "-translate-y-[7px] -rotate-45" : ""}`} />
         </button>
       </nav>
 
@@ -142,15 +138,10 @@ const Header = () => {
             <div className="mt-3 flex flex-col gap-3">
               <button
                 onClick={() => { handleWhatsApp("header_mobile"); setIsMobileMenuOpen(false); }}
-                className="btn-outline w-full py-3 text-base"
+                className="btn-outline inline-flex w-full items-center justify-center gap-2 py-3 text-base"
               >
+                <WhatsAppIcon className="h-4 w-4" />
                 WhatsApp
-              </button>
-              <button
-                onClick={() => { handleWhatsApp("header_mobile", "Hola CapassoTech, quiero agendar una llamada"); setIsMobileMenuOpen(false); }}
-                className="btn-primary w-full py-3 text-base"
-              >
-                Agendar 15 min
               </button>
             </div>
           </div>

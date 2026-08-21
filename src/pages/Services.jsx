@@ -5,6 +5,7 @@ import ContactForm from "@/components/ContactForm";
 import { Button } from "@/components/ui/button";
 import { trackEvent } from "@/lib/analytics";
 import { usePageSEO } from "@/hooks/usePageSEO";
+import WhatsAppIcon from "@/components/icons/WhatsAppIcon";
 
 const defaultWhatsappMessage = "Hola CapassoTech, quiero asesoría";
 
@@ -146,7 +147,8 @@ const Services = () => {
                 <Button onClick={() => openWhatsApp("services_hero", "Hola CapassoTech, quiero agendar una llamada para conocer sus servicios")} className="btn-primary px-8 py-4 text-lg">
                   Agendar 15 min
                 </Button>
-                <Button onClick={() => openWhatsApp("services_hero")} className="btn-secondary px-8 py-4 text-lg">
+                <Button onClick={() => openWhatsApp("services_hero")} className="btn-secondary inline-flex items-center gap-2 px-8 py-4 text-lg">
+                  <WhatsAppIcon className="h-4 w-4" />
                   Escribir por WhatsApp
                 </Button>
               </div>
@@ -210,7 +212,8 @@ const Services = () => {
                 <Button onClick={() => openWhatsApp("services_form", "Hola CapassoTech, quiero agendar una llamada para armar un plan a medida")} className="btn-primary px-8 py-4 text-lg">
                   Agendar 15 min
                 </Button>
-                <Button onClick={() => openWhatsApp("services_form")} className="btn-secondary px-8 py-4 text-lg">
+                <Button onClick={() => openWhatsApp("services_form")} className="btn-secondary inline-flex items-center gap-2 px-8 py-4 text-lg">
+                  <WhatsAppIcon className="h-4 w-4" />
                   Escribir por WhatsApp
                 </Button>
               </div>

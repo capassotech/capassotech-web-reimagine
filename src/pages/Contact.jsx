@@ -6,6 +6,7 @@ import { trackEvent } from "@/lib/analytics";
 import { usePageSEO } from "@/hooks/usePageSEO";
 import { useReveal } from "@/hooks/useReveal";
 import { ArrowRight } from "lucide-react";
+import WhatsAppIcon from "@/components/icons/WhatsAppIcon";
 
 const defaultWhatsappMessage = "Hola CapassoTech, quiero asesoría";
 
@@ -54,8 +55,9 @@ const Contact = () => {
                     </p>
                     <button
                       onClick={() => handleWhatsApp("contact_page")}
-                      className="btn-outline mt-3 text-sm"
+                      className="btn-outline mt-3 inline-flex items-center gap-2 text-sm"
                     >
+                      <WhatsAppIcon className="h-4 w-4" />
                       Escribir por WhatsApp
                     </button>
                   </div>

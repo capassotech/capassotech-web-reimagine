@@ -5,6 +5,7 @@ import cases from "@/data/cases.json";
 import { Button } from "@/components/ui/button";
 import { trackEvent } from "@/lib/analytics";
 import { usePageSEO } from "@/hooks/usePageSEO";
+import WhatsAppIcon from "@/components/icons/WhatsAppIcon";
 
 const defaultWhatsappMessage = "Hola CapassoTech, quiero asesoría";
 
@@ -167,7 +168,8 @@ const Cases = () => {
                 <Button onClick={() => openWhatsApp("cases_cta", "Hola CapassoTech, vi los casos de éxito y quiero agendar una llamada para contarles mi proyecto")} className="btn-primary px-8 py-4 text-lg">
                   Agendar 15 min
                 </Button>
-                <Button onClick={() => openWhatsApp("cases_cta")} className="btn-secondary px-8 py-4 text-lg">
+                <Button onClick={() => openWhatsApp("cases_cta")} className="btn-secondary inline-flex items-center gap-2 px-8 py-4 text-lg">
+                  <WhatsAppIcon className="h-4 w-4" />
                   Escribir por WhatsApp
                 </Button>
               </div>

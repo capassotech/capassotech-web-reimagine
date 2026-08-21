@@ -12,6 +12,7 @@ import { trackEvent } from "@/lib/analytics";
 import { usePageSEO } from "@/hooks/usePageSEO";
 import { useReveal } from "@/hooks/useReveal";
 import { ArrowRight, CheckCircle } from "lucide-react";
+import WhatsAppIcon from "@/components/icons/WhatsAppIcon";
 
 const defaultWhatsappMessage = "Hola CapassoTech, quiero asesoría";
 
@@ -69,7 +70,7 @@ const Home = () => {
                 <span className="section-label">Por qué trabajar con nosotros</span>
                 <h2 className="text-[2.5rem] font-extrabold leading-tight tracking-tight text-capasso-dark md:text-[3rem]">
                   Somos el equipo tech que{" "}
-                  <span className="text-gradient">quisieras tener adentro</span>
+                  <span className="text-gradient">querés tener</span>
                 </h2>
                 <p className="mt-5 text-lg text-capasso-dark-grey">
                   Sin las complicaciones de contratar, capacitar y retener. Te sumamos
@@ -80,7 +81,8 @@ const Home = () => {
                     Hablar con el equipo
                     <ArrowRight className="h-4 w-4" />
                   </button>
-                  <button onClick={() => handleWhatsApp("why_section")} className="btn-outline text-base">
+                  <button onClick={() => handleWhatsApp("why_section")} className="btn-outline inline-flex items-center gap-2 text-base">
+                    <WhatsAppIcon className="h-4 w-4" />
                     WhatsApp
                   </button>
                 </div>
@@ -131,7 +133,8 @@ const Home = () => {
                 Agendar 15 min gratis
                 <ArrowRight className="h-4 w-4" />
               </button>
-              <button onClick={() => handleWhatsApp("home_cta_final")} className="btn-white text-base">
+              <button onClick={() => handleWhatsApp("home_cta_final")} className="btn-white inline-flex items-center gap-2 text-base">
+                <WhatsAppIcon className="h-4 w-4" />
                 WhatsApp
               </button>
             </div>
@@ -161,8 +164,9 @@ const Home = () => {
                     </p>
                     <button
                       onClick={() => handleWhatsApp("home_contact")}
-                      className="btn-outline mt-3 text-sm"
+                      className="btn-outline mt-3 inline-flex items-center gap-2 text-sm"
                     >
+                      <WhatsAppIcon className="h-4 w-4" />
                       Escribir por WhatsApp
                     </button>
                   </div>

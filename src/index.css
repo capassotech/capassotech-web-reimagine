@@ -287,6 +287,14 @@
     width: 100%;
   }
 
+  .nav-link-inverted {
+    color: #ffffff;
+  }
+
+  .nav-link-inverted:hover {
+    color: #49b5e7;
+  }
+
   /* ══════════════════════════════════
      SCROLL REVEAL
   ══════════════════════════════════ */

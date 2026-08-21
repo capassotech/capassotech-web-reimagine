@@ -11,6 +11,7 @@ import { blogPosts } from "@/data/blog-posts";
 import cases from "@/data/cases.json";
 import { usePageSEO } from "@/hooks/usePageSEO";
 import { trackEvent } from "@/lib/analytics";
+import WhatsAppIcon from "@/components/icons/WhatsAppIcon";
 
 const defaultWhatsappMessage = "Hola CapassoTech, quiero asesoría";
 
@@ -152,8 +153,9 @@ const BlogPost = () => {
                 </Button>
                 <Button
                   onClick={() => handleWhatsApp("blog_post_header")}
-                  className="btn-secondary px-8 py-4 text-lg"
+                  className="btn-secondary inline-flex items-center gap-2 px-8 py-4 text-lg"
                 >
+                  <WhatsAppIcon className="h-4 w-4" />
                   Escribir por WhatsApp
                 </Button>
               </div>
@@ -211,7 +213,8 @@ const BlogPost = () => {
                 <Button onClick={() => handleWhatsApp("blog_post_cta", `Hola CapassoTech, leí "${post.title}" y quiero agendar una llamada`)} className="btn-primary px-8 py-4 text-lg">
                   Agendar 15 min
                 </Button>
-                <Button onClick={() => handleWhatsApp("blog_post_cta")} className="btn-secondary px-8 py-4 text-lg">
+                <Button onClick={() => handleWhatsApp("blog_post_cta")} className="btn-secondary inline-flex items-center gap-2 px-8 py-4 text-lg">
+                  <WhatsAppIcon className="h-4 w-4" />
                   Escribir por WhatsApp
                 </Button>
               </div>
