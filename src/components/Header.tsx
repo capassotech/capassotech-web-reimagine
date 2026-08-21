@@ -3,8 +3,7 @@ import { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { trackEvent } from "@/lib/analytics";
 
-const calendlyUrl = "https://calendly.com/capassoelias/15min";
-const whatsappUrl = "https://wa.me/5493435332132?text=Hola%20CapassoTech%2C%20quiero%20asesor%C3%ADa";
+const defaultWhatsappMessage = "Hola CapassoTech, quiero asesoría";
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -30,14 +29,9 @@ const Header = () => {
     }
   };
 
-  const handleCalendly = (from: string) => {
-    trackEvent("calendly_click", { location: from });
-    window.open(calendlyUrl, "_blank", "noopener,noreferrer");
-  };
-
-  const handleWhatsApp = (from: string) => {
+  const handleWhatsApp = (from: string, message: string = defaultWhatsappMessage) => {
     trackEvent("whatsapp_click", { location: from });
-    window.open(whatsappUrl, "_blank", "noopener,noreferrer");
+    window.open(`https://wa.me/5493435332132?text=${encodeURIComponent(message)}`, "_blank", "noopener,noreferrer");
   };
 
   const menuItems = [
@@ -101,7 +95,7 @@ const Header = () => {
             WhatsApp
           </button>
           <button
-            onClick={() => handleCalendly("header")}
+            onClick={() => handleWhatsApp("header", "Hola CapassoTech, quiero agendar una llamada de 15 minutos")}
             className="btn-primary px-5 py-2.5 text-sm"
           >
             Agendar 15 min
@@ -153,7 +147,7 @@ const Header = () => {
                 WhatsApp
               </button>
               <button
-                onClick={() => { handleCalendly("header_mobile"); setIsMobileMenuOpen(false); }}
+                onClick={() => { handleWhatsApp("header_mobile", "Hola CapassoTech, quiero agendar una llamada de 15 minutos"); setIsMobileMenuOpen(false); }}
                 className="btn-primary w-full py-3 text-base"
               >
                 Agendar 15 min

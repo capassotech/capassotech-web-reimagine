@@ -12,8 +12,7 @@ import cases from "@/data/cases.json";
 import { usePageSEO } from "@/hooks/usePageSEO";
 import { trackEvent } from "@/lib/analytics";
 
-const calendlyUrl = "https://calendly.com/capassoelias/15min";
-const whatsappUrl = "https://wa.me/5493435332132?text=Hola%20CapassoTech%2C%20quiero%20asesor%C3%ADa";
+const defaultWhatsappMessage = "Hola CapassoTech, quiero asesoría";
 
 const BlogPost = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -110,14 +109,9 @@ const BlogPost = () => {
     ? cases.find((caseStudy) => caseStudy.slug === post.relatedCaseSlug)
     : undefined;
 
-  const handleCalendly = (origin: string) => {
-    trackEvent("calendly_click", { location: origin, slug: post.slug });
-    window.open(calendlyUrl, "_blank", "noopener,noreferrer");
-  };
-
-  const handleWhatsApp = (origin: string) => {
+  const handleWhatsApp = (origin: string, message: string = defaultWhatsappMessage) => {
     trackEvent("whatsapp_click", { location: origin, slug: post.slug });
-    window.open(whatsappUrl, "_blank", "noopener,noreferrer");
+    window.open(`https://wa.me/5493435332132?text=${encodeURIComponent(message)}`, "_blank", "noopener,noreferrer");
   };
 
   return (
@@ -151,7 +145,7 @@ const BlogPost = () => {
               </div>
               <div className="mt-8 flex flex-wrap gap-4">
                 <Button
-                  onClick={() => handleCalendly("blog_post_header")}
+                  onClick={() => handleWhatsApp("blog_post_header", `Hola CapassoTech, leí "${post.title}" y quiero planificar mi proyecto`)}
                   className="btn-primary px-8 py-4 text-lg"
                 >
                   Planificar proyecto
@@ -214,7 +208,7 @@ const BlogPost = () => {
                 Contanos en qué etapa está tu producto y diseñamos una propuesta con hitos, métricas y equipo asignado en menos de 48 horas.
               </p>
               <div className="mt-6 flex flex-wrap gap-4">
-                <Button onClick={() => handleCalendly("blog_post_cta")} className="btn-primary px-8 py-4 text-lg">
+                <Button onClick={() => handleWhatsApp("blog_post_cta", `Hola CapassoTech, leí "${post.title}" y quiero agendar una llamada de 15 minutos`)} className="btn-primary px-8 py-4 text-lg">
                   Agendar 15 min
                 </Button>
                 <Button onClick={() => handleWhatsApp("blog_post_cta")} className="btn-secondary px-8 py-4 text-lg">

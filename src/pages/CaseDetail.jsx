@@ -8,8 +8,7 @@ import { Button } from "@/components/ui/button";
 import { trackEvent } from "@/lib/analytics";
 import { usePageSEO } from "@/hooks/usePageSEO";
 
-const calendlyUrl = "https://calendly.com/capassoelias/15min";
-const whatsappUrl = "https://wa.me/5493435332132?text=Hola%20CapassoTech%2C%20quiero%20asesor%C3%ADa";
+const defaultWhatsappMessage = "Hola CapassoTech, quiero asesoría";
 
 const CaseDetail = () => {
   window.scrollTo(0, 0);
@@ -44,14 +43,9 @@ const CaseDetail = () => {
     return <Navigate to="/casos" replace />;
   }
 
-  const openCalendly = (origin) => {
-    trackEvent("calendly_click", { location: origin, case: caseStudy.slug });
-    window.open(calendlyUrl, "_blank", "noopener,noreferrer");
-  };
-
-  const openWhatsApp = (origin) => {
+  const openWhatsApp = (origin, message = defaultWhatsappMessage) => {
     trackEvent("whatsapp_click", { location: origin, case: caseStudy.slug });
-    window.open(whatsappUrl, "_blank", "noopener,noreferrer");
+    window.open(`https://wa.me/5493435332132?text=${encodeURIComponent(message)}`, "_blank", "noopener,noreferrer");
   };
 
   return (
@@ -153,7 +147,7 @@ const CaseDetail = () => {
                   Coordinemos una call para mostrarte cómo adaptar esta solución a tu contexto.
                 </p>
                 <div className="mt-4 flex flex-col gap-3">
-                  <Button onClick={() => openCalendly("case_detail_sidebar")} className="btn-primary w-full">
+                  <Button onClick={() => openWhatsApp("case_detail_sidebar", `Hola CapassoTech, vi el caso "${caseStudy.title}" y quiero agendar una llamada de 15 minutos para un proyecto similar`)} className="btn-primary w-full">
                     Agendar 15 min
                   </Button>
                   <Button onClick={() => openWhatsApp("case_detail_sidebar")} className="btn-secondary w-full">
@@ -173,7 +167,7 @@ const CaseDetail = () => {
                 Te proponemos un plan de abordaje con roadmap, métricas de éxito y equipo sugerido en menos de 24 horas.
               </p>
               <div className="mt-6 flex flex-wrap gap-4">
-                <Button onClick={() => openCalendly("case_detail_cta")} className="btn-primary px-8 py-4 text-lg">
+                <Button onClick={() => openWhatsApp("case_detail_cta", `Hola CapassoTech, vi el caso "${caseStudy.title}" y quiero agendar una llamada de 15 minutos`)} className="btn-primary px-8 py-4 text-lg">
                   Agendar 15 min
                 </Button>
                 <Button onClick={() => openWhatsApp("case_detail_cta")} className="btn-secondary px-8 py-4 text-lg">

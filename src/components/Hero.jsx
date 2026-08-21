@@ -423,15 +423,10 @@ const Hero = () => {
 
           {/* LEFT */}
           <div className="animate-fade-in">
-            <div className="inline-flex items-center gap-2 mb-6 px-4 py-2 rounded-full bg-[#49b5e7]/10 border border-[#49b5e7]/20 text-[#49b5e7] text-sm font-semibold">
-              <span className="w-2 h-2 rounded-full bg-[#49b5e7] animate-pulse" />
-              Para negocios que quieren crecer
-            </div>
-
             <h1 className="mb-6 text-4xl font-extrabold leading-tight tracking-tight text-white md:text-5xl lg:text-[3.5rem]">
-              Hacemos que la tecnología{" "}
+              Software para{" "}
               <span style={{ background: "linear-gradient(135deg, #49b5e7 0%, #216AD9 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
-                trabaje para vos
+                empresas
               </span>
             </h1>
 
@@ -442,11 +437,6 @@ const Hero = () => {
                 <span className="inline-block w-[2px] h-[1em] bg-[#49b5e7] ml-[2px] align-middle animate-pulse" />
               </span>
             </div>
-
-            <p className="mb-10 max-w-lg text-lg leading-relaxed text-white/55">
-              Tenés una idea, un problema o un sistema que da guerra.
-              Nosotros lo resolvemos — con fechas reales y resultados que podés medir.
-            </p>
 
             <div className="flex flex-wrap items-center gap-4 mb-12">
               <button onClick={handleNosotros} className="btn-primary text-base">Conocenos</button>

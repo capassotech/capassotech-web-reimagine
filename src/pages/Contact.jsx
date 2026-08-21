@@ -7,8 +7,7 @@ import { usePageSEO } from "@/hooks/usePageSEO";
 import { useReveal } from "@/hooks/useReveal";
 import { ArrowRight } from "lucide-react";
 
-const calendlyUrl = "https://calendly.com/capassoelias/15min";
-const whatsappUrl = "https://wa.me/5493435332132?text=Hola%20CapassoTech%2C%20quiero%20asesor%C3%ADa";
+const defaultWhatsappMessage = "Hola CapassoTech, quiero asesoría";
 
 const Contact = () => {
   const sectionRef = useReveal();
@@ -23,14 +22,9 @@ const Contact = () => {
 
   window.scrollTo(0, 0);
 
-  const handleCalendly = (from) => {
-    trackEvent("calendly_click", { location: from });
-    window.open(calendlyUrl, "_blank", "noopener,noreferrer");
-  };
-
-  const handleWhatsApp = (from) => {
+  const handleWhatsApp = (from, message = defaultWhatsappMessage) => {
     trackEvent("whatsapp_click", { location: from });
-    window.open(whatsappUrl, "_blank", "noopener,noreferrer");
+    window.open(`https://wa.me/5493435332132?text=${encodeURIComponent(message)}`, "_blank", "noopener,noreferrer");
   };
 
   return (
@@ -70,7 +64,7 @@ const Contact = () => {
                       O agendá cuando te quede cómodo
                     </p>
                     <button
-                      onClick={() => handleCalendly("contact_page")}
+                      onClick={() => handleWhatsApp("contact_page", "Hola CapassoTech, quiero agendar una llamada de 15 minutos para contarles mi desafío")}
                       className="btn-primary mt-3 text-sm"
                     >
                       Ver agenda de 15 min

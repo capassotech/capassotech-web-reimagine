@@ -6,8 +6,7 @@ import { Button } from "@/components/ui/button";
 import { trackEvent } from "@/lib/analytics";
 import { usePageSEO } from "@/hooks/usePageSEO";
 
-const calendlyUrl = "https://calendly.com/capassoelias/15min";
-const whatsappUrl = "https://wa.me/5493435332132?text=Hola%20CapassoTech%2C%20quiero%20asesor%C3%ADa";
+const defaultWhatsappMessage = "Hola CapassoTech, quiero asesoría";
 
 const servicesDetail = [
   {
@@ -126,14 +125,9 @@ const Services = () => {
     structuredData: servicesStructuredData,
   });
 
-  const openCalendly = (origin) => {
-    trackEvent("calendly_click", { location: origin });
-    window.open(calendlyUrl, "_blank", "noopener,noreferrer");
-  };
-
-  const openWhatsApp = (origin) => {
+  const openWhatsApp = (origin, message = defaultWhatsappMessage) => {
     trackEvent("whatsapp_click", { location: origin });
-    window.open(whatsappUrl, "_blank", "noopener,noreferrer");
+    window.open(`https://wa.me/5493435332132?text=${encodeURIComponent(message)}`, "_blank", "noopener,noreferrer");
   };
 
   return (
@@ -149,7 +143,7 @@ const Services = () => {
                 Nos sumamos en la etapa que estés: desde discovery y MVP hasta scaling y soporte 24/7. Podés contratarnos por proyecto o como extensión de tu equipo.
               </p>
               <div className="mt-8 flex flex-wrap gap-4">
-                <Button onClick={() => openCalendly("services_hero")} className="btn-primary px-8 py-4 text-lg">
+                <Button onClick={() => openWhatsApp("services_hero", "Hola CapassoTech, quiero agendar una llamada de 15 minutos para conocer sus servicios")} className="btn-primary px-8 py-4 text-lg">
                   Agendar 15 min
                 </Button>
                 <Button onClick={() => openWhatsApp("services_hero")} className="btn-secondary px-8 py-4 text-lg">
@@ -213,7 +207,7 @@ const Services = () => {
                 Contanos qué querés lograr este trimestre y en 24 horas te enviamos una propuesta con roadmap, métricas y stack recomendado.
               </p>
               <div className="mt-6 flex flex-wrap gap-4">
-                <Button onClick={() => openCalendly("services_form")} className="btn-primary px-8 py-4 text-lg">
+                <Button onClick={() => openWhatsApp("services_form", "Hola CapassoTech, quiero agendar una llamada de 15 minutos para armar un plan a medida")} className="btn-primary px-8 py-4 text-lg">
                   Agendar 15 min
                 </Button>
                 <Button onClick={() => openWhatsApp("services_form")} className="btn-secondary px-8 py-4 text-lg">

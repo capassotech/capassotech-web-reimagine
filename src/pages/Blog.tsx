@@ -11,8 +11,7 @@ import { useReveal } from "@/hooks/useReveal";
 import { trackEvent } from "@/lib/analytics";
 import { ArrowRight, Search } from "lucide-react";
 
-const calendlyUrl = "https://calendly.com/capassoelias/15min";
-const whatsappUrl = "https://wa.me/5493435332132?text=Hola%20CapassoTech%2C%20quiero%20asesor%C3%ADa";
+const defaultWhatsappMessage = "Hola CapassoTech, quiero asesoría";
 
 const Blog = () => {
   const [categoryFilter, setCategoryFilter] = useState("todas");
@@ -79,14 +78,9 @@ const Blog = () => {
 
   const featuredPost = sortedPosts[0];
 
-  const handleCalendly = (from: string) => {
-    trackEvent("calendly_click", { location: from });
-    window.open(calendlyUrl, "_blank", "noopener,noreferrer");
-  };
-
-  const handleWhatsApp = (from: string) => {
+  const handleWhatsApp = (from: string, message: string = defaultWhatsappMessage) => {
     trackEvent("whatsapp_click", { location: from });
-    window.open(whatsappUrl, "_blank", "noopener,noreferrer");
+    window.open(`https://wa.me/5493435332132?text=${encodeURIComponent(message)}`, "_blank", "noopener,noreferrer");
   };
 
   return (
@@ -110,7 +104,7 @@ const Blog = () => {
                   Sin marketing, sin buzzwords.
                 </p>
                 <div className="mt-8 flex flex-wrap gap-3">
-                  <button onClick={() => handleCalendly("blog_hero")} className="btn-primary text-base">
+                  <button onClick={() => handleWhatsApp("blog_hero", "Hola CapassoTech, leí el blog y quiero hablar sobre mi proyecto")} className="btn-primary text-base">
                     Hablemos de tu proyecto
                     <ArrowRight className="h-4 w-4" />
                   </button>
@@ -264,7 +258,7 @@ const Blog = () => {
               Contanos en qué estás y te decimos cómo lo encaramos.
             </p>
             <div className="mt-10 flex flex-wrap justify-center gap-4">
-              <button onClick={() => handleCalendly("blog_cta")} className="btn-primary text-base">
+              <button onClick={() => handleWhatsApp("blog_cta", "Hola CapassoTech, quiero agendar una llamada de 15 minutos gratis")} className="btn-primary text-base">
                 Agendar 15 min gratis
                 <ArrowRight className="h-4 w-4" />
               </button>

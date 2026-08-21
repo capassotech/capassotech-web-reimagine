@@ -43,20 +43,6 @@ const TeamSection = () => {
                 "esto es exactamente lo que necesitaba".
               </p>
             </div>
-
-            {/* Stats */}
-            <div className="reveal reveal-delay-1 mt-10 flex flex-wrap gap-4">
-              {[
-                { value: "11", label: "personas en el equipo" },
-                { value: "100%", label: "trabajo remoto" },
-                { value: "7+", label: "años de experiencia" },
-              ].map((s) => (
-                <div key={s.label} className="flex flex-col items-start px-5 py-4 rounded-xl bg-capasso-light-blue border border-capasso-primary/10">
-                  <span className="text-2xl font-extrabold text-capasso-primary">{s.value}</span>
-                  <span className="text-sm text-capasso-dark-grey mt-0.5">{s.label}</span>
-                </div>
-              ))}
-            </div>
           </div>
 
           {/* RIGHT — photo grid */}

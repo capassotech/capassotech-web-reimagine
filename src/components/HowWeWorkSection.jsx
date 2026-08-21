@@ -4,13 +4,13 @@ const RITUALS = [
   {
     time: "Todos los días",
     title: "Daily por proyecto",
-    desc: "Cada proyecto tiene su daily. Corta, concreta y sin rodeos: qué se hizo, qué viene y si hay algo que está trabando. El equipo siempre está alineado.",
+    desc: "Cada proyecto tiene su daily. Corta, concreta y sin vueltas: qué se hizo, qué viene y si hay algo que está trabando. El equipo siempre está en la misma sintonía.",
     accent: "#49b5e7",
   },
   {
-    time: "Jueves",
-    title: "Planning semanal",
-    desc: "Los jueves planificamos la semana siguiente. Se priorizan tareas, se estiman tiempos y se asegura que todos arranquen el lunes con el camino claro.",
+    time: "1 vez por mes",
+    title: "Planning mensual",
+    desc: "Una vez cada mes planificamos el mes siguiente. Se priorizan tareas, se estiman tiempos y se asegura que todos arranquen con el camino claro.",
     accent: "#216AD9",
   },
   {
@@ -25,7 +25,7 @@ const PILLARS = [
   {
     icon: "💬",
     title: "Comunicación async primero",
-    desc: "Slack, comentarios en el código, actualizaciones escritas. No interrumpimos para todo — pero siempre hay respuesta el mismo día.",
+    desc: "Slack, comentarios en el código, actualizaciones escritas. No interrumpimos para todo, pero siempre hay respuesta el mismo día.",
   },
   {
     icon: "👁️",
@@ -40,7 +40,7 @@ const PILLARS = [
   {
     icon: "📲",
     title: "Siempre hay alguien disponible",
-    desc: "No vas a quedar esperando días una respuesta. Si surge algo, el equipo está. Eso no significa que no descansamos — significa que nos organizamos para que ningún cliente quede en el aire.",
+    desc: "No vas a quedar esperando días una respuesta. Si surge algo, el equipo está. Eso no significa que no descansamos, significa que nos organizamos para que ningún cliente quede colgado.",
   },
 ];
 
@@ -65,9 +65,8 @@ const HowWeWorkSection = () => {
               <span className="text-gradient">sin vueltas</span>
             </h2>
             <p className="mt-4 mx-auto max-w-2xl text-lg text-white/55">
-              Somos remote-first desde el primer día. Eso nos obligó a desarrollar
-              una forma de trabajar que no depende de estar en la misma habitación —
-              sino de comunicarnos bien y entregar con consistencia.
+              Somos remote-first desde el primer día. Eso nos obliga a desarrollar
+              una forma de trabajar que no depende de estar en la misma habitación, sino de comunicarnos bien y entregar con consistencia.
             </p>
           </div>
         </div>
@@ -133,9 +132,9 @@ const HowWeWorkSection = () => {
                   Cada integrante es un engranaje fundamental
                 </h3>
                 <p className="mt-2 text-white/60 leading-relaxed max-w-2xl">
-                  En CapassoTech no hay voces más importantes que otras. Cada propuesta,
+                  En CapassoTech cada propuesta,
                   idea o mejora que surge de cualquier miembro del equipo se escucha,
-                  se evalúa y — si tiene sentido — se implementa. Creemos que las
+                  se evalúa y, si es viable, se implementa. Creemos que las
                   mejores soluciones aparecen cuando todos se sienten parte real del proyecto,
                   no solo ejecutores de una lista de tareas.
                 </p>

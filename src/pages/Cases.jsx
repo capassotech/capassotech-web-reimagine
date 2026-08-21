@@ -6,8 +6,7 @@ import { Button } from "@/components/ui/button";
 import { trackEvent } from "@/lib/analytics";
 import { usePageSEO } from "@/hooks/usePageSEO";
 
-const calendlyUrl = "https://calendly.com/capassoelias/15min";
-const whatsappUrl = "https://wa.me/5493435332132?text=Hola%20CapassoTech%2C%20quiero%20asesor%C3%ADa";
+const defaultWhatsappMessage = "Hola CapassoTech, quiero asesoría";
 
 const baseProvider = {
   "@type": "Organization",
@@ -79,14 +78,9 @@ const Cases = () => {
     structuredData: casesStructuredData,
   });
 
-  const openCalendly = (origin) => {
-    trackEvent("calendly_click", { location: origin });
-    window.open(calendlyUrl, "_blank", "noopener,noreferrer");
-  };
-
-  const openWhatsApp = (origin) => {
+  const openWhatsApp = (origin, message = defaultWhatsappMessage) => {
     trackEvent("whatsapp_click", { location: origin });
-    window.open(whatsappUrl, "_blank", "noopener,noreferrer");
+    window.open(`https://wa.me/5493435332132?text=${encodeURIComponent(message)}`, "_blank", "noopener,noreferrer");
   };
 
   return (
@@ -170,7 +164,7 @@ const Cases = () => {
                 Coordinamos una reunión de 15 minutos para entender el desafío y proponerte un plan con métricas claras.
               </p>
               <div className="mt-6 flex flex-wrap gap-4">
-                <Button onClick={() => openCalendly("cases_cta")} className="btn-primary px-8 py-4 text-lg">
+                <Button onClick={() => openWhatsApp("cases_cta", "Hola CapassoTech, vi los casos de éxito y quiero agendar una llamada de 15 minutos para contarles mi proyecto")} className="btn-primary px-8 py-4 text-lg">
                   Agendar 15 min
                 </Button>
                 <Button onClick={() => openWhatsApp("cases_cta")} className="btn-secondary px-8 py-4 text-lg">

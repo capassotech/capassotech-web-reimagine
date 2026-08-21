@@ -18,9 +18,9 @@ const CaseStudiesSection = () => {
   const caseList     = cases.filter((c) => !productSlugs.includes(c.slug));
   const productCases = cases.filter((c) =>  productSlugs.includes(c.slug));
 
-  const handleCalendly = (loc: string) => {
-    trackEvent("calendly_click", { location: loc });
-    window.open("https://calendly.com/capassoelias/15min", "_blank", "noopener,noreferrer");
+  const handleWhatsApp = (loc: string, message: string) => {
+    trackEvent("whatsapp_click", { location: loc });
+    window.open(`https://wa.me/5493435332132?text=${encodeURIComponent(message)}`, "_blank", "noopener,noreferrer");
   };
 
   return (
@@ -185,14 +185,14 @@ const CaseStudiesSection = () => {
           <h3 className="text-xl font-bold text-capasso-dark">¿Querés ver tu proyecto acá?</h3>
           <p className="mt-2 text-sm text-capasso-dark-grey">Empezamos con una charla corta para entender qué necesitás.</p>
           <div className="mt-6 flex flex-wrap justify-center gap-3">
-            <button onClick={() => handleCalendly("case_studies")} className="btn-primary text-base">
+            <button
+              onClick={() => handleWhatsApp("case_studies", "Hola CapassoTech, vi los casos de éxito y quiero agendar una llamada de 15 minutos para mi proyecto")}
+              className="btn-primary text-base"
+            >
               Agendar 15 min
             </button>
             <button
-              onClick={() => {
-                trackEvent("whatsapp_click", { location: "case_studies" });
-                window.open("https://wa.me/5493435332132?text=Hola%20CapassoTech%2C%20quiero%20asesor%C3%ADa", "_blank", "noopener,noreferrer");
-              }}
+              onClick={() => handleWhatsApp("case_studies", "Hola CapassoTech, quiero asesoría")}
               className="btn-outline text-base"
             >
               Escribir por WhatsApp

@@ -9,8 +9,7 @@ import { usePageSEO } from "@/hooks/usePageSEO";
 import { useReveal } from "@/hooks/useReveal";
 import { ArrowRight } from "lucide-react";
 
-const calendlyUrl = "https://calendly.com/capassoelias/15min";
-const whatsappUrl = "https://wa.me/5493435332132?text=Hola%20CapassoTech%2C%20quiero%20asesor%C3%ADa";
+const defaultWhatsappMessage = "Hola CapassoTech, quiero asesoría";
 
 
 const About = () => {
@@ -19,7 +18,7 @@ const About = () => {
   const ctaRef   = useReveal();
 
   usePageSEO({
-    title: "Nosotros — CapassoTech: el equipo detrás del software",
+    title: "Nosotros - el equipo detrás de tu software",
     description:
       "Conocé a CapassoTech. Más de 7 años resolviendo problemas reales con tecnología, sin vueltas y sin tecnicismos.",
     canonical: "https://capassotech.com/nosotros",
@@ -29,14 +28,9 @@ const About = () => {
 
   window.scrollTo(0, 0);
 
-  const handleCalendly = (from) => {
-    trackEvent("calendly_click", { location: from });
-    window.open(calendlyUrl, "_blank", "noopener,noreferrer");
-  };
-
-  const handleWhatsApp = (from) => {
+  const handleWhatsApp = (from, message = defaultWhatsappMessage) => {
     trackEvent("whatsapp_click", { location: from });
-    window.open(whatsappUrl, "_blank", "noopener,noreferrer");
+    window.open(`https://wa.me/5493435332132?text=${encodeURIComponent(message)}`, "_blank", "noopener,noreferrer");
   };
 
   return (
@@ -50,14 +44,14 @@ const About = () => {
             <div className="reveal">
               <span className="section-label">Quiénes somos</span>
               <h1 className="mt-4 text-[2.5rem] font-extrabold leading-tight tracking-tight text-capasso-dark md:text-[3.5rem]">
-                Un equipo real, con ganas de{" "}
+                Un equipo, con ganas de{" "}
                 <span className="text-gradient">hacer las cosas bien</span>
               </h1>
               <p className="mt-5 mx-auto max-w-2xl text-lg text-capasso-dark-grey">
-                Somos un equipo de 11 personas distribuidas por Argentina, con base en Paraná.
-                Arrancamos como una idea y hoy tenemos estructura, proceso y experiencia —
-                sin la burocracia de las empresas grandes ni la incertidumbre de contratar
-                a alguien solo. El punto medio que la mayoría de las empresas necesita.
+                Somos personas distribuidas por Argentina, con base en Paraná.
+                Arrancamos como una idea y hoy tenemos estructura, proceso y experiencia.
+                No tenemos la burocracia de las grandes empresas ni la incertidumbre de contratar
+                a una sola persona. El punto medio que la mayoría de las empresas necesita.
               </p>
             </div>
           </div>
@@ -75,19 +69,19 @@ const About = () => {
                 </h2>
                 <p className="mt-4 text-lg text-capasso-dark-grey">
                   Ingeniero en Sistemas con más de 7 años trabajando en
-                  proyectos de software, desde startups hasta empresas medianas.
-                  Pasé por todos los roles — desarrollador, líder técnico,
-                  responsable de producto — y eso me ayuda a entender el problema
+                  proyectos de software, desde startups hasta empresas medianas y grandes.
+                  Pasé por muchos roles tales como programador, líder técnico,
+                  responsable de producto, y toda esa experiencia me ayuda a entender el problema
                   completo, no solo la parte técnica.
                 </p>
                 <p className="mt-4 text-capasso-dark-grey">
                   Arranqué CapassoTech porque vi que muchas empresas necesitaban
                   tecnología pero no querían lidiar con la burocracia de una
-                  consultora grande. Acá somos directos: entendemos lo que
-                  necesitás, lo hacemos bien y te contamos todo en el camino.
+                  consultora grande. Nosotros entendemos lo que
+                  necesitás, lo implementamos de la mejor manera y te contamos todo en el camino.
                 </p>
                 <div className="mt-8 flex flex-wrap gap-3">
-                  <button onClick={() => handleCalendly("about_bio")} className="btn-primary text-base">
+                  <button onClick={() => handleWhatsApp("about_bio", "Hola Elías, quiero charlar sobre mi proyecto")} className="btn-primary text-base">
                     Charlar con Elías
                     <ArrowRight className="h-4 w-4" />
                   </button>
@@ -145,7 +139,7 @@ const About = () => {
               encaramos, con quién y en qué tiempo.
             </p>
             <div className="reveal reveal-delay-2 mt-10 flex flex-wrap justify-center gap-4">
-              <button onClick={() => handleCalendly("about_cta")} className="btn-primary text-base">
+              <button onClick={() => handleWhatsApp("about_cta", "Hola CapassoTech, quiero agendar una llamada de 15 minutos gratis para hablar de mi proyecto")} className="btn-primary text-base">
                 Agendar 15 min gratis
                 <ArrowRight className="h-4 w-4" />
               </button>

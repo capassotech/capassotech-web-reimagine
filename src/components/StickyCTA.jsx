@@ -3,8 +3,9 @@ import { trackEvent } from "@/lib/analytics";
 
 const StickyCTA = () => {
   const handleClick = () => {
-    trackEvent("calendly_click", { location: "sticky_cta" });
-    window.open("https://calendly.com/capassoelias/15min", "_blank", "noopener,noreferrer");
+    trackEvent("whatsapp_click", { location: "sticky_cta" });
+    const message = "Hola CapassoTech, quiero agendar una llamada de 15 minutos";
+    window.open(`https://wa.me/5493435332132?text=${encodeURIComponent(message)}`, "_blank", "noopener,noreferrer");
   };
 
   return (

@@ -13,8 +13,7 @@ import { usePageSEO } from "@/hooks/usePageSEO";
 import { useReveal } from "@/hooks/useReveal";
 import { ArrowRight, CheckCircle } from "lucide-react";
 
-const calendlyUrl = "https://calendly.com/capassoelias/15min";
-const whatsappUrl = "https://wa.me/5493435332132?text=Hola%20CapassoTech%2C%20quiero%20asesor%C3%ADa";
+const defaultWhatsappMessage = "Hola CapassoTech, quiero asesoría";
 
 const differentiators = [
   { title: "Resultados rápidos, sin apuros",    description: "No te hacemos esperar meses para ver algo. Desde el primer momento trabajamos para que tengas avances concretos." },
@@ -32,7 +31,7 @@ const Home = () => {
   const contactRef = useReveal();
 
   usePageSEO({
-    title: "CapassoTech — Software a medida, pods ágiles e IA enfocada en ROI",
+    title: "CapassoTech - Desarrollo y mantenimiento de software, automatizaciones e IA",
     description: "Equipo de producto y tecnología que diseña y escala software, automatizaciones e IA con métricas claras desde el primer sprint.",
     canonical: "https://capassotech.com/",
     image: "https://capassotech.com/og-image.jpg",
@@ -49,14 +48,9 @@ const Home = () => {
     }
   }, [location, navigate]);
 
-  const handleCalendly = (from) => {
-    trackEvent("calendly_click", { location: from });
-    window.open(calendlyUrl, "_blank", "noopener,noreferrer");
-  };
-
-  const handleWhatsApp = (from) => {
+  const handleWhatsApp = (from, message = defaultWhatsappMessage) => {
     trackEvent("whatsapp_click", { location: from });
-    window.open(whatsappUrl, "_blank", "noopener,noreferrer");
+    window.open(`https://wa.me/5493435332132?text=${encodeURIComponent(message)}`, "_blank", "noopener,noreferrer");
   };
 
   return (
@@ -82,7 +76,7 @@ const Home = () => {
                   experiencia real desde el primer día.
                 </p>
                 <div className="mt-8 flex flex-wrap gap-3">
-                  <button onClick={() => handleCalendly("why_section")} className="btn-primary text-base">
+                  <button onClick={() => handleWhatsApp("why_section", "Hola CapassoTech, quiero hablar con el equipo sobre mi proyecto")} className="btn-primary text-base">
                     Hablar con el equipo
                     <ArrowRight className="h-4 w-4" />
                   </button>
@@ -133,7 +127,7 @@ const Home = () => {
               con hitos, métricas y equipo asignado.
             </p>
             <div className="reveal reveal-delay-2 mt-10 flex flex-wrap justify-center gap-4">
-              <button onClick={() => handleCalendly("home_cta_final")} className="btn-primary text-base">
+              <button onClick={() => handleWhatsApp("home_cta_final", "Hola CapassoTech, quiero agendar una llamada de 15 minutos gratis para escalar mi producto")} className="btn-primary text-base">
                 Agendar 15 min gratis
                 <ArrowRight className="h-4 w-4" />
               </button>
@@ -178,7 +172,7 @@ const Home = () => {
                       O agendá cuando te quede cómodo
                     </p>
                     <button
-                      onClick={() => handleCalendly("home_contact")}
+                      onClick={() => handleWhatsApp("home_contact", "Hola CapassoTech, quiero coordinar una llamada de 15 minutos")}
                       className="btn-primary mt-3 text-sm"
                     >
                       Ver agenda de 15 min

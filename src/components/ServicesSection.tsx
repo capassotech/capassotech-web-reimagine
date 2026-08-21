@@ -32,9 +32,9 @@ const services = [
 const ServicesSection = () => {
   const sectionRef = useReveal<HTMLElement>();
 
-  const handleCalendly = (loc: string) => {
-    trackEvent("calendly_click", { location: loc });
-    window.open("https://calendly.com/capassoelias/15min", "_blank", "noopener,noreferrer");
+  const handleWhatsApp = (loc: string, message: string) => {
+    trackEvent("whatsapp_click", { location: loc });
+    window.open(`https://wa.me/5493435332132?text=${encodeURIComponent(message)}`, "_blank", "noopener,noreferrer");
   };
 
   return (
@@ -103,7 +103,7 @@ const ServicesSection = () => {
             <p className="mt-1 text-sm text-white/80">Contanos el problema en 15 minutos y te decimos cómo lo encaramos.</p>
           </div>
           <button
-            onClick={() => handleCalendly("services_cta")}
+            onClick={() => handleWhatsApp("services_cta", "Hola CapassoTech, no sé bien por dónde empezar con mi proyecto y quiero agendar una llamada de 15 minutos")}
             className="btn-white flex-shrink-0 text-sm"
           >
             Agendar 15 min
