@@ -3,6 +3,7 @@ import { useEffect, useRef, useState, useCallback } from "react";
 import { trackEvent } from "@/lib/analytics";
 import WhatsAppIcon from "@/components/icons/WhatsAppIcon";
 import { getYearsOfExperience, PROJECTS_DELIVERED } from "@/lib/experience";
+import { TYPEWRITER_WORDS } from "@/data/typewriter-words";
 
 const whatsappUrl = "https://wa.me/5493435332132?text=Hola%20CapassoTech%2C%20quiero%20asesor%C3%ADa";
 
@@ -71,15 +72,22 @@ const ParticleCanvas = () => {
 /* ─────────────────────────────────────────────
    Typewriter hook
 ───────────────────────────────────────────── */
+const pickNextIndex = (words, current) => {
+  if (words.length <= 1) return current;
+  let next = Math.floor(Math.random() * words.length);
+  while (next === current) next = Math.floor(Math.random() * words.length);
+  return next;
+};
+
 const useTypewriter = (words, typingSpeed = 75, pauseMs = 2200, deletingSpeed = 40) => {
   const [display, setDisplay] = useState("");
-  const [wordIdx, setWordIdx] = useState(0);
+  const [wordIdx, setWordIdx] = useState(() => Math.floor(Math.random() * words.length));
   const [deleting, setDeleting] = useState(false);
   useEffect(() => {
     const current = words[wordIdx % words.length];
     let t;
     if (!deleting && display === current)          t = setTimeout(() => setDeleting(true), pauseMs);
-    else if (deleting && display === "")           { setDeleting(false); setWordIdx(i => (i + 1) % words.length); return; }
+    else if (deleting && display === "")           { setDeleting(false); setWordIdx(i => pickNextIndex(words, i)); return; }
     else t = setTimeout(() => setDisplay(deleting ? display.slice(0, -1) : current.slice(0, display.length + 1)), deleting ? deletingSpeed : typingSpeed);
     return () => clearTimeout(t);
   }, [display, wordIdx, deleting, words, typingSpeed, pauseMs, deletingSpeed]);
@@ -115,7 +123,6 @@ const AnimatedCount = ({ value }) => {
 /* ─────────────────────────────────────────────
    Hero
 ───────────────────────────────────────────── */
-const TYPEWRITER_WORDS = ["software a medida", "APIs escalables", "equipos remotos", "soluciones web", "apps móviles"];
 const stats = [
   { value: `${getYearsOfExperience()}+`, label: "Años de experiencia" },
   { value: `${PROJECTS_DELIVERED}+`, label: "Proyectos entregados" },
@@ -158,13 +165,19 @@ const Hero = () => {
             Desarrollamos sistemas con la precisión que tu negocio exige.
           </p>
 
-          <div className="mb-6 flex items-center gap-2 text-xl font-semibold text-white/70">
+          <div className="mb-6 flex items-center gap-2 text-xl font-semibold text-white/70" aria-hidden="true">
             <span className="text-[#49b5e7]">&gt;</span>
             <span className="font-mono">
               {typed}
               <span className="inline-block w-[2px] h-[1em] bg-[#49b5e7] ml-[2px] align-middle animate-pulse" />
             </span>
           </div>
+          {/* Texto real y estático (no animado por JS) para que buscadores y motores de IA
+             indexen la lista completa de sistemas que desarrollamos, no solo la palabra que
+             está tipeándose en un momento dado. */}
+          <p className="sr-only">
+            Desarrollamos software a medida, incluyendo {TYPEWRITER_WORDS.join(", ")}, entre otros sistemas y soluciones para empresas.
+          </p>
 
           <div className="flex flex-wrap items-center gap-4 mb-12">
             <button onClick={handleNosotros} className="btn-primary text-base">Conocenos</button>

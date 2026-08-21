@@ -13,9 +13,31 @@ import { usePageSEO } from "@/hooks/usePageSEO";
 import { useReveal } from "@/hooks/useReveal";
 import { ArrowRight, CheckCircle } from "lucide-react";
 import WhatsAppIcon from "@/components/icons/WhatsAppIcon";
+import { TYPEWRITER_WORDS } from "@/data/typewriter-words";
 
 const defaultWhatsappMessage = "Hola CapassoTech, quiero asesoría";
 const calendlyUrl = "https://calendly.com/capassoelias/15min";
+
+const homeServiceStructuredData = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  serviceType: "Desarrollo de software a medida",
+  provider: {
+    "@type": "Organization",
+    name: "CapassoTech",
+    url: "https://capassotech.com/",
+  },
+  areaServed: "AR",
+  hasOfferCatalog: {
+    "@type": "OfferCatalog",
+    name: "Sistemas y soluciones que desarrollamos",
+    itemListElement: TYPEWRITER_WORDS.map((name, index) => ({
+      "@type": "Offer",
+      position: index + 1,
+      itemOffered: { "@type": "Service", name },
+    })),
+  },
+};
 
 const differentiators = [
   { title: "Resultados concretos",    description: "No te hacemos esperar meses para ver algo. Desde el primer momento trabajamos para que tengas avances concretos." },
@@ -34,10 +56,11 @@ const Home = () => {
 
   usePageSEO({
     title: "CapassoTech - Desarrollo y mantenimiento de software, automatizaciones e IA",
-    description: "Equipo de producto y tecnología que diseña y escala software, automatizaciones e IA con métricas claras desde el primer sprint.",
+    description: "Desarrollamos software a medida: sistemas de facturación, CRM, ERP, bots de WhatsApp con IA y más. Outsourcing de equipos y mantenimiento con foco en resultados.",
     canonical: "https://capassotech.com/",
     image: "https://capassotech.com/og-image.jpg",
     ogType: "website",
+    structuredData: homeServiceStructuredData,
   });
 
   useEffect(() => {
