@@ -3,8 +3,15 @@ import { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { trackEvent } from "@/lib/analytics";
 import WhatsAppIcon from "@/components/icons/WhatsAppIcon";
+import { ChevronDown } from "lucide-react";
 
 const defaultWhatsappMessage = "Hola CapassoTech, quiero asesoría";
+
+const products = [
+  { label: "Vialto",           url: "https://vialto.uno/",                                              logo: "/products/vialto.png" },
+  { label: "GymFuze",          url: "https://gymfuzeapp.web.app/",                                       logo: "/products/gymfuze.png" },
+  { label: "Control de gastos", url: "https://play.google.com/store/apps/details?id=gastos.app",         logo: "/products/gastos.png" },
+];
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -36,11 +43,12 @@ const Header = () => {
   };
 
   const menuItems = [
-    { label: "Inicio",    type: "section" as const, target: "inicio" },
-    { label: "Servicios", type: "section" as const, target: "servicios" },
-    { label: "Clientes",  type: "section" as const, target: "casos-exito" },
-    { label: "Proyectos", type: "route" as const,   path: "/portafolio" },
-    { label: "Nosotros",  type: "route" as const,   path: "/nosotros" },
+    { label: "Inicio",    type: "section" as const,  target: "inicio" },
+    { label: "Servicios", type: "section" as const,  target: "servicios" },
+    { label: "Productos", type: "dropdown" as const, items: products },
+    { label: "Clientes",  type: "section" as const,  target: "casos-exito" },
+    { label: "Proyectos", type: "route" as const,    path: "/portafolio" },
+    { label: "Nosotros",  type: "route" as const,    path: "/nosotros" },
   ];
 
   return (
@@ -64,8 +72,39 @@ const Header = () => {
 
         {/* Desktop nav links */}
         <div className="hidden items-center gap-8 md:flex">
-          {menuItems.map((item) =>
-            item.type === "route" ? (
+          {menuItems.map((item) => {
+            if (item.type === "dropdown") {
+              return (
+                <div key={item.label} className="group relative">
+                  <button
+                    type="button"
+                    className={`nav-link ${isScrolled ? "" : "nav-link-inverted"} flex items-center gap-1`}
+                  >
+                    {item.label}
+                    <ChevronDown className="h-3.5 w-3.5 transition-transform duration-200 group-hover:rotate-180" />
+                  </button>
+                  <div className="invisible absolute left-1/2 top-full w-56 -translate-x-1/2 pt-3 opacity-0 transition-all duration-200 group-hover:visible group-hover:opacity-100">
+                    <div className="rounded-xl border border-capasso-light-grey bg-white p-2 shadow-card">
+                      {item.items.map((product) => (
+                        <a
+                          key={product.label}
+                          href={product.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={() => trackEvent("product_click", { product: product.label, location: "header" })}
+                          className="flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-semibold text-capasso-dark transition-colors hover:bg-capasso-light-blue hover:text-capasso-primary"
+                        >
+                          <img src={product.logo} alt="" className="h-7 w-7 shrink-0 rounded-md object-contain" />
+                          {product.label}
+                        </a>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              );
+            }
+
+            return item.type === "route" ? (
               <Link
                 key={item.label}
                 to={item.path}
@@ -83,8 +122,8 @@ const Header = () => {
               >
                 {item.label}
               </a>
-            ),
-          )}
+            );
+          })}
         </div>
 
         {/* Desktop CTA */}
@@ -112,10 +151,33 @@ const Header = () => {
 
       {/* Mobile dropdown */}
       {isMobileMenuOpen && (
-        <div className="border-t border-capasso-light-grey bg-white/98 backdrop-blur-md md:hidden">
+        <div className="border-t border-capasso-light-grey bg-white shadow-card md:hidden">
           <div className="mx-auto flex max-w-6xl flex-col gap-1 px-6 py-5">
-            {menuItems.map((item) =>
-              item.type === "route" ? (
+            {menuItems.map((item) => {
+              if (item.type === "dropdown") {
+                return (
+                  <div key={item.label} className="px-4 py-2">
+                    <p className="text-xs font-bold uppercase tracking-widest text-capasso-medium-grey">{item.label}</p>
+                    <div className="mt-1 flex flex-col">
+                      {item.items.map((product) => (
+                        <a
+                          key={product.label}
+                          href={product.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={() => { trackEvent("product_click", { product: product.label, location: "header_mobile" }); setIsMobileMenuOpen(false); }}
+                          className="flex items-center gap-3 rounded-xl px-0 py-2 text-base font-semibold text-capasso-dark hover:text-capasso-primary transition-colors"
+                        >
+                          <img src={product.logo} alt="" className="h-8 w-8 shrink-0 rounded-md object-contain" />
+                          {product.label}
+                        </a>
+                      ))}
+                    </div>
+                  </div>
+                );
+              }
+
+              return item.type === "route" ? (
                 <Link
                   key={item.label}
                   to={item.path}
@@ -133,8 +195,8 @@ const Header = () => {
                 >
                   {item.label}
                 </a>
-              ),
-            )}
+              );
+            })}
             <div className="mt-3 flex flex-col gap-3">
               <button
                 onClick={() => { handleWhatsApp("header_mobile"); setIsMobileMenuOpen(false); }}

@@ -77,11 +77,12 @@ export const portfolioItems: PortfolioItem[] = [
   },
   {
     slug: "gastos",
-    title: "Gastos — Control de Gastos Personales",
+    title: "Control de Gastos — App de Finanzas Personales",
     category: "Producto Propio",
     description:
-      "Aplicación propia para llevar el control de gastos personales, con categorías, gráficos y sincronización en la nube.",
+      "Aplicación propia para llevar el control de gastos personales, con categorías, gráficos y sincronización en la nube. Disponible en Google Play.",
     tech: ["React", "Firebase", "Capacitor"],
+    externalUrl: "https://play.google.com/store/apps/details?id=gastos.app",
   },
   {
     slug: "glasshome",
