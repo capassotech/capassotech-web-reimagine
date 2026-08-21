@@ -4,7 +4,7 @@ import { usePageSEO } from "@/hooks/usePageSEO";
 
 const Book = () => {
   usePageSEO({
-    title: "Agenda CapassoTech — Reservá una reunión de 15 minutos",
+    title: "Agenda CapassoTech - Reservá una reunión de 15 minutos",
     description:
       "Elegí un horario en la agenda de CapassoTech para conversar sobre tu proyecto de software, automatización o IA.",
     canonical: "https://capassotech.com/book",

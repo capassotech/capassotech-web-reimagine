@@ -135,11 +135,11 @@ const About = () => {
               </h2>
             </div>
             <p className="reveal reveal-delay-1 mt-5 mx-auto max-w-xl text-lg text-white/60">
-              Contanos tu problema en 15 minutos y te decimos cómo lo
+              Contanos tu problema y te decimos cómo lo
               encaramos, con quién y en qué tiempo.
             </p>
             <div className="reveal reveal-delay-2 mt-10 flex flex-wrap justify-center gap-4">
-              <button onClick={() => handleWhatsApp("about_cta", "Hola CapassoTech, quiero agendar una llamada de 15 minutos gratis para hablar de mi proyecto")} className="btn-primary text-base">
+              <button onClick={() => handleWhatsApp("about_cta", "Hola CapassoTech, quiero agendar una llamada para hablar de mi proyecto")} className="btn-primary text-base">
                 Agendar 15 min gratis
                 <ArrowRight className="h-4 w-4" />
               </button>

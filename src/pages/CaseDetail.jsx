@@ -147,7 +147,7 @@ const CaseDetail = () => {
                   Coordinemos una call para mostrarte cómo adaptar esta solución a tu contexto.
                 </p>
                 <div className="mt-4 flex flex-col gap-3">
-                  <Button onClick={() => openWhatsApp("case_detail_sidebar", `Hola CapassoTech, vi el caso "${caseStudy.title}" y quiero agendar una llamada de 15 minutos para un proyecto similar`)} className="btn-primary w-full">
+                  <Button onClick={() => openWhatsApp("case_detail_sidebar", `Hola CapassoTech, vi el caso "${caseStudy.title}" y quiero agendar una llamada para un proyecto similar`)} className="btn-primary w-full">
                     Agendar 15 min
                   </Button>
                   <Button onClick={() => openWhatsApp("case_detail_sidebar")} className="btn-secondary w-full">
@@ -167,7 +167,7 @@ const CaseDetail = () => {
                 Te proponemos un plan de abordaje con roadmap, métricas de éxito y equipo sugerido en menos de 24 horas.
               </p>
               <div className="mt-6 flex flex-wrap gap-4">
-                <Button onClick={() => openWhatsApp("case_detail_cta", `Hola CapassoTech, vi el caso "${caseStudy.title}" y quiero agendar una llamada de 15 minutos`)} className="btn-primary px-8 py-4 text-lg">
+                <Button onClick={() => openWhatsApp("case_detail_cta", `Hola CapassoTech, vi el caso "${caseStudy.title}" y quiero agendar una llamada`)} className="btn-primary px-8 py-4 text-lg">
                   Agendar 15 min
                 </Button>
                 <Button onClick={() => openWhatsApp("case_detail_cta")} className="btn-secondary px-8 py-4 text-lg">

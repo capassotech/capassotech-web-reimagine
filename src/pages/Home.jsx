@@ -127,7 +127,7 @@ const Home = () => {
               con hitos, métricas y equipo asignado.
             </p>
             <div className="reveal reveal-delay-2 mt-10 flex flex-wrap justify-center gap-4">
-              <button onClick={() => handleWhatsApp("home_cta_final", "Hola CapassoTech, quiero agendar una llamada de 15 minutos gratis para escalar mi producto")} className="btn-primary text-base">
+              <button onClick={() => handleWhatsApp("home_cta_final", "Hola CapassoTech, quiero agendar una llamada para escalar mi producto")} className="btn-primary text-base">
                 Agendar 15 min gratis
                 <ArrowRight className="h-4 w-4" />
               </button>
@@ -150,9 +150,8 @@ const Home = () => {
                   Contanos tu desafío.
                 </h2>
                 <p className="mt-4 text-lg text-capasso-dark-grey">
-                  Agendamos una discovery call de 15 minutos para entender tu
-                  contexto, objetivos y restricciones. En 24&nbsp;horas te enviamos
-                  un plan de acción.
+                  Agendamos una llamada para entender tu
+                  contexto, objetivos y restricciones.
                 </p>
 
                 <div className="mt-8 space-y-4">
@@ -172,7 +171,7 @@ const Home = () => {
                       O agendá cuando te quede cómodo
                     </p>
                     <button
-                      onClick={() => handleWhatsApp("home_contact", "Hola CapassoTech, quiero coordinar una llamada de 15 minutos")}
+                      onClick={() => handleWhatsApp("home_contact", "Hola CapassoTech, quiero coordinar una llamada")}
                       className="btn-primary mt-3 text-sm"
                     >
                       Ver agenda de 15 min

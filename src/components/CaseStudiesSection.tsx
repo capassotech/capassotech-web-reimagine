@@ -186,7 +186,7 @@ const CaseStudiesSection = () => {
           <p className="mt-2 text-sm text-capasso-dark-grey">Empezamos con una charla corta para entender qué necesitás.</p>
           <div className="mt-6 flex flex-wrap justify-center gap-3">
             <button
-              onClick={() => handleWhatsApp("case_studies", "Hola CapassoTech, vi los casos de éxito y quiero agendar una llamada de 15 minutos para mi proyecto")}
+              onClick={() => handleWhatsApp("case_studies", "Hola CapassoTech, vi los casos de éxito y quiero agendar una llamada de para mi proyecto")}
               className="btn-primary text-base"
             >
               Agendar 15 min

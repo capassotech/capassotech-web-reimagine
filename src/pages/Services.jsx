@@ -143,7 +143,7 @@ const Services = () => {
                 Nos sumamos en la etapa que estés: desde discovery y MVP hasta scaling y soporte 24/7. Podés contratarnos por proyecto o como extensión de tu equipo.
               </p>
               <div className="mt-8 flex flex-wrap gap-4">
-                <Button onClick={() => openWhatsApp("services_hero", "Hola CapassoTech, quiero agendar una llamada de 15 minutos para conocer sus servicios")} className="btn-primary px-8 py-4 text-lg">
+                <Button onClick={() => openWhatsApp("services_hero", "Hola CapassoTech, quiero agendar una llamada para conocer sus servicios")} className="btn-primary px-8 py-4 text-lg">
                   Agendar 15 min
                 </Button>
                 <Button onClick={() => openWhatsApp("services_hero")} className="btn-secondary px-8 py-4 text-lg">
@@ -207,7 +207,7 @@ const Services = () => {
                 Contanos qué querés lograr este trimestre y en 24 horas te enviamos una propuesta con roadmap, métricas y stack recomendado.
               </p>
               <div className="mt-6 flex flex-wrap gap-4">
-                <Button onClick={() => openWhatsApp("services_form", "Hola CapassoTech, quiero agendar una llamada de 15 minutos para armar un plan a medida")} className="btn-primary px-8 py-4 text-lg">
+                <Button onClick={() => openWhatsApp("services_form", "Hola CapassoTech, quiero agendar una llamada para armar un plan a medida")} className="btn-primary px-8 py-4 text-lg">
                   Agendar 15 min
                 </Button>
                 <Button onClick={() => openWhatsApp("services_form")} className="btn-secondary px-8 py-4 text-lg">

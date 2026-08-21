@@ -258,7 +258,7 @@ const Blog = () => {
               Contanos en qué estás y te decimos cómo lo encaramos.
             </p>
             <div className="mt-10 flex flex-wrap justify-center gap-4">
-              <button onClick={() => handleWhatsApp("blog_cta", "Hola CapassoTech, quiero agendar una llamada de 15 minutos gratis")} className="btn-primary text-base">
+              <button onClick={() => handleWhatsApp("blog_cta", "Hola CapassoTech, quiero agendar una llamada")} className="btn-primary text-base">
                 Agendar 15 min gratis
                 <ArrowRight className="h-4 w-4" />
               </button>

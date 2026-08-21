@@ -13,8 +13,8 @@ const Contact = () => {
   const sectionRef = useReveal();
 
   usePageSEO({
-    title: "Contacto — CapassoTech",
-    description: "Escribinos o agendá una charla de 15 minutos. Te respondemos dentro de 1 día hábil con un plan concreto.",
+    title: "Contacto - CapassoTech",
+    description: "Escribinos o agendá una reunón. Te respondemos dentro de 1 día hábil con un plan concreto.",
     canonical: "https://capassotech.com/contacto",
     image: "https://capassotech.com/og-image.jpg",
     ogType: "website",
@@ -43,7 +43,7 @@ const Contact = () => {
                   Contanos tu desafío.
                 </h1>
                 <p className="mt-4 text-lg text-capasso-dark-grey">
-                  Agendamos una charla de 15 minutos para entender qué necesitás.
+                  Agendamos una reunión para entender qué necesitás.
                   En 24 horas te enviamos un plan concreto.
                 </p>
 
@@ -64,7 +64,7 @@ const Contact = () => {
                       O agendá cuando te quede cómodo
                     </p>
                     <button
-                      onClick={() => handleWhatsApp("contact_page", "Hola CapassoTech, quiero agendar una llamada de 15 minutos para contarles mi desafío")}
+                      onClick={() => handleWhatsApp("contact_page", "Hola CapassoTech, quiero agendar una llamada para contarles mi desafío")}
                       className="btn-primary mt-3 text-sm"
                     >
                       Ver agenda de 15 min

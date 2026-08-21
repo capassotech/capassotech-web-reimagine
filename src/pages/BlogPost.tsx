@@ -208,7 +208,7 @@ const BlogPost = () => {
                 Contanos en qué etapa está tu producto y diseñamos una propuesta con hitos, métricas y equipo asignado en menos de 48 horas.
               </p>
               <div className="mt-6 flex flex-wrap gap-4">
-                <Button onClick={() => handleWhatsApp("blog_post_cta", `Hola CapassoTech, leí "${post.title}" y quiero agendar una llamada de 15 minutos`)} className="btn-primary px-8 py-4 text-lg">
+                <Button onClick={() => handleWhatsApp("blog_post_cta", `Hola CapassoTech, leí "${post.title}" y quiero agendar una llamada`)} className="btn-primary px-8 py-4 text-lg">
                   Agendar 15 min
                 </Button>
                 <Button onClick={() => handleWhatsApp("blog_post_cta")} className="btn-secondary px-8 py-4 text-lg">

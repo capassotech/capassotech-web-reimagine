@@ -16,7 +16,7 @@ const categories = [
     color: "text-blue-600",
     bg: "bg-blue-50",
     backTitle: "El motor detrás",
-    backDesc: "La lógica que procesa, valida y conecta todo. Sin este, nada funciona bien.",
+    backDesc: "La lógica que procesa, valida y conecta todo.",
     backItems: ["APIs y servicios", "Autenticación y seguridad", "Integración con sistemas", "Procesamiento de datos"],
   },
   {
@@ -34,7 +34,7 @@ const categories = [
     color: "text-capasso-primary",
     bg: "bg-capasso-mid-blue",
     backTitle: "Tu información, segura",
-    backDesc: "Diseñamos la estructura de datos para que tu negocio pueda crecer sin que nada se rompa.",
+    backDesc: "Diseñamos la estructura de datos para que tu negocio pueda escalar.",
     backItems: ["Almacenamiento confiable", "Consultas rápidas", "Backups automáticos", "Migraciones sin pérdidas"],
   },
   {
@@ -45,6 +45,15 @@ const categories = [
     backTitle: "Conectado con el mundo",
     backDesc: "Tu sistema habla con las herramientas que ya usás o con las que necesitás sumar.",
     backItems: ["Pagos y cobros", "Mensajería automática", "Mapas y geolocalización", "Marketplaces"],
+  },
+  {
+    title: "Inteligencia Artificial",
+    items: ["OpenAI API", "Claude API", "LangChain", "n8n", "RAG", "Embeddings"],
+    color: "text-purple-600",
+    bg: "bg-purple-50",
+    backTitle: "IA que suma, no que estorba",
+    backDesc: "La usamos cuando de verdad ahorra tiempo o plata: para automatizar tareas, potenciar la atención al cliente y ayudarte a decidir mejor.",
+    backItems: ["Chatbots y asistentes", "Automatización de procesos", "Análisis de datos", "Integración con tus sistemas"],
   },
 ];
 
@@ -62,7 +71,6 @@ const TechStackSection = () => {
             Tecnologías que{" "}
             <span className="text-gradient">dominamos</span>
           </h2>
-          <p className="mt-3 text-sm text-capasso-medium-grey">Pasá el cursor por cada categoría para ver qué resuelve.</p>
         </div>
 
         {/* Flip cards grid */}
@@ -77,35 +85,33 @@ const TechStackSection = () => {
 
                 {/* Front */}
                 <div className="flip-card-front">
+                  <p className={`mb-1 text-xs font-extrabold uppercase tracking-widest ${cat.color}`}>
+                    {cat.title}
+                  </p>
+                  <h3 className="mb-2 text-lg font-extrabold text-capasso-dark">{cat.backTitle}</h3>
+                  <p className="mb-4 text-sm leading-relaxed text-capasso-dark-grey">{cat.backDesc}</p>
+                  <ul className="space-y-1.5">
+                    {cat.backItems.map((item) => (
+                      <li key={item} className="flex items-center gap-2 text-sm text-capasso-dark-grey">
+                        <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-capasso-primary" />
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                {/* Back */}
+                <div className="flip-card-back">
                   <div className="mb-4 flex items-center gap-3">
-                    <div className={`rounded-xl ${cat.bg} px-3 py-1.5`}>
-                      <span className={`text-xs font-extrabold uppercase tracking-widest ${cat.color}`}>
-                        {cat.title}
-                      </span>
-                    </div>
+                    <span className="inline-block rounded-full bg-white/20 px-3 py-1 text-xs font-extrabold uppercase tracking-widest text-white">
+                      {cat.title}
+                    </span>
                   </div>
                   <div className="flex flex-wrap gap-2">
                     {cat.items.map((tech) => (
                       <span key={tech} className="tech-badge">{tech}</span>
                     ))}
                   </div>
-                </div>
-
-                {/* Back */}
-                <div className="flip-card-back">
-                  <p className="mb-1 text-xs font-extrabold uppercase tracking-widest text-white/60">
-                    {cat.title}
-                  </p>
-                  <h3 className="mb-2 text-lg font-extrabold text-white">{cat.backTitle}</h3>
-                  <p className="mb-4 text-sm leading-relaxed text-white/80">{cat.backDesc}</p>
-                  <ul className="space-y-1.5">
-                    {cat.backItems.map((item) => (
-                      <li key={item} className="flex items-center gap-2 text-sm text-white/90">
-                        <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-white/70" />
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
                 </div>
 
               </div>
@@ -116,7 +122,7 @@ const TechStackSection = () => {
         {/* Bottom callout */}
         <div className="reveal mt-8 content-card text-center">
           <h3 className="text-xl font-bold text-capasso-dark">¿No ves la tecnología que necesitás?</h3>
-          <p className="mt-2 text-sm text-capasso-dark-grey">Contanos qué usás — nos adaptamos.</p>
+          <p className="mt-2 text-sm text-capasso-dark-grey">Contanos qué utiliza tu proyecto y nos adaptamos.</p>
         </div>
 
       </div>

@@ -100,10 +100,10 @@ const ServicesSection = () => {
         >
           <div>
             <h3 className="text-xl font-bold text-white">¿No sabés bien por dónde empezar?</h3>
-            <p className="mt-1 text-sm text-white/80">Contanos el problema en 15 minutos y te decimos cómo lo encaramos.</p>
+            <p className="mt-1 text-sm text-white/80">Contanos el problema y te decimos cómo lo encaramos.</p>
           </div>
           <button
-            onClick={() => handleWhatsApp("services_cta", "Hola CapassoTech, no sé bien por dónde empezar con mi proyecto y quiero agendar una llamada de 15 minutos")}
+            onClick={() => handleWhatsApp("services_cta", "Hola CapassoTech, no sé bien por dónde empezar con mi proyecto y quiero agendar una llamada")}
             className="btn-white flex-shrink-0 text-sm"
           >
             Agendar 15 min

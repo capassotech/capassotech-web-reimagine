@@ -119,7 +119,7 @@ const Footer = () => {
             <h4 className="mb-4 text-xs font-extrabold uppercase tracking-widest text-white/30">Contacto</h4>
             <ul className="space-y-3">
               <li><a href={whatsappUrl} onClick={(e) => { e.preventDefault(); handleWhatsApp("footer_contact"); }} className={navLink}>WhatsApp</a></li>
-              <li><a href="#" onClick={(e) => { e.preventDefault(); handleWhatsApp("footer_contact_schedule", "Hola CapassoTech, quiero agendar una llamada de 15 minutos"); }} className={navLink}>Agendar 15 min</a></li>
+              <li><a href="#" onClick={(e) => { e.preventDefault(); handleWhatsApp("footer_contact_schedule", "Hola CapassoTech, quiero agendar una llamada"); }} className={navLink}>Agendar 15 min</a></li>
               <li><a href="mailto:contacto@capasso.tech" className={navLink}>contacto@capasso.tech</a></li>
               <li><Link to="/contacto" className={navLink}>Formulario de contacto</Link></li>
             </ul>

@@ -161,10 +161,10 @@ const Cases = () => {
             <div>
               <h2 className="text-3xl font-bold text-white md:text-4xl">Queremos contar tu historia próxima</h2>
               <p className="mt-4 text-capasso-light/70">
-                Coordinamos una reunión de 15 minutos para entender el desafío y proponerte un plan con métricas claras.
+                Coordinamos una reunión para entender el desafío y proponerte un plan con métricas claras.
               </p>
               <div className="mt-6 flex flex-wrap gap-4">
-                <Button onClick={() => openWhatsApp("cases_cta", "Hola CapassoTech, vi los casos de éxito y quiero agendar una llamada de 15 minutos para contarles mi proyecto")} className="btn-primary px-8 py-4 text-lg">
+                <Button onClick={() => openWhatsApp("cases_cta", "Hola CapassoTech, vi los casos de éxito y quiero agendar una llamada para contarles mi proyecto")} className="btn-primary px-8 py-4 text-lg">
                   Agendar 15 min
                 </Button>
                 <Button onClick={() => openWhatsApp("cases_cta")} className="btn-secondary px-8 py-4 text-lg">

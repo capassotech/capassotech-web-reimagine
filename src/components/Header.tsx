@@ -95,7 +95,7 @@ const Header = () => {
             WhatsApp
           </button>
           <button
-            onClick={() => handleWhatsApp("header", "Hola CapassoTech, quiero agendar una llamada de 15 minutos")}
+            onClick={() => handleWhatsApp("header", "Hola CapassoTech, quiero agendar una llamada")}
             className="btn-primary px-5 py-2.5 text-sm"
           >
             Agendar 15 min
@@ -147,7 +147,7 @@ const Header = () => {
                 WhatsApp
               </button>
               <button
-                onClick={() => { handleWhatsApp("header_mobile", "Hola CapassoTech, quiero agendar una llamada de 15 minutos"); setIsMobileMenuOpen(false); }}
+                onClick={() => { handleWhatsApp("header_mobile", "Hola CapassoTech, quiero agendar una llamada"); setIsMobileMenuOpen(false); }}
                 className="btn-primary w-full py-3 text-base"
               >
                 Agendar 15 min
