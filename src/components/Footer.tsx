@@ -28,7 +28,7 @@ const Footer = () => {
   const navLink = "text-sm text-white/50 transition-colors hover:text-white font-medium";
 
   return (
-    <footer className="bg-capasso-dark text-white">
+    <footer className="bg-capasso-ink text-white border-t border-white/10">
       {/* Main footer content */}
       <div className="mx-auto max-w-6xl px-6 py-16">
         <div className="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-5">

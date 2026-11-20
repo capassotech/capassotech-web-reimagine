@@ -1,22 +1,17 @@
 import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Header from "@/components/Header";
-import Hero from "@/components/Hero";
-import ServicesSection from "@/components/ServicesSection";
-import TrustedBySection from "@/components/TrustedBySection";
-import ProcessSection from "@/components/ProcessSection";
-import StickyCTA from "@/components/StickyCTA";
-import ContactForm from "@/components/ContactForm";
 import Footer from "@/components/Footer";
-import { trackEvent } from "@/lib/analytics";
+import StickyCTA from "@/components/StickyCTA";
+import HomeHero from "@/components/home/HomeHero";
+import PainsSection from "@/components/home/PainsSection";
+import SystemsMarquee from "@/components/home/SystemsMarquee";
+import WhatWeDo from "@/components/home/WhatWeDo";
+import StepsSection from "@/components/home/StepsSection";
+import ClientsSection from "@/components/home/ClientsSection";
+import ClosingSection from "@/components/home/ClosingSection";
 import { usePageSEO } from "@/hooks/usePageSEO";
-import { useReveal } from "@/hooks/useReveal";
-import { ArrowRight, CheckCircle } from "lucide-react";
-import WhatsAppIcon from "@/components/icons/WhatsAppIcon";
 import { TYPEWRITER_WORDS } from "@/data/typewriter-words";
-
-const defaultWhatsappMessage = "Hola CapassoTech, quiero asesoría";
-const calendlyUrl = "https://calendly.com/capassoelias/15min";
 
 const homeServiceStructuredData = {
   "@context": "https://schema.org",
@@ -39,20 +34,9 @@ const homeServiceStructuredData = {
   },
 };
 
-const differentiators = [
-  { title: "Resultados concretos",    description: "No te hacemos esperar meses para ver algo. Desde el primer momento trabajamos para que tengas avances concretos." },
-  { title: "Hablamos tu idioma",                description: "Sin tecnicismos innecesarios. Te explicamos qué se hace, por qué y cuánto cuesta, en términos que tienen sentido para tu negocio." },
-  { title: "Lo que construimos, dura",          description: "No hacemos parches. Pensamos en que lo que entregamos hoy siga funcionando bien cuando tu negocio crezca." },
-  { title: "Usamos IA solo cuando tiene sentido", description: "No te vendemos inteligencia artificial porque está de moda. La usamos cuando de verdad te ahorra tiempo o plata." },
-  { title: "Sabés en todo momento qué pasa",   description: "Te contamos cómo va el proyecto, qué decidimos y por qué. Siempre." },
-];
-
 const Home = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const whyRef    = useReveal();
-  const ctaRef    = useReveal();
-  const contactRef = useReveal();
 
   usePageSEO({
     title: "CapassoTech - Desarrollo y mantenimiento de software, automatizaciones e IA",
@@ -73,151 +57,18 @@ const Home = () => {
     }
   }, [location, navigate]);
 
-  const handleWhatsApp = (from, message = defaultWhatsappMessage) => {
-    trackEvent("whatsapp_click", { location: from });
-    window.open(`https://wa.me/5493435332132?text=${encodeURIComponent(message)}`, "_blank", "noopener,noreferrer");
-  };
-
-  const handleCalendly = (from) => {
-    trackEvent("calendly_click", { location: from });
-    window.open(calendlyUrl, "_blank", "noopener,noreferrer");
-  };
-
   return (
-    <div className="min-h-screen bg-white text-capasso-dark">
+    <div className="cx min-h-screen">
       <Header />
       <main>
-        <Hero />
-
-        {/* ── ¿Por qué CapassoTech? (light white section) ── */}
-        <section id="por-que" ref={whyRef} className="section-default bg-white">
-          <div className="mx-auto max-w-6xl px-6">
-
-            <div className="grid gap-12 lg:grid-cols-2 lg:gap-20 items-center">
-              {/* Left: heading */}
-              <div className="reveal">
-                <span className="section-label">Por qué trabajar con nosotros</span>
-                <h2 className="text-[2.5rem] font-extrabold leading-tight tracking-tight text-capasso-dark md:text-[3rem]">
-                  Somos el equipo tech que{" "}
-                  <span className="text-gradient">querés tener</span>
-                </h2>
-                <div className="mt-8 flex flex-wrap gap-3">
-                  <button onClick={() => handleWhatsApp("why_section", "Hola CapassoTech, quiero hablar con el equipo sobre mi proyecto")} className="btn-primary text-base">
-                    Hablar con el equipo
-                    <ArrowRight className="h-4 w-4" />
-                  </button>
-                  <button onClick={() => handleWhatsApp("why_section")} className="btn-outline inline-flex items-center gap-2 text-base">
-                    <WhatsAppIcon className="h-4 w-4" />
-                    WhatsApp
-                  </button>
-                </div>
-              </div>
-
-              {/* Right: checklist cards */}
-              <div className="space-y-4">
-                {differentiators.map((item, i) => (
-                  <div
-                    key={item.title}
-                    className={`reveal reveal-delay-${Math.min(i + 1, 5)} flex items-start gap-4 rounded-2xl border border-capasso-light-grey bg-white p-5 shadow-soft transition-all duration-300 hover:border-capasso-primary/30 hover:shadow-card`}
-                  >
-                    <CheckCircle className="mt-0.5 h-5 w-5 shrink-0 text-capasso-primary" strokeWidth={2} />
-                    <div>
-                      <h3 className="font-bold text-capasso-dark">{item.title}</h3>
-                      <p className="mt-0.5 text-sm text-capasso-dark-grey">{item.description}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <ServicesSection />
-        <TrustedBySection />
-        <ProcessSection />
-
-        {/* ── Final CTA (dark section like Diveria) ── */}
-        <section ref={ctaRef} className="bg-capasso-dark section-large">
-          <div className="mx-auto max-w-6xl px-6 text-center">
-            <div className="reveal">
-              <span
-                className="mb-4 inline-block text-sm font-bold uppercase tracking-widest text-capasso-primary"
-              >
-                Siguiente paso
-              </span>
-              <h2 className="text-[2.5rem] font-extrabold leading-tight text-white md:text-[3rem]">
-                ¿Listo para escalar tu producto?
-              </h2>
-            </div>
-            <p className="reveal reveal-delay-1 mt-5 mx-auto max-w-xl text-lg text-white/60">
-              Contanos qué querés lograr y te proponemos un plan
-              con hitos, métricas y equipo asignado.
-            </p>
-            <div className="reveal reveal-delay-2 mt-10 flex flex-wrap justify-center gap-4">
-              <button onClick={() => handleWhatsApp("home_cta_final", "Hola CapassoTech, quiero agendar una llamada para escalar mi producto")} className="btn-primary text-base">
-                Agendar reunión gratis
-                <ArrowRight className="h-4 w-4" />
-              </button>
-              <button onClick={() => handleWhatsApp("home_cta_final")} className="btn-white inline-flex items-center gap-2 text-base">
-                <WhatsAppIcon className="h-4 w-4" />
-                WhatsApp
-              </button>
-            </div>
-          </div>
-        </section>
-
-        {/* ── Contacto ── */}
-        <section id="contacto" ref={contactRef} className="section-default bg-capasso-light-blue">
-          <div className="mx-auto max-w-6xl px-6">
-            <div className="grid gap-12 lg:grid-cols-2">
-
-              {/* Left: contact info */}
-              <div className="flex flex-col justify-center reveal">
-                <span className="section-label">Hablemos</span>
-                <h2 className="text-[2rem] font-extrabold leading-tight text-capasso-dark md:text-[2.5rem]">
-                  Contanos tu desafío.
-                </h2>
-                <p className="mt-4 text-lg text-capasso-dark-grey">
-                  Agendamos una llamada para entender tu
-                  contexto, objetivos y restricciones.
-                </p>
-
-                <div className="mt-8 space-y-4">
-                  <div className="content-card">
-                    <p className="text-xs font-bold uppercase tracking-widest text-capasso-primary">
-                      Preferís mensaje directo
-                    </p>
-                    <button
-                      onClick={() => handleWhatsApp("home_contact")}
-                      className="btn-outline mt-3 inline-flex items-center gap-2 text-sm"
-                    >
-                      <WhatsAppIcon className="h-4 w-4" />
-                      Escribir por WhatsApp
-                    </button>
-                  </div>
-                  <div className="content-card">
-                    <p className="text-xs font-bold uppercase tracking-widest text-capasso-primary">
-                      O agendá cuando te quede cómodo
-                    </p>
-                    <button
-                      onClick={() => handleCalendly("home_contact")}
-                      className="btn-primary mt-3 text-sm"
-                    >
-                      Ver agenda de 15 min
-                    </button>
-                  </div>
-                </div>
-              </div>
-
-              {/* Right: form */}
-              <div className="reveal reveal-delay-1 content-card shadow-card">
-                <ContactForm context="home" />
-              </div>
-            </div>
-          </div>
-        </section>
+        <HomeHero />
+        <PainsSection />
+        <SystemsMarquee />
+        <WhatWeDo />
+        <StepsSection />
+        <ClientsSection />
+        <ClosingSection />
       </main>
-
       <Footer />
       <StickyCTA />
     </div>

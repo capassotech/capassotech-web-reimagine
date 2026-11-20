@@ -57,6 +57,10 @@ export default {
 				/* Capassotech palette */
 				capasso: {
 					primary:    '#49b5e7',
+					ink:        '#070b14',
+					'ink-2':    '#0d1320',
+					muted:      '#8ea3b9',
+					deep:       '#216AD9',
 					'primary-hover': '#3a9fd4',
 					dark:       '#141414',
 					blackish:   '#222631',
@@ -73,6 +77,7 @@ export default {
 			fontFamily: {
 				sans: ['Plus Jakarta Sans', 'Mulish', 'sans-serif'],
 				mono: ['Source Code Pro', 'monospace'],
+				display: ['Montserrat', 'Plus Jakarta Sans', 'sans-serif'],
 			},
 			fontSize: {
 				'display': ['3.875rem', { lineHeight: '1.3', fontWeight: '700' }],

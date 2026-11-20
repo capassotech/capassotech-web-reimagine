@@ -9,7 +9,8 @@ const defaultWhatsappMessage = "Hola CapassoTech, quiero asesoría";
 
 const products = [
   { label: "Vialto Software",           url: "https://vialto.uno/",                                              logo: "/products/vialto.png" },
-  { label: "GymFuze",          url: "https://gymfuzeapp.web.app/",                                       logo: "/products/gymfuze.png" },
+  { label: "Faktia",            url: "https://facturador.capasso.tech/",                                  logo: "/products/faktia.svg" },
+  { label: "GymFuze",         url: "https://gymfuzeapp.web.app/",                                       logo: "/products/gymfuze.png" },
   { label: "Control de gastos", url: "https://play.google.com/store/apps/details?id=gastos.app",         logo: "/products/gastos.png" },
 ];
 
@@ -55,8 +56,8 @@ const Header = () => {
     <header
       className={`fixed left-0 right-0 top-0 z-50 transition-all duration-300 ${
         isScrolled
-          ? "bg-white/95 backdrop-blur-md shadow-soft border-b border-capasso-light-grey"
-          : "bg-capasso-dark/70 backdrop-blur-sm"
+          ? "bg-capasso-ink/90 backdrop-blur-md border-b border-white/10"
+          : "bg-capasso-ink/40 backdrop-blur-sm border-b border-transparent"
       }`}
     >
       <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
@@ -64,7 +65,7 @@ const Header = () => {
         {/* Logo */}
         <Link to="/" onClick={() => setIsMobileMenuOpen(false)} className="flex-shrink-0">
           <img
-            src={isScrolled ? "/logo-light.png" : "/logo-dark.png"}
+            src="/logo-dark.png"
             alt="CapassoTech"
             className="h-12 w-auto"
           />
@@ -78,13 +79,13 @@ const Header = () => {
                 <div key={item.label} className="group relative">
                   <button
                     type="button"
-                    className={`nav-link ${isScrolled ? "" : "nav-link-inverted"} flex items-center gap-1`}
+                    className={"nav-link nav-link-inverted flex items-center gap-1"}
                   >
                     {item.label}
                     <ChevronDown className="h-3.5 w-3.5 transition-transform duration-200 group-hover:rotate-180" />
                   </button>
                   <div className="invisible absolute left-1/2 top-full w-56 -translate-x-1/2 pt-3 opacity-0 transition-all duration-200 group-hover:visible group-hover:opacity-100">
-                    <div className="rounded-xl border border-capasso-light-grey bg-white p-2 shadow-card">
+                    <div className="rounded-2xl border border-white/10 bg-capasso-ink-2/95 p-2 shadow-2xl backdrop-blur-md">
                       {item.items.map((product) => (
                         <a
                           key={product.label}
@@ -92,7 +93,7 @@ const Header = () => {
                           target="_blank"
                           rel="noopener noreferrer"
                           onClick={() => trackEvent("product_click", { product: product.label, location: "header" })}
-                          className="flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-semibold text-capasso-dark transition-colors hover:bg-capasso-light-blue hover:text-capasso-primary"
+                          className="flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-semibold text-white/80 transition-colors hover:bg-white/5 hover:text-capasso-primary"
                         >
                           <img src={product.logo} alt="" className="h-7 w-7 shrink-0 rounded-md object-contain" />
                           {product.label}
@@ -108,7 +109,7 @@ const Header = () => {
               <Link
                 key={item.label}
                 to={item.path}
-                className={`nav-link ${isScrolled ? "" : "nav-link-inverted"}`}
+                className={"nav-link nav-link-inverted"}
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 {item.label}
@@ -118,7 +119,7 @@ const Header = () => {
                 key={item.label}
                 href={`/#${item.target}`}
                 onClick={(e) => handleInternalNavigation(e, item.target)}
-                className={`nav-link ${isScrolled ? "" : "nav-link-inverted"}`}
+                className={"nav-link nav-link-inverted"}
               >
                 {item.label}
               </a>
@@ -130,7 +131,7 @@ const Header = () => {
         <div className="hidden items-center gap-3 md:flex">
           <button
             onClick={() => handleWhatsApp("header")}
-            className="btn-outline inline-flex items-center gap-2 px-5 py-2.5 text-sm"
+            className="btn-primary inline-flex items-center gap-2 px-5 py-2.5 text-sm text-capasso-ink"
           >
             <WhatsAppIcon className="h-4 w-4" />
             WhatsApp
@@ -143,15 +144,15 @@ const Header = () => {
           className="flex h-9 w-9 flex-col items-center justify-center gap-[5px] md:hidden"
           aria-label="Abrir menú"
         >
-          <span className={`h-[2px] w-5 rounded transition-all duration-300 ${isScrolled ? "bg-capasso-dark" : "bg-white"} ${isMobileMenuOpen ? "translate-y-[7px] rotate-45" : ""}`} />
-          <span className={`h-[2px] w-5 rounded transition-opacity duration-300 ${isScrolled ? "bg-capasso-dark" : "bg-white"} ${isMobileMenuOpen ? "opacity-0" : ""}`} />
-          <span className={`h-[2px] w-5 rounded transition-all duration-300 ${isScrolled ? "bg-capasso-dark" : "bg-white"} ${isMobileMenuOpen ? "-translate-y-[7px] -rotate-45" : ""}`} />
+          <span className={`h-[2px] w-5 rounded transition-all duration-300 bg-white ${isMobileMenuOpen ? "translate-y-[7px] rotate-45" : ""}`} />
+          <span className={`h-[2px] w-5 rounded transition-opacity duration-300 bg-white ${isMobileMenuOpen ? "opacity-0" : ""}`} />
+          <span className={`h-[2px] w-5 rounded transition-all duration-300 bg-white ${isMobileMenuOpen ? "-translate-y-[7px] -rotate-45" : ""}`} />
         </button>
       </nav>
 
       {/* Mobile dropdown */}
       {isMobileMenuOpen && (
-        <div className="border-t border-capasso-light-grey bg-white shadow-card md:hidden">
+        <div className="border-t border-white/10 bg-capasso-ink/95 backdrop-blur-md md:hidden">
           <div className="mx-auto flex max-w-6xl flex-col gap-1 px-6 py-5">
             {menuItems.map((item) => {
               if (item.type === "dropdown") {
@@ -166,7 +167,7 @@ const Header = () => {
                           target="_blank"
                           rel="noopener noreferrer"
                           onClick={() => { trackEvent("product_click", { product: product.label, location: "header_mobile" }); setIsMobileMenuOpen(false); }}
-                          className="flex items-center gap-3 rounded-xl px-0 py-2 text-base font-semibold text-capasso-dark hover:text-capasso-primary transition-colors"
+                          className="flex items-center gap-3 rounded-xl px-0 py-2 text-base font-semibold text-white/85 hover:text-capasso-primary transition-colors"
                         >
                           <img src={product.logo} alt="" className="h-8 w-8 shrink-0 rounded-md object-contain" />
                           {product.label}
@@ -182,7 +183,7 @@ const Header = () => {
                   key={item.label}
                   to={item.path}
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="rounded-xl px-4 py-3 text-base font-semibold text-capasso-dark hover:bg-capasso-light-blue hover:text-capasso-primary transition-colors"
+                  className="rounded-xl px-4 py-3 text-base font-semibold text-white/85 hover:bg-white/5 hover:text-capasso-primary transition-colors"
                 >
                   {item.label}
                 </Link>
@@ -191,7 +192,7 @@ const Header = () => {
                   key={item.label}
                   href={`/#${item.target}`}
                   onClick={(e) => handleInternalNavigation(e, item.target)}
-                  className="rounded-xl px-4 py-3 text-base font-semibold text-capasso-dark hover:bg-capasso-light-blue hover:text-capasso-primary transition-colors"
+                  className="rounded-xl px-4 py-3 text-base font-semibold text-white/85 hover:bg-white/5 hover:text-capasso-primary transition-colors"
                 >
                   {item.label}
                 </a>
@@ -200,7 +201,7 @@ const Header = () => {
             <div className="mt-3 flex flex-col gap-3">
               <button
                 onClick={() => { handleWhatsApp("header_mobile"); setIsMobileMenuOpen(false); }}
-                className="btn-outline inline-flex w-full items-center justify-center gap-2 py-3 text-base"
+                className="btn-primary inline-flex w-full items-center justify-center gap-2 py-3 text-base text-capasso-ink"
               >
                 <WhatsAppIcon className="h-4 w-4" />
                 WhatsApp
