@@ -51,19 +51,19 @@ const HomeHero = () => {
 
           <span className="cx-pill cx-rise" style={demora(0.9)}>
             <span className="cx-live" aria-hidden="true" />
-            Software a medida para empresas
+            Sistemas informáticos a medida para empresas
           </span>
 
           <h1 className="cx-display cx-title-xl mt-8">
-            <span className="cx-rise block" style={demora(1.05)}>Tu empresa creció.</span>
-            <span className="cx-rise cx-gradient-text block pb-[0.08em]" style={demora(1.2)}>Tus sistemas, no.</span>
+            <span className="cx-rise block" style={demora(1.05)}>Software que te</span>
+            <span className="cx-rise cx-gradient-text block pb-[0.08em]" style={demora(1.2)}>facilita la vida.</span>
           </h1>
 
           <p
             className="cx-rise mt-8 max-w-2xl text-lg font-light leading-snug text-capasso-muted md:text-2xl"
             style={demora(1.4)}
           >
-            Hacemos el software que tu empresa necesita para el tamaño que tiene hoy.
+            Hacemos el sistema que tu empresa necesita, para que dejes de hacer a mano lo que puede hacerse solo.
           </p>
 
           <div className="cx-rise mt-10 flex flex-wrap gap-4" style={demora(1.55)}>
