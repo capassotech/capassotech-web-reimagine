@@ -9,6 +9,8 @@ const CLIENTES = [
   { nombre: "Andretich", logo: "/logos/andretich.jpg", url: "https://carlosandretich.com/" },
   { nombre: "INEE", logo: "/logos/inee.png", url: "https://ineeoficial.com/" },
   { nombre: "EPEFI", logo: "/logos/epefi.png", url: "https://epefi.com.ar/" },
+  // Su logo es solo "EC": lleva el nombre debajo.
+  { nombre: "efecapital", logo: "/logos/efecapital.png", url: "https://efecapital.com.ar/", texto: "EFECAPITAL" },
   { nombre: "Home Pisos Vinílicos", logo: "/logos/home-pisos-vinilicos.png", url: "https://homepisos.com.ar/" },
   { nombre: "ZYcris", logo: "/logos/zycris.png" },
   { nombre: "ABS Depot", logo: "/logos/abs-depot.png", url: "https://www.instagram.com/absdepot/" },
@@ -97,7 +99,14 @@ const ClientsSection = () => {
           {[...CLIENTES, ...CLIENTES].map((c, i) => {
             const clase =
               "flex h-28 w-56 shrink-0 items-center justify-center rounded-3xl bg-white p-6 grayscale opacity-70 transition-all duration-500 hover:-translate-y-1 hover:opacity-100 hover:grayscale-0 md:h-32 md:w-72";
-            const img = <img src={c.logo} alt={c.nombre} className="max-h-full w-full object-contain" loading="lazy" />;
+            const img = c.texto ? (
+              <span className="flex h-full w-full flex-col items-center justify-center gap-1">
+                <img src={c.logo} alt="" className="min-h-0 w-full flex-1 object-contain" loading="lazy" />
+                <span className="font-display text-sm font-bold tracking-[0.2em] text-capasso-ink">{c.texto}</span>
+              </span>
+            ) : (
+              <img src={c.logo} alt={c.nombre} className="max-h-full w-full object-contain" loading="lazy" />
+            );
             return c.url ? (
               <a
                 key={`${c.nombre}-${i}`}

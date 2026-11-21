@@ -48,7 +48,7 @@ const Header = () => {
     { label: "Servicios", type: "section" as const,  target: "servicios" },
     { label: "Productos", type: "dropdown" as const, items: products },
     { label: "Clientes",  type: "section" as const,  target: "casos-exito" },
-    { label: "Proyectos", type: "route" as const,    path: "/portafolio" },
+    { label: "Nuestro trabajo",type: "route" as const,    path: "/portafolio" },
     { label: "Nosotros",  type: "route" as const,    path: "/nosotros" },
   ];
 

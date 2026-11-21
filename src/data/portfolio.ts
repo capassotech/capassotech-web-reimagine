@@ -27,28 +27,12 @@ export const portfolioItems: PortfolioItem[] = [
     caseSlug: "catalogo-web-autopartes",
   },
   {
-    slug: "capassotech-suite",
-    title: "CapassoTech — Suite de Herramientas Internas",
-    category: "Producto Propio",
-    description:
-      "Nuestra propia suite interna: documentación de equipo, backend y paneles de seguimiento de horas y soporte — además de este mismo sitio web.",
-    tech: ["NestJS", "React", "Vite"],
-  },
-  {
     slug: "carwash",
     title: "CarWash — Landing de Lavadero",
     category: "Landing",
     description:
       "Landing page para promocionar una app de lavadero de autos, con capturas de pantalla y la propuesta de valor del servicio.",
     tech: ["HTML5", "CSS", "Firebase Hosting"],
-  },
-  {
-    slug: "chinita",
-    title: "Chinita — Tienda Online",
-    category: "E-commerce",
-    description:
-      "Tienda online con carrito de compras propio, catálogo de productos y backend a medida en Node.js.",
-    tech: ["Angular", "Node.js", "Express"],
   },
   {
     slug: "cleansched",
@@ -66,6 +50,7 @@ export const portfolioItems: PortfolioItem[] = [
     description:
       "Sitio institucional y portal de clientes para una asesoría financiera, con panel de seguimiento para administración y usuarios.",
     tech: ["React", "Vite", "Firebase"],
+    externalUrl: "https://efecapital.com.ar/",
   },
   {
     slug: "epefi",
@@ -74,6 +59,16 @@ export const portfolioItems: PortfolioItem[] = [
     description:
       "Plataforma educativa con portal de cursos, panel administrativo y backend propio, separada en entornos de prueba y producción.",
     tech: ["Node.js", "React", "Firebase"],
+    externalUrl: "https://epefi.com.ar/",
+  },
+  {
+    slug: "faktia",
+    title: "Faktia — Facturación Electrónica",
+    category: "Producto Propio",
+    description:
+      "Nuestro sistema de facturación electrónica conectado con ARCA: facturas, notas de crédito y recibos en segundos, con PDF listo para enviar. También factura solo desde otros sistemas, por API o importando planillas.",
+    tech: ["NestJS", "React", "PostgreSQL", "ARCA"],
+    externalUrl: "https://facturador.capasso.tech/",
   },
   {
     slug: "gastos",
