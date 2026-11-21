@@ -5,7 +5,8 @@ import ParticleField from "./ParticleField";
 import NetworkTexture from "./NetworkTexture";
 import { abrirWhatsApp } from "./contacto";
 
-const demora = (s: number) => ({ animationDelay: `${s}s` });
+// La cortina se abre en ~0,9 s: el texto entra apenas empieza a abrirse, para no demorar el LCP.
+const demora = (s: number) => ({ animationDelay: `${Math.max(0, s - 0.55)}s` });
 
 const HomeHero = () => {
   const irADolores = (e: MouseEvent<HTMLAnchorElement>) => {

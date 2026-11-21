@@ -10,41 +10,44 @@ import WhatWeDo from "@/components/home/WhatWeDo";
 import StepsSection from "@/components/home/StepsSection";
 import ClientsSection from "@/components/home/ClientsSection";
 import ClosingSection from "@/components/home/ClosingSection";
+import FaqSection from "@/components/home/FaqSection";
+import { PREGUNTAS } from "@/data/preguntas-frecuentes";
 import { usePageSEO } from "@/hooks/usePageSEO";
-import { TYPEWRITER_WORDS } from "@/data/typewriter-words";
 
-const homeServiceStructuredData = {
-  "@context": "https://schema.org",
-  "@type": "Service",
-  serviceType: "Desarrollo de software a medida",
-  provider: {
-    "@type": "Organization",
-    name: "CapassoTech",
+// El catálogo de sistemas (Service + OfferCatalog) ya va en todas las páginas desde vite.config.ts.
+const homeStructuredData = [
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "@id": "https://capassotech.com/#inicio",
     url: "https://capassotech.com/",
+    name: "CapassoTech - Software a medida para empresas",
+    inLanguage: "es-AR",
+    isPartOf: { "@id": "https://capassotech.com/#sitio" },
+    about: { "@id": "https://capassotech.com/#organizacion" },
   },
-  areaServed: "AR",
-  hasOfferCatalog: {
-    "@type": "OfferCatalog",
-    name: "Sistemas y soluciones que desarrollamos",
-    itemListElement: TYPEWRITER_WORDS.map((name, index) => ({
-      "@type": "Offer",
-      position: index + 1,
-      itemOffered: { "@type": "Service", name },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: PREGUNTAS.map(({ pregunta, respuesta }) => ({
+      "@type": "Question",
+      name: pregunta,
+      acceptedAnswer: { "@type": "Answer", text: respuesta },
     })),
   },
-};
+];
 
 const Home = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
   usePageSEO({
-    title: "CapassoTech - Desarrollo y mantenimiento de software, automatizaciones e IA",
-    description: "Desarrollamos software a medida: sistemas de facturación, CRM, ERP, bots de WhatsApp con IA y más. Outsourcing de equipos y mantenimiento con foco en resultados.",
+    title: "CapassoTech | Software a medida para empresas en Argentina",
+    description: "Desarrollamos software a medida: facturación electrónica con ARCA, sistemas para transporte, integración con Mercado Libre, punto de venta, plataformas de cursos y automatizaciones con IA. Desde Paraná para toda Argentina.",
     canonical: "https://capassotech.com/",
     image: "https://capassotech.com/og-image.jpg",
     ogType: "website",
-    structuredData: homeServiceStructuredData,
+    structuredData: homeStructuredData,
   });
 
   useEffect(() => {
@@ -67,6 +70,7 @@ const Home = () => {
         <WhatWeDo />
         <StepsSection />
         <ClientsSection />
+        <FaqSection />
         <ClosingSection />
       </main>
       <Footer />

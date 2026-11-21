@@ -1,0 +1,52 @@
+# CapassoTech
+
+> CapassoTech es una empresa argentina de desarrollo de software a medida, fundada en 2019 por Elías Capasso, con base en Paraná, Entre Ríos, y un equipo distribuido por todo el país. Hace el software que una empresa necesita cuando sus herramientas actuales le quedaron chicas: sistemas de gestión, facturación electrónica con ARCA, integración con Mercado Libre, punto de venta y stock, plataformas de cursos y automatizaciones con IA. También mantiene sistemas existentes y suma desarrolladores a equipos de otras empresas.
+
+## Problemas que resuelve (con ejemplos de proyectos reales)
+
+- Facturas hechas a mano en ARCA: sistema de facturación electrónica que emite facturas, notas de crédito y recibos en segundos, o automáticamente desde otro sistema por API o importando planillas.
+- Empresas de transporte con viajes que nunca se facturaron: cada viaje queda registrado con chofer, camión y costo, y pasa directo a facturar, con cuenta corriente y liquidaciones a transportistas.
+- Combustible de la flota sin control: los choferes cargan cada ticket desde el celular y la administración ve el consumo por unidad.
+- Miles de productos cargados a mano: catálogo que se carga una vez y se publica en la web y en Mercado Libre, con precio y stock sincronizados con el ERP.
+- Stock que no coincide con las ventas: punto de venta que descuenta el stock al instante en todas las sucursales.
+- Cursos enviados por mail y exámenes corregidos a mano: plataforma propia con cursos, videos y exámenes que se corrigen solos.
+- Clientes a los que hay que perseguir para cobrar la cuota: avisos de vencimiento automáticos y registro de cada pago.
+
+## Servicios
+
+- Desarrollo de software a medida (web y móvil)
+- Automatización de procesos e inteligencia artificial
+- Mantenimiento y evolución de sistemas existentes
+- Equipos de desarrollo dedicados (outsourcing)
+
+## Cómo trabaja
+
+1. Una llamada de 15 minutos, sin costo, para entender el problema.
+2. Una propuesta con qué se hace, cuánto sale y cuándo está.
+3. Entregas frecuentes: el cliente ve avances desde el principio.
+
+Responde consultas en menos de un día hábil.
+
+## Productos propios
+
+- [Vialto](https://vialto.uno/): software de gestión para empresas de transporte y logística (viajes, combustible, facturación, cuenta corriente, mantenimiento).
+- [Faktia](https://facturador.capasso.tech/): facturación electrónica conectada con ARCA, con API pública y webhooks.
+- [GymFuze](https://gymfuzeapp.web.app/): gestión de gimnasios (alumnos, cuotas, rutinas y app para alumnos).
+
+## Páginas
+
+- [Inicio](https://capassotech.com/): problemas que resuelve, servicios, proceso y contacto.
+- [Nuestro trabajo](https://capassotech.com/portafolio): todos los proyectos, por rubro.
+- [Casos de éxito](https://capassotech.com/casos): proyectos contados en detalle (desafío, solución y resultados).
+- [Servicios](https://capassotech.com/servicios)
+- [Nosotros](https://capassotech.com/nosotros): el equipo.
+- [Blog](https://capassotech.com/blog)
+- [Contacto](https://capassotech.com/contacto)
+
+## Contacto
+
+- WhatsApp: +54 9 343 5332132 (https://wa.me/5493435332132)
+- Email: contacto@capasso.tech
+- Agenda (15 minutos): https://calendly.com/capassoelias/15min
+- LinkedIn: https://www.linkedin.com/company/capassotech/
+- Instagram: https://www.instagram.com/capasso.tech/

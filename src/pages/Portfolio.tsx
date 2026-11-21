@@ -75,23 +75,49 @@ const Portfolio = () => {
   );
 
   const portfolioStructuredData = useMemo(
-    () => ({
-      "@context": "https://schema.org",
-      "@type": "ItemList",
-      name: "Portafolio de proyectos CapassoTech",
-      itemListElement: portfolioItems.map((item, index) => ({
-        "@type": "ListItem",
-        position: index + 1,
-        name: item.title,
-        description: item.description,
-      })),
-    }),
+    () => [
+      {
+        "@context": "https://schema.org",
+        "@type": "CollectionPage",
+        url: "https://capassotech.com/portafolio",
+        name: "Nuestro trabajo — CapassoTech",
+        inLanguage: "es-AR",
+        isPartOf: { "@id": "https://capassotech.com/#sitio" },
+        about: { "@id": "https://capassotech.com/#organizacion" },
+        mainEntity: {
+          "@type": "ItemList",
+          name: "Proyectos de software desarrollados por CapassoTech",
+          numberOfItems: portfolioItems.length,
+          itemListElement: portfolioItems.map((item, index) => ({
+            "@type": "ListItem",
+            position: index + 1,
+            item: {
+              "@type": item.category === "Producto Propio" ? "SoftwareApplication" : "CreativeWork",
+              name: partirTitulo(item.title).nombre,
+              description: item.description,
+              ...(item.category === "Producto Propio" ? { applicationCategory: "BusinessApplication" } : { genre: item.category }),
+              ...(item.externalUrl ? { url: item.externalUrl } : {}),
+              ...(item.caseSlug ? { subjectOf: `https://capassotech.com/casos/${item.caseSlug}` } : {}),
+              creator: { "@id": "https://capassotech.com/#organizacion" },
+            },
+          })),
+        },
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "Inicio", item: "https://capassotech.com/" },
+          { "@type": "ListItem", position: 2, name: "Nuestro trabajo", item: "https://capassotech.com/portafolio" },
+        ],
+      },
+    ],
     [],
   );
 
   usePageSEO({
-    title: "Portafolio completo — CapassoTech",
-    description: "Todos los proyectos que construimos: productos propios, sistemas a medida y sitios para clientes de distintos rubros.",
+    title: "Nuestro trabajo: proyectos de software a medida | CapassoTech",
+    description: `${portfolioItems.length} proyectos reales: facturación electrónica, logística y transporte, catálogos con Mercado Libre, punto de venta, plataformas de cursos y productos propios como Vialto, Faktia y GymFuze.`,
     canonical: "https://capassotech.com/portafolio",
     image: "https://capassotech.com/og-image.jpg",
     ogType: "website",

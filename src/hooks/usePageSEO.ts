@@ -2,183 +2,116 @@ import { useEffect } from "react";
 
 type StructuredData = Record<string, unknown>;
 
-interface SEOOptions {
+export interface SEOOptions {
   title: string;
   description: string;
   canonical?: string;
   image?: string;
   ogType?: string;
   structuredData?: StructuredData | StructuredData[];
+  /** Para páginas que no deben aparecer en buscadores (por ejemplo, la 404). */
+  noindex?: boolean;
 }
 
-const ensureMeta = (key: string, attribute: "name" | "property") => {
-  let element = document.head.querySelector(`meta[${attribute}="${key}"]`) as HTMLMetaElement | null;
-  const created = !element;
+/* ─────────────────────────────────────────────
+   Captura para el pre-renderizado (build)
+   Durante renderToString los efectos no corren: el hook deja lo que declaró la
+   página acá y scripts/prerender.mjs lo escribe en el <head> de su HTML.
+───────────────────────────────────────────── */
+let capturando = false;
+let capturado: SEOOptions | null = null;
 
-  if (!element) {
-    element = document.createElement("meta");
-    element.setAttribute(attribute, key);
-    document.head.appendChild(element);
-  }
-
-  return { element, created };
+export const empezarCapturaSEO = () => {
+  capturando = true;
+  capturado = null;
 };
 
-const ensureCanonical = () => {
-  let element = document.head.querySelector('link[rel="canonical"]') as HTMLLinkElement | null;
-  const created = !element;
-
-  if (!element) {
-    element = document.createElement("link");
-    element.setAttribute("rel", "canonical");
-    document.head.appendChild(element);
-  }
-
-  return { element, created };
+export const terminarCapturaSEO = () => {
+  capturando = false;
+  return capturado;
 };
 
-export const usePageSEO = ({
-  title,
-  description,
-  canonical,
-  image,
-  ogType = "website",
-  structuredData,
-}: SEOOptions) => {
+/** Marca de los JSON-LD propios de cada página que escribe el pre-renderizado. */
+export const ATRIBUTO_JSONLD_PAGINA = "data-seo-pagina";
+
+const ponerMeta = (clave: string, atributo: "name" | "property", valor: string) => {
+  let el = document.head.querySelector(`meta[${atributo}="${clave}"]`) as HTMLMetaElement | null;
+  const creado = !el;
+  if (!el) {
+    el = document.createElement("meta");
+    el.setAttribute(atributo, clave);
+    document.head.appendChild(el);
+  }
+  const anterior = el.getAttribute("content");
+  el.setAttribute("content", valor);
+  const meta = el;
+  return () => {
+    if (creado) meta.remove();
+    else if (anterior !== null) meta.setAttribute("content", anterior);
+  };
+};
+
+const ponerCanonical = (href: string) => {
+  let el = document.head.querySelector('link[rel="canonical"]') as HTMLLinkElement | null;
+  const creado = !el;
+  if (!el) {
+    el = document.createElement("link");
+    el.setAttribute("rel", "canonical");
+    document.head.appendChild(el);
+  }
+  const anterior = el.getAttribute("href");
+  el.setAttribute("href", href);
+  const link = el;
+  return () => {
+    if (creado) link.remove();
+    else if (anterior !== null) link.setAttribute("href", anterior);
+  };
+};
+
+export const usePageSEO = (opciones: SEOOptions) => {
+  if (capturando) capturado = opciones;
+
+  const { title, description, canonical, image, ogType = "website", structuredData, noindex } = opciones;
+
   useEffect(() => {
     if (typeof document === "undefined") return;
 
-    const previousTitle = document.title;
+    const tituloAnterior = document.title;
     document.title = title;
 
-    const descriptionMeta = ensureMeta("description", "name");
-    const previousDescription = descriptionMeta.element.getAttribute("content");
-    descriptionMeta.element.setAttribute("content", description);
-
-    const ogTitleMeta = ensureMeta("og:title", "property");
-    const previousOgTitle = ogTitleMeta.element.getAttribute("content");
-    ogTitleMeta.element.setAttribute("content", title);
-
-    const ogDescriptionMeta = ensureMeta("og:description", "property");
-    const previousOgDescription = ogDescriptionMeta.element.getAttribute("content");
-    ogDescriptionMeta.element.setAttribute("content", description);
-
-    const ogTypeMeta = ensureMeta("og:type", "property");
-    const previousOgType = ogTypeMeta.element.getAttribute("content");
-    ogTypeMeta.element.setAttribute("content", ogType);
-
-    const twitterTitleMeta = ensureMeta("twitter:title", "name");
-    const previousTwitterTitle = twitterTitleMeta.element.getAttribute("content");
-    twitterTitleMeta.element.setAttribute("content", title);
-
-    const twitterDescriptionMeta = ensureMeta("twitter:description", "name");
-    const previousTwitterDescription = twitterDescriptionMeta.element.getAttribute("content");
-    twitterDescriptionMeta.element.setAttribute("content", description);
-
-    let previousOgImage: string | null = null;
-    let previousTwitterImage: string | null = null;
-    let ogImageMetaCreated = false;
-    let twitterImageMetaCreated = false;
-
+    const deshacer: (() => void)[] = [
+      ponerMeta("description", "name", description),
+      ponerMeta("og:title", "property", title),
+      ponerMeta("og:description", "property", description),
+      ponerMeta("og:type", "property", ogType),
+      ponerMeta("twitter:title", "name", title),
+      ponerMeta("twitter:description", "name", description),
+      ponerMeta("robots", "name", noindex ? "noindex, follow" : "index, follow, max-image-preview:large"),
+    ];
     if (image) {
-      const ogImageMeta = ensureMeta("og:image", "property");
-      previousOgImage = ogImageMeta.element.getAttribute("content");
-      ogImageMeta.element.setAttribute("content", image);
-      ogImageMetaCreated = ogImageMeta.created;
-
-      const twitterImageMeta = ensureMeta("twitter:image", "name");
-      previousTwitterImage = twitterImageMeta.element.getAttribute("content");
-      twitterImageMeta.element.setAttribute("content", image);
-      twitterImageMetaCreated = twitterImageMeta.created;
+      deshacer.push(ponerMeta("og:image", "property", image), ponerMeta("twitter:image", "name", image));
     }
-
-    const canonicalLink = ensureCanonical();
-    const previousCanonical = canonicalLink.element.getAttribute("href");
     if (canonical) {
-      canonicalLink.element.setAttribute("href", canonical);
+      deshacer.push(ponerCanonical(canonical), ponerMeta("og:url", "property", canonical));
     }
 
-    const structuredDataArray = structuredData
-      ? Array.isArray(structuredData)
-        ? structuredData
-        : [structuredData]
-      : [];
+    // El HTML pre-renderizado ya trae los JSON-LD de la página: se reemplazan por los del hook
+    // para no duplicarlos y para que cambien al navegar.
+    document.head.querySelectorAll(`script[${ATRIBUTO_JSONLD_PAGINA}]`).forEach((s) => s.remove());
 
-    const schemaScripts = structuredDataArray.map((schema) => {
+    const esquemas = structuredData ? (Array.isArray(structuredData) ? structuredData : [structuredData]) : [];
+    const scripts = esquemas.map((esquema) => {
       const script = document.createElement("script");
       script.type = "application/ld+json";
-      script.textContent = JSON.stringify(schema);
+      script.textContent = JSON.stringify(esquema);
       document.head.appendChild(script);
       return script;
     });
 
     return () => {
-      document.title = previousTitle;
-
-      if (descriptionMeta.created) {
-        descriptionMeta.element.remove();
-      } else if (previousDescription !== null) {
-        descriptionMeta.element.setAttribute("content", previousDescription);
-      }
-
-      if (ogTitleMeta.created) {
-        ogTitleMeta.element.remove();
-      } else if (previousOgTitle !== null) {
-        ogTitleMeta.element.setAttribute("content", previousOgTitle);
-      }
-
-      if (ogDescriptionMeta.created) {
-        ogDescriptionMeta.element.remove();
-      } else if (previousOgDescription !== null) {
-        ogDescriptionMeta.element.setAttribute("content", previousOgDescription);
-      }
-
-      if (ogTypeMeta.created) {
-        ogTypeMeta.element.remove();
-      } else if (previousOgType !== null) {
-        ogTypeMeta.element.setAttribute("content", previousOgType);
-      }
-
-      if (twitterTitleMeta.created) {
-        twitterTitleMeta.element.remove();
-      } else if (previousTwitterTitle !== null) {
-        twitterTitleMeta.element.setAttribute("content", previousTwitterTitle);
-      }
-
-      if (twitterDescriptionMeta.created) {
-        twitterDescriptionMeta.element.remove();
-      } else if (previousTwitterDescription !== null) {
-        twitterDescriptionMeta.element.setAttribute("content", previousTwitterDescription);
-      }
-
-      if (image) {
-        const ogImageMeta = ensureMeta("og:image", "property");
-        const twitterImageMeta = ensureMeta("twitter:image", "name");
-
-        if (ogImageMetaCreated) {
-          ogImageMeta.element.remove();
-        } else if (previousOgImage !== null) {
-          ogImageMeta.element.setAttribute("content", previousOgImage);
-        }
-
-        if (twitterImageMetaCreated) {
-          twitterImageMeta.element.remove();
-        } else if (previousTwitterImage !== null) {
-          twitterImageMeta.element.setAttribute("content", previousTwitterImage);
-        }
-      }
-
-      if (canonical) {
-        if (canonicalLink.created) {
-          canonicalLink.element.remove();
-        } else if (previousCanonical !== null) {
-          canonicalLink.element.setAttribute("href", previousCanonical);
-        }
-      }
-
-      schemaScripts.forEach((script) => {
-        script.remove();
-      });
+      document.title = tituloAnterior;
+      deshacer.forEach((fn) => fn());
+      scripts.forEach((s) => s.remove());
     };
-  }, [title, description, canonical, image, ogType, structuredData]);
+  }, [title, description, canonical, image, ogType, structuredData, noindex]);
 };

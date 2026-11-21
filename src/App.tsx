@@ -18,30 +18,38 @@ import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
 
-const App = () => (
+/**
+ * Proveedores y rutas, sin el router. Lo usa el navegador (con BrowserRouter) y el
+ * pre-renderizado del build (con StaticRouter, en entry-server.tsx).
+ */
+export const AppRoutes = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
       <Toaster />
       <Sonner />
-      <BrowserRouter>
-        <ScrollToTop />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/servicios" element={<Services />} />
-          <Route path="/casos" element={<Cases />} />
-          <Route path="/casos/:caseId" element={<CaseDetail />} />
-          <Route path="/portafolio" element={<Portfolio />} />
-          <Route path="/nosotros" element={<About />} />
-          <Route path="/contacto" element={<Contact />} />
-          <Route path="/book" element={<Book />} />
-          <Route path="/blog" element={<Blog />} />
-          <Route path="/blog/:slug" element={<BlogPost />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
+      <ScrollToTop />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/servicios" element={<Services />} />
+        <Route path="/casos" element={<Cases />} />
+        <Route path="/casos/:caseId" element={<CaseDetail />} />
+        <Route path="/portafolio" element={<Portfolio />} />
+        <Route path="/nosotros" element={<About />} />
+        <Route path="/contacto" element={<Contact />} />
+        <Route path="/book" element={<Book />} />
+        <Route path="/blog" element={<Blog />} />
+        <Route path="/blog/:slug" element={<BlogPost />} />
+        {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+        <Route path="*" element={<NotFound />} />
+      </Routes>
     </TooltipProvider>
   </QueryClientProvider>
+);
+
+const App = () => (
+  <BrowserRouter>
+    <AppRoutes />
+  </BrowserRouter>
 );
 
 export default App;

@@ -608,7 +608,7 @@
   z-index: 30;
   background: var(--cx-ink);
   pointer-events: none;
-  animation: 1.1s var(--cx-ease-cut) 0.35s forwards;
+  animation: 0.9s var(--cx-ease-cut) 0.1s forwards;
 }
 .cx-veil-l { left: 0; animation-name: cx-veil-l; }
 .cx-veil-r { right: 0; animation-name: cx-veil-r; }
@@ -627,7 +627,7 @@
   transform-origin: top;
   opacity: 0;
   pointer-events: none;
-  animation: cx-trazo 1s var(--cx-ease-out) forwards;
+  animation: cx-trazo 0.7s var(--cx-ease-out) forwards;
 }
 @keyframes cx-trazo {
   0% { opacity: 1; transform: scaleY(0); }

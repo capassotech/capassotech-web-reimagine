@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="es">
+<html lang="es-AR">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -31,41 +31,80 @@
     />
     <meta name="twitter:image" content="https://capassotech.com/og-image.jpg" />
     <link rel="canonical" href="https://capassotech.com/" />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <meta property="og:locale" content="es_AR" />
+    <meta property="og:site_name" content="CapassoTech" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="theme-color" content="#070b14" />
+    <meta name="author" content="CapassoTech" />
+    <meta name="geo.region" content="AR-E" />
+    <meta name="geo.placename" content="Paraná, Entre Ríos, Argentina" />
     <link rel="icon" type="image/png" href="/favicon.ico" />
+    <link rel="apple-touch-icon" href="/logo-dark.png" />
+    <link rel="alternate" type="text/plain" title="Resumen para modelos de lenguaje" href="/llms.txt" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Montserrat:wght@300;500;600;700;800;900&family=Source+Code+Pro:wght@700;800&display=swap" rel="stylesheet" />
 
+    <!-- Entidad de la empresa: se repite en todas las páginas. Lo de cada página lo escribe scripts/prerender.mjs. -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
-        "@type": "Organization",
-        "name": "CapassoTech",
-        "url": "https://capassotech.com/",
-        "logo": "https://capassotech.com/logo-light.png",
-        "sameAs": [
-          "https://www.linkedin.com/company/capassotech/"
-        ],
-        "contactPoint": {
-          "@type": "ContactPoint",
-          "telephone": "+54 9 343 5332132",
-          "contactType": "sales",
-          "areaServed": "AR",
-          "availableLanguage": ["es", "en"]
-        }
-      }
-    </script>
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "WebSite",
-        "url": "https://capassotech.com/",
-        "name": "CapassoTech",
-        "potentialAction": {
-          "@type": "SearchAction",
-          "target": "https://capassotech.com/?q={search_term_string}",
-          "query-input": "required name=search_term_string"
-        }
+        "@graph": [
+          {
+            "@type": ["Organization", "ProfessionalService"],
+            "@id": "https://capassotech.com/#organizacion",
+            "name": "CapassoTech",
+            "alternateName": "Capasso Tech",
+            "url": "https://capassotech.com/",
+            "logo": "https://capassotech.com/logo-light.png",
+            "image": "https://capassotech.com/og-image.jpg",
+            "description": "Empresa argentina de desarrollo de software a medida: sistemas de gestión, facturación electrónica con ARCA, integración con Mercado Libre, plataformas de cursos, automatizaciones con IA, mantenimiento de sistemas existentes y equipos de desarrollo dedicados.",
+            "foundingDate": "2019",
+            "founder": { "@type": "Person", "name": "Elías Capasso" },
+            "email": "contacto@capasso.tech",
+            "telephone": "+54 9 343 5332132",
+            "priceRange": "$$",
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Paraná",
+              "addressRegion": "Entre Ríos",
+              "addressCountry": "AR"
+            },
+            "areaServed": { "@type": "Country", "name": "Argentina" },
+            "knowsAbout": [
+              "Desarrollo de software a medida",
+              "Facturación electrónica ARCA",
+              "Integración con Mercado Libre",
+              "Sistemas de gestión para empresas de transporte",
+              "Punto de venta y control de stock",
+              "Plataformas de cursos online",
+              "Automatización de procesos e inteligencia artificial",
+              "Mantenimiento de software"
+            ],
+            "sameAs": [
+              "https://www.linkedin.com/company/capassotech/",
+              "https://www.instagram.com/capasso.tech/"
+            ],
+            "contactPoint": {
+              "@type": "ContactPoint",
+              "telephone": "+54 9 343 5332132",
+              "email": "contacto@capasso.tech",
+              "contactType": "sales",
+              "areaServed": "AR",
+              "availableLanguage": ["es", "en"]
+            }
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://capassotech.com/#sitio",
+            "url": "https://capassotech.com/",
+            "name": "CapassoTech",
+            "inLanguage": "es-AR",
+            "publisher": { "@id": "https://capassotech.com/#organizacion" }
+          }
+        ]
       }
     </script>
   </head>

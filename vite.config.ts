@@ -7,9 +7,10 @@ import Sitemap from "vite-plugin-sitemap";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-// Configurable hostname for multi-domain deployment (capasso.tech | capassotech.com)
-const hostname =
-  process.env.SITE_URL || process.env.VITE_SITE_URL || "https://capasso.tech";
+// Dominio canónico: el mismo que usan los <link rel="canonical"> de todas las páginas.
+// El sitio también responde en capasso.tech, pero el sitemap tiene que apuntar a un solo
+// dominio para no mandar señales contradictorias a los buscadores.
+const hostname = "https://capassotech.com";
 
 // Collect dynamic routes from React Router data sources
 const cases = JSON.parse(
@@ -36,8 +37,8 @@ const offerCatalogStructuredData = {
   "@context": "https://schema.org",
   "@type": "Service",
   serviceType: "Desarrollo de software a medida",
-  provider: { "@type": "Organization", name: "CapassoTech", url: "https://capassotech.com/" },
-  areaServed: "AR",
+  provider: { "@id": "https://capassotech.com/#organizacion" },
+  areaServed: { "@type": "Country", name: "Argentina" },
   hasOfferCatalog: {
     "@type": "OfferCatalog",
     name: "Sistemas y soluciones que desarrollamos",
@@ -88,7 +89,8 @@ export default defineConfig(({ mode }) => ({
       exclude: ["/404"],
       changefreq: "weekly",
       priority,
-      generateRobotsTxt: true,
+      // robots.txt propio en public/: permite explícitamente a los rastreadores de IA.
+      generateRobotsTxt: false,
     })
   ].filter(Boolean),
   resolve: {
